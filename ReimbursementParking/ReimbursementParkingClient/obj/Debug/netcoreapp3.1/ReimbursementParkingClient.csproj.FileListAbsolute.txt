@@ -144,6 +144,6 @@ D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Main\Index.cshtml.g.cs
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csproj.CoreCompileInputs.cache
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.MvcApplicationPartsAssemblyInfo.cache
-D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Main\Index.cshtml.g.cs
