@@ -1,0 +1,17 @@
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\ReimbursementParkingAPI.exe
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csprojAssemblyReference.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.AssemblyInfoInputs.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.AssemblyInfo.cs
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.RazorTargetAssemblyInfo.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\staticwebassets\ReimbursementParkingAPI.StaticWebAssets.Manifest.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\staticwebassets\ReimbursementParkingAPI.StaticWebAssets.xml
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csproj.CoreCompileInputs.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Remotion.Linq.dll
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\System.Interactive.Async.dll
+C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csproj.CopyComplete
