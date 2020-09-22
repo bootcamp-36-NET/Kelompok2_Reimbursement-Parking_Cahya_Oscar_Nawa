@@ -6,3 +6,4 @@
 - [x] ERD
 - [x] Use Case
 - [ ] Class Diagram
+require "Tuesday"
