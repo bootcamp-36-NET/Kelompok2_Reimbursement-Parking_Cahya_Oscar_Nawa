@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {}
+    "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
+    "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+        "projectUniqueName": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
         "projectName": "ReimbursementParkingAPI",
-        "projectPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
-        "packagesPath": "C:\\Users\\Geraldy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
+        "projectPath": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Geraldy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,21 +38,29 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.0.35, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[3.1.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[2.1.1, )"
+              "version": "[3.1.0, )"
             },
-            "System.Configuration.ConfigurationManager": {
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[4.7.0, )"
+              "version": "[3.1.0, )"
             }
           },
           "imports": [
@@ -76,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
