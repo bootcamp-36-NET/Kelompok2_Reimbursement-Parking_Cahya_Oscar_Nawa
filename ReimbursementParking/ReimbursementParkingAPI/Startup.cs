@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ReimbursementParkingAPI.Context;
+using ReimbursementParkingAPI.Repositories;
 
 namespace ReimbursementParkingAPI
 {
@@ -30,6 +31,8 @@ namespace ReimbursementParkingAPI
         {
             services.AddControllers();
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ReimbursementParking")));
+
+            services.AddTransient<RequestReimbursementRepository>();
 
         }
 
