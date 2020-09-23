@@ -11,12 +11,16 @@
 
 ## Progress
 
-- `Tuesday` (22/02/2020):
+- `Tuesday (22/09/2020)`:
 - [x] ERD
 - [x] Use Case
 - [x] BPMN
 - [x] Activity Diagram
 - [x] Class Diagram
+- [x] LayOut AdminLTE
+
+-`Wednesday (23/09/2020)`:
+- [x] Added Database
 
 
 ## SDLC
