@@ -35,3 +35,40 @@ C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingClient\ob
 C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.pdb
 C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.genruntimeconfig.cache
 C:\Users\Geraldy\source\repos\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csproj.CopyComplete
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\appsettings.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.exe
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.deps.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.runtimeconfig.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.runtimeconfig.dev.json
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.dll
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.pdb
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.Views.dll
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\ReimbursementParkingClient.Views.pdb
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csprojAssemblyReference.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.AssemblyInfoInputs.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.AssemblyInfo.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csproj.CoreCompileInputs.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.MvcApplicationPartsAssemblyInfo.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorAssemblyInfo.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorAssemblyInfo.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.TagHelpers.input.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.TagHelpers.output.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorCoreGenerate.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorTargetAssemblyInfo.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorTargetAssemblyInfo.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.Views.pdb
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\staticwebassets\ReimbursementParkingClient.StaticWebAssets.Manifest.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\staticwebassets\ReimbursementParkingClient.StaticWebAssets.xml
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.dll
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.pdb
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.genruntimeconfig.cache
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csproj.CopyComplete
