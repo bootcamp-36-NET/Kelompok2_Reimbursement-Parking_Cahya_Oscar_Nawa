@@ -17,6 +17,7 @@
 - [x] BPMN
 - [x] Activity Diagram
 - [x] Class Diagram
+- [x] GitHub Repository
 - [x] LayOut AdminLTE
 
 - `Wednesday (23/09/2020)`:
