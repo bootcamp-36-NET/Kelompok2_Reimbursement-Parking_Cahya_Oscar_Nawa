@@ -22,12 +22,10 @@ namespace ReimbursementParkingAPI.Migrations
             modelBuilder.Entity("ReimbursementParkingAPI.Models.Blob", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
@@ -38,13 +36,7 @@ namespace ReimbursementParkingAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RequestReimbursementParkingId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RequestReimbursementParkingId")
-                        .IsUnique();
 
                     b.ToTable("tb_blob");
                 });
@@ -52,9 +44,10 @@ namespace ReimbursementParkingAPI.Migrations
             modelBuilder.Entity("ReimbursementParkingAPI.Models.RequestDetail", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    b.Property<string>("PLATNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParkingAddress")
                         .HasColumnType("nvarchar(max)");
@@ -64,12 +57,6 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.Property<string>("PaymentType")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlatNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RequestReimbursementParkingId")
-                        .HasColumnType("int");
 
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
@@ -82,10 +69,7 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestReimbursementParkingId")
-                        .IsUnique();
-
-                    b.ToTable("tb_plat-number");
+                    b.ToTable("tb_reimbursement-detail");
                 });
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.RequestReimbursementParking", b =>
@@ -95,8 +79,8 @@ namespace ReimbursementParkingAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("HRDResponseTime")
                         .HasColumnType("datetimeoffset");
@@ -139,7 +123,7 @@ namespace ReimbursementParkingAPI.Migrations
                 {
                     b.HasOne("ReimbursementParkingAPI.Models.RequestReimbursementParking", "RequestReimbursementParking")
                         .WithOne("Blob")
-                        .HasForeignKey("ReimbursementParkingAPI.Models.Blob", "RequestReimbursementParkingId")
+                        .HasForeignKey("ReimbursementParkingAPI.Models.Blob", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -148,7 +132,7 @@ namespace ReimbursementParkingAPI.Migrations
                 {
                     b.HasOne("ReimbursementParkingAPI.Models.RequestReimbursementParking", "RequestReimbursementParking")
                         .WithOne("RequestDetail")
-                        .HasForeignKey("ReimbursementParkingAPI.Models.RequestDetail", "RequestReimbursementParkingId")
+                        .HasForeignKey("ReimbursementParkingAPI.Models.RequestDetail", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

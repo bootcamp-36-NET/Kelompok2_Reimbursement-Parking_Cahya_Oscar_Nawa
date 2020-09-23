@@ -20,6 +20,16 @@ namespace ReimbursementParkingAPI.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<RequestReimbursementParking>()
+                    .HasOne<Blob>(rrp => rrp.Blob)
+                    .WithOne(b => b.RequestReimbursementParking)
+                    .HasForeignKey<Blob>(b => b.Id);
+
+            builder.Entity<RequestReimbursementParking>()
+                    .HasOne<RequestDetail>(rrp => rrp.RequestDetail)
+                    .WithOne(rd => rd.RequestReimbursementParking)
+                    .HasForeignKey<RequestDetail>(rrp => rrp.Id);
         }
     }
 }

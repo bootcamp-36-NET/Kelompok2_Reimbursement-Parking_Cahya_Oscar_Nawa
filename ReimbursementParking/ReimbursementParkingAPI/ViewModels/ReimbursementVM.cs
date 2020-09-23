@@ -18,6 +18,6 @@ namespace ReimbursementParkingAPI.ViewModels
         public string VehicleOwner { get; set; }
         public string ParkingName { get; set; }
         public string ParkingAddress { get; set; }
-        public string Name { get; set; }
+        public byte[] Content { get; set; }
     }
 }

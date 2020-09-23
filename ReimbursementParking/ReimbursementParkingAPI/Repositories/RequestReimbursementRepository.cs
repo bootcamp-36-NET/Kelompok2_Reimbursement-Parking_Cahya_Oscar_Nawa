@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using ReimbursementParkingAPI.Context;
 using ReimbursementParkingAPI.ViewModels;
@@ -6,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,18 +17,17 @@ namespace ReimbursementParkingAPI.Repositories
         private readonly MyContext _context;
         private readonly IConfiguration _configuration;
         private readonly SqlConnection con;
-        private readonly DynamicParameters param;
 
-        public RequestReimbursementRepository(MyContext myContext, IConfiguration configuration, DynamicParameters parameters)
+        public RequestReimbursementRepository(MyContext myContext, IConfiguration configuration)
         {
             _context = myContext;
             _configuration = configuration;
             con = new SqlConnection(_configuration["ConnectionStrings:ReimbursementParking"]);
-            param = parameters;
         }
 
         public async Task<List<ReimbursementVM>> GetById(string id) {
-            var procedureName = "SPSelectDepartment";
+            DynamicParameters param = new DynamicParameters();
+            var procedureName = "SP_get_all_reimbursement_by_id";
             param.Add("@Id", id);
 
             var reimbursements = (await con.QueryAsync<ReimbursementVM>(procedureName, param, commandType: CommandType.StoredProcedure)).ToList();
