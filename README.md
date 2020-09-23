@@ -19,7 +19,7 @@
 - [x] Class Diagram
 - [x] LayOut AdminLTE
 
--`Wednesday (23/09/2020)`:
+- `Wednesday (23/09/2020)`:
 - [x] Added Database
 
 
