@@ -48,33 +48,17 @@ namespace ReimbursementParkingClient.Controllers
                         var account = new LoginViewModel
                         {
                             Id = handler.Claims.Where(p => p.Type == "Id").Select(s => s.Value).FirstOrDefault(),
-                            Email = handler.Claims.Where(p => p.Type == "Email").Select(s => s.Value).FirstOrDefault(),
-                            Phone = handler.Claims.Where(p => p.Type == "Phone").Select(s => s.Value).FirstOrDefault(),
                             RoleName = handler.Claims.Where(p => p.Type == "RoleName").Select(s => s.Value).FirstOrDefault(),
-                            Address = handler.Claims.Where(p => p.Type == "Address").Select(s => s.Value).FirstOrDefault(),
-                            Name = handler.Claims.Where(p => p.Type == "Name").Select(s => s.Value).FirstOrDefault(),
-                            Province = handler.Claims.Where(p => p.Type == "Province").Select(s => s.Value).FirstOrDefault(),
-                            City = handler.Claims.Where(p => p.Type == "City").Select(s => s.Value).FirstOrDefault(),
-                            SubDistrict = handler.Claims.Where(p => p.Type == "SubDistrict").Select(s => s.Value).FirstOrDefault(),
-                            Village = handler.Claims.Where(p => p.Type == "Village").Select(s => s.Value).FirstOrDefault(),
-                            ZipCode = handler.Claims.Where(p => p.Type == "ZipCode").Select(s => s.Value).FirstOrDefault(),
+                            Name = handler.Claims.Where(p => p.Type == "Name").Select(s => s.Value).FirstOrDefault()
 
                         };
 
                         if (account.RoleName == "Admin" || account.RoleName == "Manager" || account.RoleName == "HRD" || account.RoleName == "Employee")
                         {
-                            //    HttpContext.Session.SetString("Id", account.Id);
-                            //    HttpContext.Session.SetString("Email", account.Email);
-                            //    HttpContext.Session.SetString("Phone", account.Phone);
-                            //    HttpContext.Session.SetString("RoleName", account.RoleName);
-                            //    HttpContext.Session.SetString("Address", account.Address);
-                            //    HttpContext.Session.SetString("Name", account.Name);
-                            //    HttpContext.Session.SetString("Province", account.Province);
-                            //    HttpContext.Session.SetString("City", account.City);
-                            //    HttpContext.Session.SetString("SubDistrict", account.SubDistrict);
-                            //    HttpContext.Session.SetString("Village", account.Village);
-                            //    HttpContext.Session.SetString("ZipCode", account.ZipCode);
-                            //HttpContext.Session.SetString("JWToken", "Bearer " + data);
+                            HttpContext.Session.SetString("Id", account.Id);
+                            HttpContext.Session.SetString("RoleName", account.RoleName);
+                            HttpContext.Session.SetString("Name", account.Name);
+                            HttpContext.Session.SetString("JWToken", "Bearer " + data);
                             if (account.RoleName == "Manager")
                             {
                                 return Json(new { status = true, msg = "Login Successfully !" });
@@ -105,6 +89,39 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Redirect("/login");
 
+        }
+        [Route("login-validate")]
+        public IActionResult Login(LoginViewModel loginVM)
+        {
+            string stringData = JsonConvert.SerializeObject(loginVM);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            var resTask = client.PostAsync("auths/login/", contentData);
+
+            var result = resTask.Result;
+            var responseData = result.Content.ReadAsStringAsync().Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var token = new JwtSecurityToken(jwtEncodedString: responseData);
+                var authToken = "Bearer " + responseData;
+                var isVerified = token.Claims.First(c => c.Type == "VerifyCode").Value;
+
+                HttpContext.Session.SetString("Id", token.Claims.First(c => c.Type == "Id").Value);
+                HttpContext.Session.SetString("RoleName", token.Claims.First(c => c.Type == "RoleName").Value);
+                HttpContext.Session.SetString("Name", token.Claims.First(c => c.Type == "Name").Value);
+                HttpContext.Session.SetString("VerifyCode", token.Claims.First(c => c.Type == "VerifyCode").Value);
+                HttpContext.Session.SetString("JWToken", authToken);
+
+                return Json((result, responseData), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            return Json((result, responseData), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("/login");
         }
     }
 }
