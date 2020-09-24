@@ -63,18 +63,18 @@ namespace ReimbursementParkingClient.Controllers
 
                         if (account.RoleName == "Admin" || account.RoleName == "Manager" || account.RoleName == "HRD" || account.RoleName == "Employee")
                         {
-                            HttpContext.Session.SetString("Id", account.Id);
-                            HttpContext.Session.SetString("Email", account.Email);
-                            HttpContext.Session.SetString("Phone", account.Phone);
-                            HttpContext.Session.SetString("RoleName", account.RoleName);
-                            HttpContext.Session.SetString("Address", account.Address);
-                            HttpContext.Session.SetString("Name", account.Name);
-                            HttpContext.Session.SetString("Province", account.Province);
-                            HttpContext.Session.SetString("City", account.City);
-                            HttpContext.Session.SetString("SubDistrict", account.SubDistrict);
-                            HttpContext.Session.SetString("Village", account.Village);
-                            HttpContext.Session.SetString("ZipCode", account.ZipCode);
-                            HttpContext.Session.SetString("JWToken", "Bearer " + data);
+                            //    HttpContext.Session.SetString("Id", account.Id);
+                            //    HttpContext.Session.SetString("Email", account.Email);
+                            //    HttpContext.Session.SetString("Phone", account.Phone);
+                            //    HttpContext.Session.SetString("RoleName", account.RoleName);
+                            //    HttpContext.Session.SetString("Address", account.Address);
+                            //    HttpContext.Session.SetString("Name", account.Name);
+                            //    HttpContext.Session.SetString("Province", account.Province);
+                            //    HttpContext.Session.SetString("City", account.City);
+                            //    HttpContext.Session.SetString("SubDistrict", account.SubDistrict);
+                            //    HttpContext.Session.SetString("Village", account.Village);
+                            //    HttpContext.Session.SetString("ZipCode", account.ZipCode);
+                            //HttpContext.Session.SetString("JWToken", "Bearer " + data);
                             if (account.RoleName == "Manager")
                             {
                                 return Json(new { status = true, msg = "Login Successfully !" });

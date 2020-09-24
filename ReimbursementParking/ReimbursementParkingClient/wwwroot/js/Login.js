@@ -11,7 +11,6 @@
 		data: validate
     }).then((result) => {
 		if (result.status == true) {
-			debugger;
 			window.location.href = "/main";
 		} else {
 			toastr.warning(result.msg)
