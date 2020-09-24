@@ -82,10 +82,10 @@ namespace ReimbursementParkingAPI.Migrations
                     b.Property<string>("EmployeeId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("HRDResponseTime")
+                    b.Property<DateTimeOffset?>("HRDResponseTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("ManagerResponseTime")
+                    b.Property<DateTimeOffset?>("ManagerResponseTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("RejectReason")

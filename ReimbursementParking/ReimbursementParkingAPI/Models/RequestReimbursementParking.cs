@@ -15,8 +15,8 @@ namespace ReimbursementParkingAPI.Models
         public string EmployeeId { get; set; }
         public string RejectReason { get; set; }
         public DateTimeOffset RequestDate { get; set; }
-        public DateTimeOffset HRDResponseTime { get; set; }
-        public DateTimeOffset ManagerResponseTime { get; set; }
+        public DateTimeOffset? HRDResponseTime { get; set; }
+        public DateTimeOffset? ManagerResponseTime { get; set; }
 
         public Blob Blob { get; set; }
 
