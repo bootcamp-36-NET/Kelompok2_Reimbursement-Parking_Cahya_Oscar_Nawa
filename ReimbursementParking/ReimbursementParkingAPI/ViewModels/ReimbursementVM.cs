@@ -7,6 +7,7 @@ namespace ReimbursementParkingAPI.ViewModels
 {
     public class ReimbursementVM
     {
+        public int Id { get; set; }
         public string EmployeeId { get; set; }
         public string ReimbursementStatus { get; set; }
         public string RejectReason { get; set; }
