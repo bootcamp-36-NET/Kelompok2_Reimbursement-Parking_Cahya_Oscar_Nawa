@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.Repositories;
@@ -11,6 +12,7 @@ using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class RequestReimbursementParkingsController : ControllerBase
