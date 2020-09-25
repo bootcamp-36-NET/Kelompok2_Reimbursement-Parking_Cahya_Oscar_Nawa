@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Repositories.Interface
 {
-    public interface IRepository<T> where T : class //for every table
+    public interface IRepository<T> where T : class
     {
-        Task<List<T>> GetAll();
-        Task<T> GetById(int Id);
-        Task<int> Update(T entity);
-        Task<int> Create(T entity);
-        Task<int> Delete(int Id);
+        Task<int> Approve(T entity);
+        Task<int> Reject(T entity);
+        Task<T> GetById(int id);
+        Task<byte[]> GetFile(int id);
     }
 }

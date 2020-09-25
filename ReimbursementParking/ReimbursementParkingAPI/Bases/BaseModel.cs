@@ -8,10 +8,9 @@ namespace ReimbursementParkingAPI.Bases
     public interface BaseModel
     {
         int Id { get; set; }
-        string Name { get; set; }
-        DateTimeOffset CreateDate { get; set; }
-        DateTimeOffset ApproveDate { get; set; }
-        string Reason { get; set; }
-        string Role { get; set; }
+        string RejectReason { get; set; }
+        DateTimeOffset? HRDResponseTime { get; set; }
+        DateTimeOffset? ManagerResponseTime { get; set; }
+        int RequestReimbursementStatusEnumId { get; set; }
     }
 }

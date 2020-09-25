@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReimbursementParkingAPI.Bases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace ReimbursementParkingAPI.Models
 {
     [Table("tb_request-reimbursement-parking")]
-    public class RequestReimbursementParking
+    public class RequestReimbursementParking : BaseModel
     {
         [Key]
         public int Id { get; set; }
@@ -24,5 +25,6 @@ namespace ReimbursementParkingAPI.Models
 
         public int RequestReimbursementStatusEnumId { get; set; }
         public RequestReimbursementStatusEnum RequestReimbursementStatusEnum { get; set; }
+        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
