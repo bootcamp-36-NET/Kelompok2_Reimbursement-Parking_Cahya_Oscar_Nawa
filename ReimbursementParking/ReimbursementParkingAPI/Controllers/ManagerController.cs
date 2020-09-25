@@ -24,11 +24,11 @@ namespace ReimbursementParkingAPI.Controllers
             return await _repo.GetStatus();
         }
 
-        //[HttpPut("{Id}")]
-        //public IHttpActionResult Put(int id, StatusVM statusVM)
-        //{
-        //    _repo.Update(id, divisionVM);
-        //    return Ok("Data has been updated");
-        //}
+        [HttpPut("{Id}")]
+        public ActionResult Update(int Id, StatusVM entity)
+        {
+            _repo.Update(Id, entity);
+            return Ok("Data has been updated");
+        }
     }
 }
