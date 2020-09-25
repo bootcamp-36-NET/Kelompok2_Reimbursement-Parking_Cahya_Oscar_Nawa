@@ -33,6 +33,7 @@ namespace ReimbursementParkingAPI
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ReimbursementParking")));
 
             services.AddTransient<RequestReimbursementRepository>();
+            services.AddTransient<ManagerRepository>();
 
         }
 
