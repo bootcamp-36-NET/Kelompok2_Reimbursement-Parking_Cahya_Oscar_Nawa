@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReimbursementParkingAPI.Context;
 using ReimbursementParkingAPI.Models;
+using System.IO;
 using ReimbursementParkingAPI.Repositories;
 using ReimbursementParkingAPI.ViewModels;
 
@@ -18,11 +19,9 @@ namespace ReimbursementParkingAPI.Controllers
     [ApiController]
     public class RequestReimbursementParkingsController : ControllerBase
     {
-        private readonly MyContext _context;
         private readonly RequestReimbursementRepository _repo;
-        public RequestReimbursementParkingsController(MyContext myContext, RequestReimbursementRepository repo)
+        public RequestReimbursementParkingsController(RequestReimbursementRepository repo)
         {
-            _context = myContext;
             _repo = repo;
         }
 
@@ -56,6 +55,30 @@ namespace ReimbursementParkingAPI.Controllers
                 return Ok("Successfully Delete");
             }
             return BadRequest("Not Success");
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult> CreateNewReimbursementRequest(string id, [FromForm]InsertReimbursementVM model)
+        {
+            var maxFileSize = 4194304;
+            if (model.ReimbursementFile.ContentType != "application/zip")
+            {
+                return BadRequest("Uploaded File Must be Zip !");
+            }
+            if (model.ReimbursementFile.Length > maxFileSize)
+            {
+                return BadRequest("Uploaded File Maximum Size is 4MB !");
+            }
+            if (model.TotalPrice > 150000)
+            {
+                return BadRequest("Reimbursement Limit Is Capped At 150.000 !");
+            }
+            var result = await _repo.CreateNewRequest(id, model);
+            if (result != null)
+            {
+                return BadRequest(result);
+            }
+            return Ok("Reimbursement Request Successfully Created !");
         }
     }
 }
