@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Repositories
@@ -21,6 +23,7 @@ namespace ReimbursementParkingAPI.Repositories
         private readonly MyContext _context;
         private readonly IConfiguration _configuration;
         private readonly SqlConnection con;
+        DynamicParameters param = new DynamicParameters();
 
         public RequestReimbursementRepository(MyContext myContext, IConfiguration configuration)
         {
@@ -31,7 +34,6 @@ namespace ReimbursementParkingAPI.Repositories
 
         public async Task<List<ReimbursementVM>> GetById(string id)
         {
-            DynamicParameters param = new DynamicParameters();
             var procedureName = "SP_get_all_reimbursement_by_id";
             param.Add("@Id", id);
 
@@ -39,11 +41,19 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public async Task<IEnumerable<RequestDetail>> Get()
+        public int Delete(string id)
         {
-            var SP = "SPShow";
-            var show = await con.QueryAsync<RequestDetail>(SP, commandType: CommandType.StoredProcedure);
-            return show;
+            var sp = "SPDelete";
+            param.Add("@id", id);
+            var del = con.Execute(sp, param, commandType: CommandType.StoredProcedure);
+            return del;
         }
+
+        //public async Task<IEnumerable<RequestDetail>> Get()
+        //{
+        //    var SP = "SPShow";
+        //    var show = await con.QueryAsync<RequestDetail>(SP, commandType: CommandType.StoredProcedure);
+        //    return show;
+        //}
     }
 }
