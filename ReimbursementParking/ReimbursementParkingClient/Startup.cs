@@ -36,7 +36,12 @@ namespace ReimbursementParkingClient
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().
+                    AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    });
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
@@ -50,9 +55,10 @@ namespace ReimbursementParkingClient
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseExceptionHandler("/Home/Error");
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseHsts();
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

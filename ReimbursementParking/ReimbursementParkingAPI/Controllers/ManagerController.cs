@@ -17,8 +17,8 @@ namespace ReimbursementParkingAPI.Controllers
         {
             _repo = repo;
         }
-
-        public async Task<IEnumerable<ReimbursementVM>> GetStatus()
+        [Route("requestHRD")]
+        public async Task<IEnumerable<StatusVM>> GetStatus()
         {
             return await _repo.GetStatus();
         }
@@ -27,6 +27,26 @@ namespace ReimbursementParkingAPI.Controllers
         public ActionResult Update(int Id, StatusVM entity)
         {
             _repo.Update(Id, entity);
+            return Ok("Data has been updated");
+        }
+        [HttpGet("approve")]
+        public async Task<IEnumerable<StatusVM>> GetStatusApprovedByManager()
+        {
+            return await _repo.GetStatusApprovedByManager();
+        }
+        [HttpGet("reject")]
+        public async Task<IEnumerable<StatusVM>> GetStatusRejectedByManager()
+        {
+            return await _repo.GetStatusRejectedByManager();
+        }
+        public async Task<StatusVM> Get(int Id)
+        {
+            return await _repo.Get(Id);
+        }
+        [HttpPut("rejectReason/{Id}")]
+        public ActionResult UpdateReject(int Id, StatusVM entity)
+        {
+            _repo.UpdateReject(Id, entity);
             return Ok("Data has been updated");
         }
     }
