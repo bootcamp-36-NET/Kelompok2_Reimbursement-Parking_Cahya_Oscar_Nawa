@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingClient.Controllers
 {
-    public class RequestReimbursementParkingController : Controller
+    public class ViewRequestController : Controller
     {
+
         readonly HttpClient client = new HttpClient
         {
             BaseAddress = new Uri("https://localhost:44322/api/")
@@ -23,40 +23,12 @@ namespace ReimbursementParkingClient.Controllers
             return View();
         }
 
-        public ActionResult LoadInitialCreateData()
-        {
-            InsertReimbursementVM model = new InsertReimbursementVM();
-            model.EmployeeId = HttpContext.Session.GetString("id");
-            model.Name = HttpContext.Session.GetString("name");
-
-            return Json(model);
-        }
-
-        public ActionResult CreateReimbursement([FromForm]InsertReimbursementVM model)
-        {
-            string id = HttpContext.Session.GetString("id");
-
-            string stringData = JsonConvert.SerializeObject(model);
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
-
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
-
-            var resTask = client.PostAsync("RequestReimbursementParkings/" + id, contentData);
-            resTask.Wait();
-
-            var result = resTask.Result;
-
-            var responseData = result.Content.ReadAsStringAsync().Result;
-
-            return Json((result, responseData), new Newtonsoft.Json.JsonSerializerSettings());
-        }
-
         public ActionResult LoadRequest()
         {
             IEnumerable<ReimbursementVM> reimbursementVMs = null;
             var getId = HttpContext.Session.GetString("id");
-            var resTask = client.GetAsync("RequestReimbursementParkings/ " + getId);
+            //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+            var resTask = client.GetAsync("RequestReimbursementParkings/" + getId);
             resTask.Wait();
 
             var result = resTask.Result;
@@ -73,6 +45,26 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Json(reimbursementVMs);
         }
+
+        //public ActionResult LoadRequest()
+        //{
+        //    ReimbursementVM reimbursementVMs = null;
+        //    var getId = client.GetAsync("id");
+        //    var resTask = client.GetAsync("RequestReimbursementParkings/ " + getId);
+        //    resTask.Wait();
+
+        //    var result = resTask.Result;
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        var getJson = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+        //        reimbursementVMs = JsonConvert.DeserializeObject<ReimbursementVM>(getJson);
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+        //    }
+        //    return Json(reimbursementVMs);
+        //}
 
         public IActionResult Delete(string id)
         {

@@ -117,6 +117,7 @@ C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
@@ -131,7 +132,6 @@ C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csprojAssemblyReference.cache
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.AssemblyInfoInputs.cache
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.AssemblyInfo.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csproj.CoreCompileInputs.cache

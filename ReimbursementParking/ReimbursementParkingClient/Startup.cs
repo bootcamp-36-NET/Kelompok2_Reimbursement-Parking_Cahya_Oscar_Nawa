@@ -36,6 +36,13 @@ namespace ReimbursementParkingClient
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddControllersWithViews().
+                    AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    });
+
             services.AddControllersWithViews();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
