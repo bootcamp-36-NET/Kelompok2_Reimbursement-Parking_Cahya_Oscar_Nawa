@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.Bases;
@@ -10,6 +11,7 @@ using ReimbursementParkingAPI.Repositories;
 
 namespace ReimbursementParkingAPI.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class HRDApprovalsController : BaseController<RequestReimbursementParking, HRDApprovalRepository>
@@ -21,7 +23,7 @@ namespace ReimbursementParkingAPI.Controllers
             _repo = repository;
         }
 
-        [HttpPut]
+        [HttpGet]
         [Route("approve/{id}")]
         public async Task<ActionResult> Approve(int id)
         {
@@ -56,7 +58,7 @@ namespace ReimbursementParkingAPI.Controllers
         public async Task<ActionResult> GetAllRequestHRD()
         {
             var reimbursementRequests = await _repo.GetAll();
-            return Ok();
+            return Ok(reimbursementRequests);
         }
 
     }
