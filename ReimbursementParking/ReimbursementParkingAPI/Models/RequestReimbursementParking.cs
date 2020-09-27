@@ -25,6 +25,5 @@ namespace ReimbursementParkingAPI.Models
 
         public int RequestReimbursementStatusEnumId { get; set; }
         public RequestReimbursementStatusEnum RequestReimbursementStatusEnum { get; set; }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

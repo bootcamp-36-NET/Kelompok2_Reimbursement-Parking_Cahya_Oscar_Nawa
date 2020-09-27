@@ -34,6 +34,7 @@ namespace ReimbursementParkingAPI
 
             services.AddTransient<RequestReimbursementRepository>();
             services.AddTransient<ManagerRepository>();
+            services.AddTransient<HRDApprovalRepository>();
 
         }
 

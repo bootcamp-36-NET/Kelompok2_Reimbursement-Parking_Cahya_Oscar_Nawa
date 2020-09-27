@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReimbursementParkingAPI.Bases;
 using ReimbursementParkingAPI.Context;
+using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace ReimbursementParkingAPI.Repositories
         public async Task<TEntity> GetById(int id)
         {
             var data = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-            if (!data.Equals(0))
+            if (data != null)
             {
                 return data;
             }
@@ -44,10 +45,10 @@ namespace ReimbursementParkingAPI.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<byte[]> GetFile(int blobId)
+        public async Task<Blob> GetFile(int blobId)
         {
-            var content = await _context.Blobs.Where(q => q.Id == blobId).Select(q => q.Content).FirstOrDefaultAsync();
-            return content;
+            var blobData = await _context.Blobs.Where(q => q.Id == blobId).FirstOrDefaultAsync();
+            return blobData;
         }
     }
 }

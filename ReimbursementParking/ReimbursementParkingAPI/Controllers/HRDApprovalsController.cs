@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.Bases;
 using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.Repositories;
+using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class HRDApprovalsController : BaseController<RequestReimbursementParking, HRDApprovalRepository>
@@ -21,7 +24,7 @@ namespace ReimbursementParkingAPI.Controllers
             _repo = repository;
         }
 
-        [HttpPut]
+        [HttpGet]
         [Route("approve/{id}")]
         public async Task<ActionResult> Approve(int id)
         {
@@ -38,12 +41,16 @@ namespace ReimbursementParkingAPI.Controllers
 
         [HttpPut]
         [Route("reject/{id}")]
-        public async Task<ActionResult> Reject(int id, [FromBody] string reason)
+        public async Task<ActionResult> Reject(int id, RejectVM rejectVM)
         {
             var reimbursementRequest = await _repo.GetById(id);
+            if (reimbursementRequest == null)
+            {
+                return BadRequest("Data Not Found !");
+            }
             reimbursementRequest.HRDResponseTime = DateTimeOffset.Now;
             reimbursementRequest.RequestReimbursementStatusEnumId = 4;
-            reimbursementRequest.RejectReason = reason;
+            reimbursementRequest.RejectReason = rejectVM.RejectReason;
             var result = await _repo.Approve(reimbursementRequest);
             if (result < 0)
             {
@@ -56,7 +63,7 @@ namespace ReimbursementParkingAPI.Controllers
         public async Task<ActionResult> GetAllRequestHRD()
         {
             var reimbursementRequests = await _repo.GetAll();
-            return Ok();
+            return Ok(reimbursementRequests);
         }
 
     }
