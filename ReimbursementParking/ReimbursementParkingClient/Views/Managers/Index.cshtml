@@ -2,24 +2,85 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Layout/_Layout.cshtml";
+
 }
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DataTables</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Manager</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Manager</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="MydataTable" width="100%" cellspacing="0"></table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
 
+                </div>
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Approval History</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="Mydata" width="100%" cellspacing="0"></table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Rejection History</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="MydataReject" width="100%" cellspacing="0"></table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="d-flex flex-row align-content-between justify-content-between">
-            <h5 class="m-0 font-weight-bold text-primary">Approval Manager</h5>
-            @*<div data-toggle="modal" data-target="#exampleModalCenter">
-                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" data-animation="false" title="Add Division">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>*@
-        </div>
-    </div>
+
 
     <!--Modal Approval-->
     <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -32,36 +93,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-approval" role="form">
+                    <form id="form-reject" role="form">
                         <input name="id" type="hidden" />
                         <div class="form-group">
-                            <label>Division Name : </label>
-                            <select class="form-control select2" style="width: 100%;" id="divName2" name="divisionName" required>
-                                <option value="0" selected> -- Choose Department -- </option>
-                            </select>
+                            <label>Reject Reason : </label>
+                            <input class="form-control" id="rejectReason" name="rejectReason"
+                                   placeholder="Reason" required type="text">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-edit">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btn-reject">Save Rejection</button>
                 </div>
             </div>
         </div>
     </div>
     <!--End Modal Edit-->
 
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        <a asp-action="ReportDivision" class="btn btn-outline-danger" data-toggle="tooltip" title="Export Pdf"><i class="fa fa-file-pdf"></i></a>
-        <a asp-action="ReportExcel" class="btn btn-outline-success" data-toggle="tooltip" title="Export Excel"><i class="fa fa-file-excel"></i></a>
-    </div>
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="MydataTable" width="100%" cellspacing="0"></table>
-        </div>
-    </div>
 
 </div>
 @section scriptAdminLTE{
@@ -73,6 +123,14 @@
     <script src="~/DataTables/js/buttons.html5.min.js"></script>
     <script src="~/DataTables/js/buttons.print.min.js"></script>
     <script src="~/js/Manager.js"></script>
+    <script>
+        $(document).ready(function () {
+            tableManager.create();
+            tableApprovedByManager.create();
+            tableRejectedByManager.create();
+        });
+    </script>
+
 }
 
 
