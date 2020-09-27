@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.Bases;
 using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.Repositories;
+using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
 {
@@ -40,12 +41,16 @@ namespace ReimbursementParkingAPI.Controllers
 
         [HttpPut]
         [Route("reject/{id}")]
-        public async Task<ActionResult> Reject(int id, [FromBody] string reason)
+        public async Task<ActionResult> Reject(int id, RejectVM rejectVM)
         {
             var reimbursementRequest = await _repo.GetById(id);
+            if (reimbursementRequest == null)
+            {
+                return BadRequest("Data Not Found !");
+            }
             reimbursementRequest.HRDResponseTime = DateTimeOffset.Now;
             reimbursementRequest.RequestReimbursementStatusEnumId = 4;
-            reimbursementRequest.RejectReason = reason;
+            reimbursementRequest.RejectReason = rejectVM.RejectReason;
             var result = await _repo.Approve(reimbursementRequest);
             if (result < 0)
             {

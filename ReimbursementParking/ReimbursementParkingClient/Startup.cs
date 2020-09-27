@@ -42,6 +42,7 @@ namespace ReimbursementParkingClient
                         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                         options.JsonSerializerOptions.PropertyNamingPolicy = null;
                     });
+
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }

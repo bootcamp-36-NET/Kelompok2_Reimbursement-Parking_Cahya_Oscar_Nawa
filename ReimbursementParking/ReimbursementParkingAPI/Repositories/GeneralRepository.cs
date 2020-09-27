@@ -23,7 +23,7 @@ namespace ReimbursementParkingAPI.Repositories
         public async Task<TEntity> GetById(int id)
         {
             var data = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-            if (!data.Equals(0))
+            if (data != null)
             {
                 return data;
             }

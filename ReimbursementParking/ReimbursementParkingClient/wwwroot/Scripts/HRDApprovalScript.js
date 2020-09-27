@@ -7,8 +7,6 @@ $(document).ready(function () {
 
 function LoadInitialCreateData() {
     table = $('#dataTable').DataTable({
-        orderCellsTop: true,
-        fixedHeader: true,
         ajax: {
             url: "/HRDApproval/GetAllRequestHRD",
             dataSrc: "",
@@ -17,19 +15,51 @@ function LoadInitialCreateData() {
             dataType: "JSON"
         },
         columns: [
-            { data: null },
-            { data: "employeeId" },
-            { data: "platNumber" },
-            { data: "totalPrice" },
-            { data: "vehicleOwner" },
-            { data: "vehicleType" },
-            { data: "parkingName" },
             {
-                data: "parkingAddress",
+                title: "No",
+                data: null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                sortable: false,
+                oderable: false
+
+            },
+            {
+                title: "Employee Id",
+                data: "EmployeeId"
+            },
+            {
+                title: "PLAT Number",
+                data: "PLATNumber"
+            },
+            {
+                title: "Total Price",
+                data: "TotalPrice"
+            },
+            {
+                title: "Vehicle Owner Name",
+                data: "VehicleOwner"
+            },
+            {
+                title: "Vehicle Type",
+                data: "VehicleType"
+            },
+            {
+                title: "Parking Name",
+                data: "ParkingName"
+            },
+            {
+                title: "Parking Address",
+                data: "ParkingAddress",
                 AutoWidth: false
             },
-            { data: "paymentType" },
             {
+                title: "Payment Type",
+                data: "PaymentType"
+            },
+            {
+                title: "Periode",
                 data: null,
                 render: function (data, type, row) {
                     var currPeriode = moment().format("MMMM YYYY");
@@ -39,7 +69,8 @@ function LoadInitialCreateData() {
                 oderable: false
             },
             {
-                data: "id",
+                title: "File Data",
+                data: "Id",
                 render: function (data, type, row, meta) {
                     return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')">Download File</button>';
                 },
@@ -47,7 +78,8 @@ function LoadInitialCreateData() {
                 "oderable": false
             },
             {
-                data: "id",
+                title: "Action",
+                data: "Id",
                 render: function (data, type, row, meta) {
                     return '<Button class="btn btn-success" onclick="return Approve(' + data + ')">Approve</button>'
                         + '&nbsp;'
@@ -57,19 +89,8 @@ function LoadInitialCreateData() {
                 "oderable": false
             }
         ],
-        "columnDefs": [{
-            "searchable": false,
-            "orderable": false,
-            "targets": 0
-        }],
-        "order": [[1, 'asc']]
     });
 
-    table.on('order.dt search.dt', function () {
-        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1;
-        });
-    }).draw();
 }
 
 function ShowReject(id) {
@@ -82,51 +103,52 @@ function Approve(id) {
     $.ajax({
         url: "/HRDApproval/ApproveRequest/" + id,
         type: "POST",
-        dataType: "JSON"
+        dataType: "JSON",
+    }).then((result) => {
+        if (result.Item1.StatusCode == 200) {
+            Swal.fire('Success', result.Item2, 'success');
+
+        } else {
+            Swal.fire('Error', result.Item2, 'error');
+        }
+        table.ajax.reload(null, false);
+    });
+}
+function Reject() {
+    var rejectVM = {
+        RequestId: $('#Id').val(),
+        RejectReason: $('#Reason').val()
+    }
+    $.ajax({
+        url: "/HRDApproval/RejectRequest",
+        data: rejectVM,
+        type: "POST",
+        dataType: "JSON",
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             Swal.fire('Success', result.Item2, 'success');
             table.ajax.reload(null, false);
+            $('#rejectModal').modal('hide');
         } else {
             Swal.fire('Error', result.Item2, 'error');
         }
 
+
     });
 }
-function Reject() {
-    var Id = $('#Id').val();
-    var Reason = $('#Reason').val();
-    $.ajax({
-        url: "/HRDApproval/RejectRequest/" + Id,
-        data: Reason,
-        cache: false,
-        type: "POST",
-        dataType: "JSON"
-    }).then((result) => {
-            if (result.Item1.StatusCode == 200) {
-                Swal.fire('Success', result.Item2, 'success');
 
-            } else {
-                Swal.fire('Error', result.Item2, 'error');
-            }
-            $('#rejectModal').modal('hide');
-
-        });
-}
-
-function DownloadFolder() {
-    var Id = $('#EmployeeID').val();
+function DownloadFolder(Id) {
     $.ajax({
         url: "/HRDApproval/DownloadFolder/" + Id,
         data: { Id: Id },
         cache: false,
         type: "GET",
         dataType: "JSON",
-        download: {
-            mimetype: this.Response.Item2.ContentType,
-            filename: this.Response.Item2.Name,
-            data: this.Response.Item2.Content
-        }
+        success: function (response) {
+            var fileName = response.Item2.Name;
+            var sampleArr = base64ToArrayBuffer(response.Item2.Content);
+            saveByteArray(fileName, sampleArr);
+        },
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
 
@@ -136,4 +158,23 @@ function DownloadFolder() {
     });
 }
 
+function saveByteArray(reportName, byte) {
+    var blob = new Blob([byte]);
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName + ".zip";
+    link.download = fileName;
+    link.click();
+}
+
+function base64ToArrayBuffer(base64) {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+    }
+    return bytes;
+}
 
