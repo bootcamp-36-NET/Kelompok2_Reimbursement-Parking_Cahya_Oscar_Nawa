@@ -1,4 +1,5 @@
 ﻿$('.select2').select2()
+var maxFileSize = 1048576;
 
 $(document).ready(function () {
     bsCustomFileInput.init();
@@ -25,7 +26,7 @@ function CreateNewRequest() {
     if (check == false) {
         return false;
     }
-    var a = $('#ReimbursementFile')[0].files[0];
+
     let formData = new FormData();
     formData.append('EmployeeId', $('#EmployeeId').val());
     formData.append('Name', $('#Name').val());
@@ -47,7 +48,7 @@ function CreateNewRequest() {
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             ClearForm();
-            Swal.fire('scuccess', 'success', 'success');
+            Swal.fire('Success', 'success', 'Success');
         } else {
             Swal.fire('Error', 'Error', 'Error');
         }
@@ -111,6 +112,31 @@ function validate() {
     }
     else {
         $('#PaymentType').css('border-color', 'lightgrey');
+    }
+
+    if ($('#ReimbursementFile').val() == '') {
+        $('#ReimbursementFile').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        if ($('#ReimbursementFile')[0].files[0].size > maxFileSize) {
+            Swal.fire('Error', 'File size is more than 1MB !', 'Error');
+            isValid = false;
+        } else if ($('#ReimbursementFile')[0].files[0].type != "application/pdf") {
+            Swal.fire('Error', 'File content must be PDF', 'Error');
+            isValid = false;
+        }
+        else {
+            $('#ReimbursementFile').css('border-color', 'lightgrey');
+            return false;
+        }
+    }
+
+    if ($('#ReimbursementFile').files.length == 0) {
+        
+    }
+    else {
+        
     }
     return isValid;
 }

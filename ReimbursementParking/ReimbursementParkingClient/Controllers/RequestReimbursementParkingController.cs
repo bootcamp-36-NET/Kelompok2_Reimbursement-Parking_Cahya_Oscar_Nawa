@@ -59,10 +59,13 @@ namespace ReimbursementParkingClient.Controllers
             resTask.Wait();
 
             var result = resTask.Result;
-
             var responseData = result.Content.ReadAsStringAsync().Result;
 
-            return Json((result, responseData), new Newtonsoft.Json.JsonSerializerSettings());
+            dynamic resultVM = new ExpandoObject();
+            resultVM.Item1 = result;
+            resultVM.Item2 = responseData;
+
+            return Json(resultVM);
         }
 
         public ActionResult LoadRequest()

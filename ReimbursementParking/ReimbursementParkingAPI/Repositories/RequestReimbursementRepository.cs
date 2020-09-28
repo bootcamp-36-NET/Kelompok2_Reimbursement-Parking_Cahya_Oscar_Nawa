@@ -76,6 +76,7 @@ namespace ReimbursementParkingAPI.Repositories
             };
             _context.RequestReimbursementParkings.Add(reimbursement);
             await _context.SaveChangesAsync();
+
             var fileContent = new byte[0];
             using (var ms = new MemoryStream())
             {
@@ -110,7 +111,7 @@ namespace ReimbursementParkingAPI.Repositories
              _context.RequestDetails.Add(requestDetail);
 
             var result = await _context.SaveChangesAsync();
-            if (result == 0)
+            if (result < 0)
             {
                 return "Server Error !";
             }
