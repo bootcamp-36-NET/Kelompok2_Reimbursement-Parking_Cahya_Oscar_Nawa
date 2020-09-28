@@ -19,6 +19,11 @@ namespace ReimbursementParkingClient.Controllers
             BaseAddress = new Uri("https://localhost:44322/api/")
         };
 
+        readonly HttpClient userClient = new HttpClient
+        {
+            BaseAddress = new Uri("http://winarto-001-site1.dtempurl.com/api/")
+        };
+
         public IActionResult Index()
         {
             return View();
@@ -47,12 +52,23 @@ namespace ReimbursementParkingClient.Controllers
             return Json(reimbursementRequest);
         }
 
-        public ActionResult<ExpandoObject> ApproveRequest(int id)
+        public ActionResult<ExpandoObject> ApproveRequest(ApproveRejectVM approveVM)
         {
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
 
-            var resTask = client.GetAsync("HRDApprovals/approve/" + id);
+            userClient.DefaultRequestHeaders.Add("Authorization", authToken);
+            var resTaskUser = userClient.GetAsync("Users/" + approveVM.EmployeeId);
+            resTaskUser.Wait();
+
+            var userResult = resTaskUser.Result;
+            var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
+            approveVM.Email = responseUserData.Email;
+
+            string stringData = JsonConvert.SerializeObject(approveVM);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var resTask = client.PutAsync("HRDApprovals/approve", contentData );
             resTask.Wait();
 
             var result = resTask.Result;
@@ -65,7 +81,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(resultVM);
         }
 
-        public ActionResult<ExpandoObject> RejectRequest(RejectVM rejectVM)
+        public ActionResult<ExpandoObject> RejectRequest(ApproveRejectVM rejectVM)
         {
             //var authToken = HttpContext.Session.GetString("JWToken");
             //client.DefaultRequestHeaders.Add("Authorization", authToken);
@@ -73,7 +89,7 @@ namespace ReimbursementParkingClient.Controllers
             string stringData = JsonConvert.SerializeObject(rejectVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            var resTask = client.PutAsync("HRDApprovals/reject/" + rejectVM.RequestId, contentData);
+            var resTask = client.PutAsync("HRDApprovals/reject", contentData);
             resTask.Wait();
 
             var result = resTask.Result;
