@@ -147,3 +147,4 @@ C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\R
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingAPI\obj\Debug\netcoreapp3.1\ReimbursementParkingAPI.csprojAssemblyReference.cache
