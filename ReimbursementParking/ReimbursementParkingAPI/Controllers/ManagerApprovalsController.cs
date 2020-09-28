@@ -14,7 +14,7 @@ using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagerApprovalsController : BaseController<RequestReimbursementParking, ManagerApprovalRepository>
@@ -22,9 +22,10 @@ namespace ReimbursementParkingAPI.Controllers
         private readonly ManagerApprovalRepository _repo;
         private readonly SendEmailService _sendEmail;
 
-        public ManagerApprovalsController(ManagerApprovalRepository repository) : base(repository)
+        public ManagerApprovalsController(ManagerApprovalRepository repository, SendEmailService sendEmailService) : base(repository)
         {
             _repo = repository;
+            _sendEmail = sendEmailService;
         }
 
         [HttpPut]
@@ -43,7 +44,7 @@ namespace ReimbursementParkingAPI.Controllers
             {
                 Email = approveVM.Email,
                 Subject = "Reimbursement Status For Periode " + DateTimeOffset.Now.ToString("Y"),
-                Body = "Your Reimbursement Request Has been Approved by HRD"
+                Body = "Your Reimbursement Request Has been Approved by Manager"
             };
             _sendEmail.SendEmail(emailData);
             return Ok("Request Approved !");
@@ -70,7 +71,7 @@ namespace ReimbursementParkingAPI.Controllers
             {
                 Email = rejectVM.Email,
                 Subject = "Reimbursement Status For Periode " + DateTimeOffset.Now.ToString("Y"),
-                Body = "Your Reimbursement Request Has been Rejected by HRD"
+                Body = "Your Reimbursement Request Has been Rejected by Manager"
             };
             _sendEmail.SendEmail(emailData);
 

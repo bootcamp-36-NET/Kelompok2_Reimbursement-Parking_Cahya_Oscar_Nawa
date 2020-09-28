@@ -1,74 +1,96 @@
-﻿var tableManager = {
-    create: function () {
-        if ($.fn.DataTable.isDataTable('#MydataTable')) {
-            $('#MydataTable').DataTable().clear();
-            $('#MydataTable').DataTable().destroy();
-        }
-        $.ajax({
-            url: '/ManagerApproval/LoadApprovalManager',
-            type: 'get',
-            contentType: 'application/json',
-            success: function (res, status, xhr) {
-                //debugger;
-                if (xhr.status == 200) {
-                    $('#MydataTable').DataTable({
-                        data: res,
-                        "columnDefs": [
-                            { "orderable": false, "targets": 4 }
-                        ],
-                        columns: [
-                            {
-                                title: "No", data: null, render: function (data, type, row, meta) {
-                                    return meta.row + meta.settings._iDisplayStart + 1;
-                                }
-                            },
-                            { title: "Employee ID", data: "EmployeeId" },
-                            { title: "Reimbursement Status", data: "ReimbursementStatus" },
-                            {
-                                title: "Request Date",
-                                data: "RequestDate",
-                                render: function (jsonDate) {
-                                    var date = moment(jsonDate).format("DD MMMM YYYY");
-                                    return date;
-                                }
-                            },
-                            { title: "Plat Number", data: "PLATNumber" },
-                            { title: "Vehicle Type", data: "VeicleType" },
-                            { title: "Payment Type", data: "PaymentType" },
-                            { title: "Total Price", data: "TotalPrice" },
-                            { title: "Vehicle Owner", data: "VehicleOwner" },
-                            { title: "Parking Name", data: "ParkingName" },
-                            { title: "Parking Address", data: "ParkingAddress" },
-                            {
-                                title: "File Data",
-                                data: "Id",
-                                render: function (data, type, row, meta) {
-                                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
-                                },
-                                "sortable": false,
-                                "oderable": false
-                            },
-                            {
-                                title: "Action", data: null,
-                                "sortable": false,
-                                render: function (data, type, row) {
-                                    return "<button type='button' class='btn btn-outline-success' data-placement = 'left' title='Approve' onclick=formManager.setApprove('" + data.Id + "')><i class='fa fa-lg fa-check'></i></button>"
-                                        + "&nbsp;" +
-                                        "<button class='btn btn-outline-danger' data-placement = 'right' title='Reject' onclick=formManager.setReject('" + data.Id + "')><i class='fa fa-lg fa-window-close'></i></button>"
+﻿var table = null;
+var zip = new JSZip();
 
-                                }
-                            }
-                        ]
-                    });
-                } else {
+$(document).ready(function () {
+    LoadInitialCreateData();
+});
+
+function LoadInitialCreateData() {
+    table = $('#MydataTable').DataTable({
+        ajax: {
+            url: "/ManagerApproval/LoadApprovalManager",
+            dataSrc: "",
+            cache: false,
+            type: "GET",
+            dataType: "JSON"
+        },
+        columns: [
+            {
+                title: "No", data: null, render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            erorrr: function (err) {
-                console.log(err);
+            { title: "Employee ID", data: "EmployeeId" },
+            { title: "Reimbursement Status", data: "ReimbursementStatus" },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (jsonDate) {
+                    var date = moment(jsonDate).format("DD MMMM YYYY");
+                    return date;
+                }
+            },
+            { title: "Plat Number", data: "PLATNumber" },
+            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Payment Type", data: "PaymentType" },
+            { title: "Total Price", data: "TotalPrice" },
+            { title: "Vehicle Owner", data: "VehicleOwner" },
+            { title: "Parking Name", data: "ParkingName" },
+            { title: "Parking Address", data: "ParkingAddress" },
+            {
+                title: "File Data",
+                data: "Id",
+                render: function (data, type, row, meta) {
+                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                },
+                "sortable": false,
+                "oderable": false
+            },
+            {
+                title: "Action", data: null,
+                "sortable": false,
+                render: function (data, type, row, meta) {
+                    return '<Button class="btn btn-outline-success" title="Approve" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
+                        + "&nbsp;" +
+                        "<button class='btn btn-outline-danger' data-placement = 'right' title='Reject' onclick=formManager.setReject('" + data.Id + "')><i class='fa fa-lg fa-window-close'></i></button>"
+
+                }
             }
-        });
-    }
-};
+        ],
+        success: function (res) {
+            console.log(res);
+        }
+    });
+
+}
+
+function ShowReject(id) {
+    $('#Id').val(id);
+    $('#Reason').val('');
+    $('#rejectModal').modal('show');
+}
+
+function Approve(idx) {
+    debugger;
+    var approveVM = {
+        Id: table.row(idx).data().Id,
+        EmployeeId: table.row(idx).data().EmployeeId
+    };
+    $.ajax({
+        url: "/ManagerApproval/ApproveRequest",
+        type: "POST",
+        dataType: "JSON",
+        data: approveVM
+    }).then((result) => {
+        if (result.Item1.StatusCode == 200) {
+            Swal.fire('Success', result.Item2, 'success');
+
+        } else {
+            Swal.fire('Error', result.Item2, 'error');
+        }
+        table.ajax.reload(null, false);
+    });
+}
 
 var tableApprovedByManager = {
     create: function () {
@@ -248,14 +270,19 @@ var tableRejectedByManager = {
     }
 };
 var Id;
+var EmployeeId;
 var formManager = {
-    setApprove: function (Id) {
+    setApprove: function (Idx) {
         debugger;
+        var approveVM = {
+            Id: Idx,
+            EmployeeId: $('#MydataTable').DataTable({})
+        };
         $.ajax({
             url: '/ManagerApproval/ApproveRequest/' + Id,
             type: 'post',
             dataType: 'json',
-            //data: { statusVM },
+            data: approveVM,
             success: function (res, status, xhr) {
                 debugger;
                 if (res.Item1.StatusCode == 200 || res.Item1.StatusCode == 201) {

@@ -41,11 +41,9 @@ namespace ReimbursementParkingClient
                     {
                         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                         options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                    });
-
-            services.AddControllersWithViews();
-            services.AddSession();
+                    });         
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +65,6 @@ namespace ReimbursementParkingClient
             app.UseCookiePolicy();
             
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {

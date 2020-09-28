@@ -83,6 +83,9 @@ namespace ReimbursementParkingClient.Controllers
         }
         public ActionResult<ExpandoObject> ApproveRequest(int id, ApproveRejectVM approveVM)
         {
+            //auth.DefaultRequestHeaders.Authorization =
+            //    new AuthenticationHeaderValue("Bearer",
+            //    HttpContext.Session.GetString("JWToken"));
             var authToken = HttpContext.Session.GetString("JWToken");
             auth.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTaskUser = auth.GetAsync("Users/" + approveVM.EmployeeId);
