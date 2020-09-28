@@ -488,3 +488,4 @@ C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\R
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Managers\Index.cshtml.g.cs
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\RequestReimbursementParking\Index.cshtml.g.cs
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\ViewRequest\Index.cshtml.g.cs
+C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Profile.cshtml.g.cs

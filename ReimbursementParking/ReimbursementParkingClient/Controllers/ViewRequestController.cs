@@ -26,7 +26,7 @@ namespace ReimbursementParkingClient.Controllers
         public ActionResult LoadRequest()
         {
             IEnumerable<ReimbursementVM> reimbursementVMs = null;
-            var getId = HttpContext.Session.GetString("id");
+            var getId = HttpContext.Session.GetString("Id");
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var resTask = client.GetAsync("RequestReimbursementParkings/" + getId);
             resTask.Wait();
