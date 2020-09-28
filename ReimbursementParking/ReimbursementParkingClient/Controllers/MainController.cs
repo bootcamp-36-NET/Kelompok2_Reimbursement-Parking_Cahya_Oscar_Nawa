@@ -101,7 +101,7 @@ namespace ReimbursementParkingClient.Controllers
 
             string stringData = JsonConvert.SerializeObject(loginVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
-
+            
             var resTask = client.PostAsync("auths/login/", contentData);
 
             var result = resTask.Result;
@@ -114,8 +114,6 @@ namespace ReimbursementParkingClient.Controllers
                 var token = new JwtSecurityToken(jwtEncodedString: responseData);
                 var authToken = "Bearer " + responseData;
                 var isVerified = token.Claims.First(c => c.Type == "VerifyCode").Value;
-                var a = token.Claims.First(c => c.Type == "Id").Value;
-                var b = token.Claims.First(c => c.Type == "Name").Value;
 
                 HttpContext.Session.SetString("Id", token.Claims.First(c => c.Type == "Id").Value);
                 HttpContext.Session.SetString("RoleName", token.Claims.First(c => c.Type == "RoleName").Value);

@@ -25,17 +25,17 @@ $(document).ready(function () {
 
         "columns": [
             { "data": null },
-            { "data": "id" },
-            { "data": "platNumber" },
-            { "data": "requestDate" },
-            { "data": "parkingName" },
-            { "data": "parkingAddress" },
-            { "data": "totalPrice" },
-            { "data": "reimbursementStatus" },
-            { "data": "rejectReason" },
+            { "data": "Id" },
+            { "data": "PLATNumber" },
+            { "data": "RequestDate" },
+            { "data": "ParkingName" },
+            { "data": "ParkingAddress" },
+            { "data": "TotalPrice" },
+            { "data": "ReimbursementStatus" },
+            { "data": "RejectReason" },
             {
                 "sortable": false,
-                "data": "id",
+                "data": "Id",
                 "render": function (data, type, row) {
                     console.log(row);
                     $('[data-toggle="tooltip"]').tooltip();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(model);
         }
 
-        public ActionResult CreateReimbursement([FromForm] InsertReimbursementVM model)
+        public ActionResult<ExpandoObject> CreateReimbursement([FromForm] InsertReimbursementVM model)
         { 
             var multiContent = new MultipartFormDataContent();
             var file = model.ReimbursementFile;
