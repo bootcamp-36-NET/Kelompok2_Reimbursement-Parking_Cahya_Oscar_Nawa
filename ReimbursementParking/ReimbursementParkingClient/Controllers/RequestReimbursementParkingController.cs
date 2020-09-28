@@ -26,23 +26,35 @@ namespace ReimbursementParkingClient.Controllers
         public ActionResult LoadInitialCreateData()
         {
             InsertReimbursementVM model = new InsertReimbursementVM();
-            model.EmployeeId = HttpContext.Session.GetString("id");
-            model.Name = HttpContext.Session.GetString("name");
+            model.EmployeeId = HttpContext.Session.GetString("Id");
+            model.Name = HttpContext.Session.GetString("Name");
 
             return Json(model);
         }
 
-        public ActionResult CreateReimbursement([FromForm]InsertReimbursementVM model)
-        {
-            string id = HttpContext.Session.GetString("id");
-
-            string stringData = JsonConvert.SerializeObject(model);
-            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+        public ActionResult CreateReimbursement([FromForm] InsertReimbursementVM model)
+        { 
+            var multiContent = new MultipartFormDataContent();
+            var file = model.ReimbursementFile;
+            if (file != null)
+            {
+                var fileStreamContent = new StreamContent(file.OpenReadStream());
+                multiContent.Add(fileStreamContent, "ReimbursementFile", file.FileName);
+            }
+            multiContent.Add(new StringContent(model.EmployeeId.ToString()), "EmployeeId");
+            multiContent.Add(new StringContent(model.Name.ToString()), "Name");
+            multiContent.Add(new StringContent(model.ParkingAddress.ToString()), "ParkingAddress");
+            multiContent.Add(new StringContent(model.ParkingName.ToString()), "ParkingName");
+            multiContent.Add(new StringContent(model.PaymentType.ToString()), "PaymentType");
+            multiContent.Add(new StringContent(model.PLATNumber.ToString()), "PLATNumber");
+            multiContent.Add(new StringContent(model.TotalPrice.ToString()), "TotalPrice");
+            multiContent.Add(new StringContent(model.VehicleType.ToString()), "VehicleType");
+            multiContent.Add(new StringContent(model.VehicleOwner.ToString()), "VehicleOwner");
 
             //var authToken = HttpContext.Session.GetString("JWToken");
             //client.DefaultRequestHeaders.Add("Authorization", authToken);
 
-            var resTask = client.PostAsync("RequestReimbursementParkings/" + id, contentData);
+            var resTask = client.PostAsync("RequestReimbursementParkings/" + model.EmployeeId, multiContent);
             resTask.Wait();
 
             var result = resTask.Result;

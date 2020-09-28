@@ -20,11 +20,11 @@
 function myLogin() {
     //debugger;
     //Swal.showLoading()
-    var check = validate();
-    if (check == false) {
-        Swal.fire('Error', 'Invalid Data', 'error');
-        return false;
-    }
+    //var check = validate();
+    //if (check == false) {
+    //    Swal.fire('Error', 'Invalid Data', 'error');
+    //    return false;
+    //}
     var loginVM = {
         Email: $('#email').val(),
         Password: $('#password').val()

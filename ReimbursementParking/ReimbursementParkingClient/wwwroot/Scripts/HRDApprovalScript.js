@@ -81,14 +81,17 @@ function LoadInitialCreateData() {
                 title: "Action",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-success" onclick="return Approve(' + data + ')">Approve</button>'
+                    return '<Button class="btn btn-success" onclick="return Approve(' + meta.row + ')">Approve</button>'
                         + '&nbsp;'
-                        + '<button onclick="ShowReject(' + data + ')" class="btn btn-outline-danger" data - toggle="tooltip" data - placement="top"data - animation="false" title = "Reject">Reject</button>';
+                        + '<button onclick="ShowReject(' + meta.row + ')" class="btn btn-outline-danger" data - toggle="tooltip" data - placement="top"data - animation="false" title = "Reject">Reject</button>';
                 },
                 "sortable": false,
                 "oderable": false
             }
         ],
+        success: function(res){
+            console.log(res);
+        }
     });
 
 }
@@ -99,11 +102,16 @@ function ShowReject(id) {
     $('#rejectModal').modal('show');
 }
 
-function Approve(id) {
+function Approve(idx) {
+    var approveVM = {
+        Id: table.row(idx).data().Id,
+        EmployeeId: table.row(idx).data().EmployeeId
+    };
     $.ajax({
-        url: "/HRDApproval/ApproveRequest/" + id,
+        url: "/HRDApproval/ApproveRequest",
         type: "POST",
         dataType: "JSON",
+        data: approveVM
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             Swal.fire('Success', result.Item2, 'success');
@@ -132,8 +140,6 @@ function Reject() {
         } else {
             Swal.fire('Error', result.Item2, 'error');
         }
-
-
     });
 }
 
