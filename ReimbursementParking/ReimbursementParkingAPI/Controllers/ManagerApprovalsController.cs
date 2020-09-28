@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.Bases;
 using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.Repositories;
+using ReimbursementParkingAPI.Services;
 using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
@@ -19,17 +20,18 @@ namespace ReimbursementParkingAPI.Controllers
     public class ManagerApprovalsController : BaseController<RequestReimbursementParking, ManagerApprovalRepository>
     {
         private readonly ManagerApprovalRepository _repo;
+        private readonly SendEmailService _sendEmail;
 
         public ManagerApprovalsController(ManagerApprovalRepository repository) : base(repository)
         {
             _repo = repository;
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("approve/{id}")]
-        public async Task<ActionResult> Approve(int id)
+        public async Task<ActionResult> Approve(int Id, ApproveRejectVM approveVM)
         {
-            var reimbursementRequest = await _repo.GetById(id);
+            var reimbursementRequest = await _repo.GetById(Id);
             reimbursementRequest.HRDResponseTime = DateTimeOffset.Now;
             reimbursementRequest.RequestReimbursementStatusEnumId = 3;
             var result = await _repo.Approve(reimbursementRequest);
@@ -37,12 +39,19 @@ namespace ReimbursementParkingAPI.Controllers
             {
                 return BadRequest("Server Error !");
             }
+            var emailData = new SendEmailVM()
+            {
+                Email = approveVM.Email,
+                Subject = "Reimbursement Status For Periode " + DateTimeOffset.Now.ToString("Y"),
+                Body = "Your Reimbursement Request Has been Approved by HRD"
+            };
+            _sendEmail.SendEmail(emailData);
             return Ok("Request Approved !");
         }
 
         [HttpPut]
         [Route("reject/{id}")]
-        public async Task<ActionResult> Reject(int id, StatusVM rejectVM)
+        public async Task<ActionResult> Reject(int id, ApproveRejectVM rejectVM)
         {
             var reimbursementRequest = await _repo.GetById(id);
             if (reimbursementRequest == null)
@@ -57,6 +66,14 @@ namespace ReimbursementParkingAPI.Controllers
             {
                 return BadRequest("Server Error !");
             }
+            var emailData = new SendEmailVM()
+            {
+                Email = rejectVM.Email,
+                Subject = "Reimbursement Status For Periode " + DateTimeOffset.Now.ToString("Y"),
+                Body = "Your Reimbursement Request Has been Rejected by HRD"
+            };
+            _sendEmail.SendEmail(emailData);
+
             return Ok("Request Rejected !");
         }
 

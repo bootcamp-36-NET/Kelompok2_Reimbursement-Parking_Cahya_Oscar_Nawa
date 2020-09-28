@@ -81,12 +81,21 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Json(reimbursementVM);
         }
-        public ActionResult<ExpandoObject> ApproveRequest(int id)
+        public ActionResult<ExpandoObject> ApproveRequest(int id, ApproveRejectVM approveVM)
         {
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            auth.DefaultRequestHeaders.Add("Authorization", authToken);
+            var resTaskUser = auth.GetAsync("Users/" + approveVM.EmployeeId);
+            resTaskUser.Wait();
 
-            var resTask = http.GetAsync("ManagerApprovals/approve/" + id);
+            var userResult = resTaskUser.Result;
+            var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
+            approveVM.Email = responseUserData.Email;
+
+            string stringData = JsonConvert.SerializeObject(approveVM);
+            var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            var resTask = http.PutAsync("ManagerApprovals/approve/" + id, contentData);
             resTask.Wait();
 
             var result = resTask.Result;
