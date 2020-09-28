@@ -41,11 +41,11 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public int Delete(string id)
+        public async Task<int> Delete(string id)
         {
             var sp = "SPDelete";
             param.Add("@id", id);
-            var del = con.Execute(sp, param, commandType: CommandType.StoredProcedure);
+            var del = await con.ExecuteAsync(sp, param, commandType: CommandType.StoredProcedure);
             return del;
         }
 

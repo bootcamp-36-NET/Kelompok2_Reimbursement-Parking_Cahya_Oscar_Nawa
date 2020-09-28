@@ -83,9 +83,9 @@ function LoadInitialCreateData() {
                 title: "Action",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-success" onclick="return Approve(' + meta.row + ')">Approve</button>'
-                        + '&nbsp;'
-                        + '<button onclick="ShowReject(' + meta.row + ')" class="btn btn-outline-danger" data - toggle="tooltip" data - placement="top"data - animation="false" title = "Reject">Reject</button>';
+                    return "<Button class='btn btn-success' onclick='return Approve(' + meta.row + ')'><i class='fa fa - lg fa - check'></i></button>"
+                        + "&nbsp;"
+                        + "<button onclick='ShowReject(' + meta.row + ')' class='btn btn-outline-danger' data - toggle='tooltip' data - placement='top'data - animation='false' title = 'Reject'><i class='fa fa - lg fa - window - close'></i></button>";
                 },
                 "sortable": false,
                 "oderable": false
@@ -273,8 +273,9 @@ function LoadRejectedByHRD() {
     });
 }
 
-function ShowReject(id) {
-    $('#Id').val(id);
+function ShowReject(idx) {
+    $('#Id').val(table.row(idx).data().Id);
+    $('#EmployeeId').val(table.row(idx).data().EmployeeId);
     $('#Reason').val('');
     $('#rejectModal').modal('show');
 }
@@ -301,7 +302,8 @@ function Approve(idx) {
 }
 function Reject() {
     var rejectVM = {
-        RequestId: $('#Id').val(),
+        Id: $('#Id').val(),
+        EmployeeId: $('#EmployeeId').val(),
         RejectReason: $('#Reason').val()
     }
     $.ajax({

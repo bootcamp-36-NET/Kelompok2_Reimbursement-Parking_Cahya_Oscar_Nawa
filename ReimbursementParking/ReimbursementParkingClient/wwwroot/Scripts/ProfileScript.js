@@ -12,14 +12,14 @@ function GetProfile() {
         dataType: "json",
     }).then((result) => {
         //debugger;
-        $('#Id').val(result.id);
-        $('#NIK').val(result.nik);
-        $('#Email').val(result.email);
-        $('#Name').val(result.name);
-        $('#Site').val(result.site);
-        $('#Phone').val(result.phone);
-        $('#Address').val(result.address);
-        $('#RoleOption').val(result.roleID);
+        $('#Id').val(result.Id);
+        $('#NIK').val(result.NIK);
+        $('#Email').val(result.Email);
+        $('#Name').val(result.Name);
+        $('#Site').val(result.Site);
+        $('#Phone').val(result.Phone);
+        $('#Address').val(result.Address);
+        $('#RoleOption').val(result.RoleID);
         $('#update').show();
         $('#myModal').modal('show');
     })

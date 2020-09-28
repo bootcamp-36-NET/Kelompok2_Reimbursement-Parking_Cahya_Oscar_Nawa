@@ -37,11 +37,12 @@ $(document).ready(function () {
                 "sortable": false,
                 "data": "Id",
                 "render": function (data, type, row) {
-                    console.log(row);
+                    if (row.ReimbursementStatus != "NewRequest") {
+                        $('[data-toggle="tooltip"]').tooltip();
+                        return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-times"></i></button>'
+                    }
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md btn-warning " data-placement="left" data-toggle="tooltip" data-animation="false" title="Edit" onclick="return GetById(' + data + ')" ><i class="fa fa-lg fa-edit"></i></button>'
-                        + '&nbsp;'
-                        + '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
+                    return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
                 }
             },
         ]
@@ -53,29 +54,37 @@ $(document).ready(function () {
     }).draw();
 });
 
-//function LoadDepart(element) {
-//    debugger;
-//    if (arrDepart.length === 0) {
-//        $.ajax({
-//            type: "Get",
-//            url: "/departments/LoadDepart",
-//            success: function (data) {
-//                arrDepart = data;
-//                renderDepart(element);
-//            }
-//        });
-//    }
-//    else {
-//        renderDepart(element);
-//    }
-//}
 
-//function renderDepart(element) {
-//    debugger;
-//    var $option = $(element);
-//    $option.empty();
-//    $option.append($('<option/>').val('0').text('Select Department').hide());
-//    $.each(arrDepart, function (i, val) {
-//        $option.append($('<option/>').val(val.Id).text(val.Name))
-//    });
-//}
+function Delete(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+        if (result.value) {
+            debugger;
+            $.ajax({
+                url: "/ViewRequest/Delete",
+                data: { id: id }
+            }).then((result) => {
+                debugger;
+                if (result.StatusCode == 200) {
+                    debugger;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Delete Successfully',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    table.ajax.reload(null, false);
+                } else {
+                    Swal.fire('Error', 'Failed to Delete', 'error');
+                }
+            })
+        };
+    });
+}
