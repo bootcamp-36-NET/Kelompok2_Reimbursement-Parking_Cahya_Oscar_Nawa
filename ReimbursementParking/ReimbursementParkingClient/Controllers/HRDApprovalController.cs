@@ -85,7 +85,6 @@ namespace ReimbursementParkingClient.Controllers
         {
             var authToken = HttpContext.Session.GetString("JWToken");
 
-
             userClient.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTaskUser = userClient.GetAsync("Users/" + rejectVM.EmployeeId);
             resTaskUser.Wait();
