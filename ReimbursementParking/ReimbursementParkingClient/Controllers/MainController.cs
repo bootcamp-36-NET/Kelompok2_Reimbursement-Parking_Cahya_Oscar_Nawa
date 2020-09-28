@@ -103,6 +103,7 @@ namespace ReimbursementParkingClient.Controllers
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
             
             var resTask = client.PostAsync("auths/login/", contentData);
+            resTask.Wait();
 
             var result = resTask.Result;
             var responseData = result.Content.ReadAsStringAsync().Result;
@@ -111,16 +112,19 @@ namespace ReimbursementParkingClient.Controllers
 
             if (result.IsSuccessStatusCode)
             {
+                HttpContext.Session.Clear();
                 var token = new JwtSecurityToken(jwtEncodedString: responseData);
                 var authToken = "Bearer " + responseData;
                 var isVerified = token.Claims.First(c => c.Type == "VerifyCode").Value;
+                var testId = token.Claims.First(c => c.Type == "Id").Value;
 
-                HttpContext.Session.SetString("Id", token.Claims.First(c => c.Type == "Id").Value);
+                HttpContext.Session.SetString("Id", testId);
                 HttpContext.Session.SetString("RoleName", token.Claims.First(c => c.Type == "RoleName").Value);
                 HttpContext.Session.SetString("Name", token.Claims.First(c => c.Type == "Name").Value);
                 HttpContext.Session.SetString("Email", token.Claims.First(c => c.Type == "Email").Value);
                 HttpContext.Session.SetString("VerifyCode", token.Claims.First(c => c.Type == "VerifyCode").Value);
                 HttpContext.Session.SetString("JWToken", authToken);
+                HttpContext.Session.CommitAsync();
 
                 resultVM.item2 = responseData;
                 resultVM.item3 = isVerified;

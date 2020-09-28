@@ -26,6 +26,7 @@ namespace ReimbursementParkingClient.Controllers
         public ActionResult LoadRequest()
         {
             IEnumerable<ReimbursementVM> reimbursementVMs = null;
+            HttpContext.Session.LoadAsync();
             var getId = HttpContext.Session.GetString("Id");
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var resTask = client.GetAsync("RequestReimbursementParkings/" + getId);
@@ -45,26 +46,6 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Json(reimbursementVMs);
         }
-
-        //public ActionResult LoadRequest()
-        //{
-        //    ReimbursementVM reimbursementVMs = null;
-        //    var getId = client.GetAsync("id");
-        //    var resTask = client.GetAsync("RequestReimbursementParkings/ " + getId);
-        //    resTask.Wait();
-
-        //    var result = resTask.Result;
-        //    if (result.IsSuccessStatusCode)
-        //    {
-        //        var getJson = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
-        //        reimbursementVMs = JsonConvert.DeserializeObject<ReimbursementVM>(getJson);
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
-        //    }
-        //    return Json(reimbursementVMs);
-        //}
 
         public IActionResult Delete(string id)
         {
