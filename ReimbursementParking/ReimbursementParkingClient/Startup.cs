@@ -35,7 +35,7 @@ namespace ReimbursementParkingClient
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews().
                     AddJsonOptions(options =>
                     {
@@ -64,11 +64,11 @@ namespace ReimbursementParkingClient
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseSession();
+            
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

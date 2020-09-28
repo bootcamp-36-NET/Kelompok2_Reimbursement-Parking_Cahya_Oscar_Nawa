@@ -25,7 +25,7 @@ function CreateNewRequest() {
     if (check == false) {
         return false;
     }
-
+    var a = $('#ReimbursementFile')[0].files[0];
     let formData = new FormData();
     formData.append('EmployeeId', $('#EmployeeId').val());
     formData.append('Name', $('#Name').val());
@@ -36,22 +36,22 @@ function CreateNewRequest() {
     formData.append('ParkingAddress', $('#ParkingAddress').val());
     formData.append('ParkingName', $('#ParkingName').val());
     formData.append('PaymentType', $('#PaymentType').val());
-    formData.append('ReimbursementFile', $('#ReimbursementFile').val(), $('#ReimbursementFile').val().Name);     
+    formData.append('ReimbursementFile', $('#ReimbursementFile')[0].files[0]);
 
-$.ajax({
-    url: "/RequestReimbursementParking/CreateReimbursement",
-    data: formData,
-    headers: { "Content-Type": undefined },
-    cache: false,
-    type: "GET",
-    dataType: "JSON"
-}).then((result) => {
-    if (result.Item1.StatusCode == 200) {
-
-    } else {
-
-    }
-});
+    $.ajax({
+        url: "/RequestReimbursementParking/CreateReimbursement",
+        data: formData,
+        type: 'post',
+        contentType: false,
+        processData: false,
+    }).then((result) => {
+        if (result.Item1.StatusCode == 200) {
+            ClearForm();
+            Swal.fire('scuccess', 'success', 'success');
+        } else {
+            Swal.fire('Error', 'Error', 'Error');
+        }
+    });
 }
 
 function validate() {
@@ -113,4 +113,15 @@ function validate() {
         $('#PaymentType').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+function ClearForm() {
+    $('#PLATNumber').val('');
+    $('#VehicleOwner').val('');
+    $('#VehicleType').val('');
+    $('#TotalPrice').val('');
+    $('#ParkingAddress').val('');
+    $('#ParkingName').val('');
+    $('#PaymentType').val('');
+    $('#ReimbursementFile').val('');
 }

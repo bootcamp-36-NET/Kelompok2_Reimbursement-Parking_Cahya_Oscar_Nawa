@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
@@ -18,6 +19,7 @@ namespace ReimbursementParkingClient.Controllers
         {
             BaseAddress = new Uri("http://winarto-001-site1.dtempurl.com/api/")
         };
+
         public IActionResult Index()
         {
             return View();
@@ -93,8 +95,10 @@ namespace ReimbursementParkingClient.Controllers
 
         }
         [Route("login-validate")]
-        public IActionResult Login(LoginViewModel loginVM)
+        public ActionResult<ExpandoObject> Login(LoginViewModel loginVM)
         {
+            dynamic resultVM = new ExpandoObject();
+
             string stringData = JsonConvert.SerializeObject(loginVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
@@ -103,11 +107,15 @@ namespace ReimbursementParkingClient.Controllers
             var result = resTask.Result;
             var responseData = result.Content.ReadAsStringAsync().Result;
 
+            resultVM.item1 = result;
+
             if (result.IsSuccessStatusCode)
             {
                 var token = new JwtSecurityToken(jwtEncodedString: responseData);
                 var authToken = "Bearer " + responseData;
                 var isVerified = token.Claims.First(c => c.Type == "VerifyCode").Value;
+                var a = token.Claims.First(c => c.Type == "Id").Value;
+                var b = token.Claims.First(c => c.Type == "Name").Value;
 
                 HttpContext.Session.SetString("Id", token.Claims.First(c => c.Type == "Id").Value);
                 HttpContext.Session.SetString("RoleName", token.Claims.First(c => c.Type == "RoleName").Value);
@@ -116,9 +124,15 @@ namespace ReimbursementParkingClient.Controllers
                 HttpContext.Session.SetString("VerifyCode", token.Claims.First(c => c.Type == "VerifyCode").Value);
                 HttpContext.Session.SetString("JWToken", authToken);
 
-                return Json((result, responseData, isVerified), new Newtonsoft.Json.JsonSerializerSettings());
+                resultVM.item2 = responseData;
+                resultVM.item3 = isVerified;
+
+                return Json(resultVM);
             }
-            return Json((result, responseData, responseData), new Newtonsoft.Json.JsonSerializerSettings());
+            resultVM.item2 = null;
+            resultVM.item3 = null;
+
+            return Json(resultVM);
         }
         [Route("logout")]
         public IActionResult Logout()

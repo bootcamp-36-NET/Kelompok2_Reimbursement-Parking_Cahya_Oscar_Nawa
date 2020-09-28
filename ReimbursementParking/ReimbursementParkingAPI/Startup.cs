@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ReimbursementParkingAPI.Context;
 using ReimbursementParkingAPI.Repositories;
+using ReimbursementParkingAPI.Services;
 
 namespace ReimbursementParkingAPI
 {
@@ -35,6 +36,7 @@ namespace ReimbursementParkingAPI
             services.AddTransient<RequestReimbursementRepository>();
             services.AddTransient<ManagerRepository>();
             services.AddTransient<HRDApprovalRepository>();
+            services.AddTransient<SendEmailService>();
 
         }
 

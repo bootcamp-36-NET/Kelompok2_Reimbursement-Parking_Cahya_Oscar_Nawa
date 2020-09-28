@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.ViewModels
 {
-    public class RejectVM
+    public class SendEmailVM
     {
-        public int RequestId { get; set; }
-        public string RejectReason { get; set; }
+        public string Email { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
     }
 }

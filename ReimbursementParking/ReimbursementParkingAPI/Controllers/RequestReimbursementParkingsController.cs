@@ -36,7 +36,7 @@ namespace ReimbursementParkingAPI.Controllers
             var maxFileSize = 4194304;
             if (model.ReimbursementFile.ContentType != "application/zip")
             {
-                return BadRequest("Uploaded File Must be Zip !");
+                //return BadRequest("Uploaded File Must be Zip !");
             }
             if (model.ReimbursementFile.Length > maxFileSize)
             {
