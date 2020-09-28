@@ -360,8 +360,11 @@ C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.TagHelpers.output.cache
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.RazorCoreGenerate.cache
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Index.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Profile.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\ErrorHandler\ErrorHandler.cshtml.g.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\HRDApproval\Index.cshtml.g.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Layout.cshtml.g.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Login.cshtml.g.cs
 C:\1 File Kanawa\Bootcamp MII\GitHub\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Main\Index.cshtml.g.cs
