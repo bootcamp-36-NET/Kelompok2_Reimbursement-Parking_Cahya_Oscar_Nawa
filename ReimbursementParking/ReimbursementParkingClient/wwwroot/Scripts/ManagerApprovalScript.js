@@ -6,6 +6,7 @@ $(document).ready(function () {
 });
 
 function LoadInitialCreateData() {
+    debugger;
     table = $('#MydataTable').DataTable({
         ajax: {
             url: "/ManagerApproval/LoadApprovalManager",
@@ -21,7 +22,7 @@ function LoadInitialCreateData() {
                 }
             },
             { title: "Employee ID", data: "EmployeeId" },
-            { title: "Reimbursement Status", data: "ReimbursementStatus" },
+            //{ title: "Reimbursement Status", data: "ReimbursementStatus" },
             {
                 title: "Request Date",
                 data: "RequestDate",
@@ -84,6 +85,8 @@ function Approve(idx) {
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             Swal.fire('Success', result.Item2, 'success');
+            tableManager.create();
+            tableApprovedByManager.create();
 
         } else {
             Swal.fire('Error', result.Item2, 'error');

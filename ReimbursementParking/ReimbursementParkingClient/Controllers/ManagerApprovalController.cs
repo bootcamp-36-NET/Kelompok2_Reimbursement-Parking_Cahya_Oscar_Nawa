@@ -110,10 +110,19 @@ namespace ReimbursementParkingClient.Controllers
 
             return Json(resultVM);
         }
-        public JsonResult UpdateReject(StatusVM statusVM, int Id)
+        public JsonResult UpdateReject(ApproveRejectVM statusVM, int Id)
         {
             try
             {
+                var authToken = HttpContext.Session.GetString("JWToken");
+                auth.DefaultRequestHeaders.Add("Authorization", authToken);
+                var resTaskUser = auth.GetAsync("Users/" + statusVM.EmployeeId);
+                resTaskUser.Wait();
+
+                var userResult = resTaskUser.Result;
+                var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
+                statusVM.Email = responseUserData.Email;
+
                 var json = JsonConvert.SerializeObject(statusVM);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(json);
                 var byteContent = new ByteArrayContent(buffer);
