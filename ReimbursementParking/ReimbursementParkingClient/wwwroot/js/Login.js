@@ -19,7 +19,7 @@
 //};
 function myLogin() {
     //debugger;
-    //Swal.showLoading()
+    Swal.showLoading()
     //var check = validate();
     //if (check == false) {
     //    Swal.fire('Error', 'Invalid Data', 'error');
@@ -30,7 +30,7 @@ function myLogin() {
         Password: $('#password').val()
     };
     $.ajax({
-        url: "/login-validate/",
+        url: "/login-validate",
         data: loginVM,
         cache: false,
         type: "POST",

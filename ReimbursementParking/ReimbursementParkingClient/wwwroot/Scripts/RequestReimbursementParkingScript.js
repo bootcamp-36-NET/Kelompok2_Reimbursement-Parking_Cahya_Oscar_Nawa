@@ -128,15 +128,7 @@ function validate() {
         }
         else {
             $('#ReimbursementFile').css('border-color', 'lightgrey');
-            return false;
         }
-    }
-
-    if ($('#ReimbursementFile').files.length == 0) {
-        
-    }
-    else {
-        
     }
     return isValid;
 }
@@ -145,7 +137,6 @@ var table = null;
 var arrDepart = [];
 
 $(document).ready(function () {
-    debugger;
     table = $('#requestReimbursement').DataTable({
         "processing": true,
         "responsive": true,
