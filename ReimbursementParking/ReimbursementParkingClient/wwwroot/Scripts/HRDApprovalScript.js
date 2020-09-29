@@ -28,7 +28,7 @@ function LoadInitialCreateData() {
 
             },
             {
-                title: "Employee Id",
+                title: "Employee ID",
                 data: "EmployeeId"
             },
             {
@@ -74,7 +74,7 @@ function LoadInitialCreateData() {
                 title: "File Data",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')">Download File</button>';
+                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
                 },
                 "sortable": false,
                 "oderable": false
@@ -83,9 +83,9 @@ function LoadInitialCreateData() {
                 title: "Action",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return "<Button class='btn btn-success' onclick='return Approve(' + meta.row + ')'><i class='fa fa - lg fa - check'></i></button>"
+                    return '<Button class="btn btn-outline-success" data-placement="left"  data-toggle="Reject" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
                         + "&nbsp;"
-                        + "<button onclick='ShowReject(' + meta.row + ')' class='btn btn-outline-danger' data - toggle='tooltip' data - placement='top'data - animation='false' title = 'Reject'><i class='fa fa - lg fa - window - close'></i></button>";
+                        + '<button onclick="ShowReject(' + meta.row + ')" class="btn btn-outline-danger" data-placement="right" data-toggle="Reject title = "Reject"><i class="fa fa-lg fa-window-close"></i></button>';
                 },
                 "sortable": false,
                 "oderable": false
@@ -342,6 +342,70 @@ function DownloadFolder(Id) {
         }
     });
 }
+
+$(function () {
+    var oTable = $('#dataTable').DataTable({
+        "oLanguage": {
+            "sSearch": "Filter Data"
+        },
+        "iDisplayLength": -1,
+        "sPaginationType": "full_numbers",
+
+    });
+
+    $("#datepicker_from").datepicker({
+        showOn: "button",
+        buttonImage: "images/calendar.gif",
+        buttonImageOnly: false,
+        "onSelect": function (date) {
+            minDateFilter = new Date(date).getTime();
+            oTable.fnDraw();
+        }
+    }).keyup(function () {
+        minDateFilter = new Date(this.value).getTime();
+        oTable.fnDraw();
+    });
+
+    $("#datepicker_to").datepicker({
+        showOn: "button",
+        buttonImage: "images/calendar.gif",
+        buttonImageOnly: false,
+        "onSelect": function (date) {
+            maxDateFilter = new Date(date).getTime();
+            oTable.fnDraw();
+        }
+    }).keyup(function () {
+        maxDateFilter = new Date(this.value).getTime();
+        oTable.fnDraw();
+    });
+
+});
+
+// Date range filter
+minDateFilter = "";
+maxDateFilter = "";
+
+$.fn.dataTableExt.afnFiltering.push(
+    function (oSettings, aData, iDataIndex) {
+        if (typeof aData._date == 'undefined') {
+            aData._date = new Date(aData[0]).getTime();
+        }
+
+        if (minDateFilter && !isNaN(minDateFilter)) {
+            if (aData._date < minDateFilter) {
+                return false;
+            }
+        }
+
+        if (maxDateFilter && !isNaN(maxDateFilter)) {
+            if (aData._date > maxDateFilter) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+);
 
 function saveByteArray(reportName, byte) {
     var blob = new Blob([byte]);
