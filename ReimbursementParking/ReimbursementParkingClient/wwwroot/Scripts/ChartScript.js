@@ -60,7 +60,7 @@ am4core.ready(function () {
 
     // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = moment(ManagerResponseTime).format("MMM");
+    categoryAxis.dataFields.category = "ManagerResponseTime";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     categoryAxis.renderer.labels.template.horizontalCenter = "right";
@@ -76,7 +76,7 @@ am4core.ready(function () {
     var series = chart.series.push(new am4charts.ColumnSeries());
     series.sequencedInterpolation = true;
     series.dataFields.valueY = "total";
-    series.dataFields.categoryX = moment(ManagerResponseTime).format("MMM");
+    series.dataFields.categoryX = "ManagerResponseTime";
     series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
     series.columns.template.strokeWidth = 0;
 
