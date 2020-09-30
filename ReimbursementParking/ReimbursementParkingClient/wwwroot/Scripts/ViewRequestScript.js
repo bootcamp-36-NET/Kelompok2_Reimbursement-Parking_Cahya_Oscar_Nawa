@@ -2,7 +2,7 @@
 var arrDepart = [];
 
 $(document).ready(function () {
-    debugger;
+    //debugger;
     table = $('#requestReimbursement').DataTable({
         "processing": true,
         "responsive": true,

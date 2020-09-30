@@ -3,7 +3,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
-
+<style type="text/css">
+    .ui-datepicker {
+        background: #ffffff;
+        border: 1px solid #000000;
+        color: #000000;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -37,11 +43,11 @@
                             <div class="col-md-4 pull-right">
                                 <div class="input-group input-daterange">
 
-                                    <input type="date" id="min" class="form-control date-range-filter" placeholder="From:">
+                                    <input type="text" id="min" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="From:">
 
                                     <div class="input-group-addon">to</div>
 
-                                    <input type="date" id="max" class="form-control date-range-filter"  placeholder="To:">
+                                    <input type="text" id="max" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="To:">
 
                                 </div>
                             </div>
@@ -141,6 +147,7 @@
     <script src="~/DataTables/js/buttons.html5.min.js"></script>
     <script src="~/DataTables/js/buttons.print.min.js"></script>
     <script src="~/assets/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous"></script>
     <script src="~/Scripts//ManagerApprovalScript.js"></script>
     <script>
         $(document).ready(function () {
