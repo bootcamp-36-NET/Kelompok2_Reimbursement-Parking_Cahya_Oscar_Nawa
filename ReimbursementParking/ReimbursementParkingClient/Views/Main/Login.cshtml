@@ -27,9 +27,9 @@
 
             <div class="flex-sb-m w-full p-t-3 p-b-32">
                 <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="showPassword" onclick="myFunction()">
                     <label class="label-checkbox100" for="ckb1">
-                        Remember me
+                        Show Password
                     </label>
                 </div>
 
@@ -71,5 +71,15 @@
 
 @section scriptLogin{
     <script src="~/js/Login.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 }
 
