@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
 using Newtonsoft.Json;
 using ReimbursementParkingClient.ViewModels;
 
@@ -98,44 +99,39 @@ namespace ReimbursementParkingClient.Controllers
         public ActionResult<ExpandoObject> Login(LoginViewModel loginVM)
         {
             dynamic resultVM = new ExpandoObject();
-
             string stringData = JsonConvert.SerializeObject(loginVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
             
-            var resTask = client.PostAsync("auths/login/", contentData);
+            var resTask = client.PostAsync("auths/login", contentData);
             resTask.Wait();
-
             var result = resTask.Result;
             var responseData = result.Content.ReadAsStringAsync().Result;
-
-            resultVM.item1 = result;
+            resultVM.Item1 = result;
+            resultVM.Item2 = responseData;
 
             if (result.IsSuccessStatusCode)
             {
-                HttpContext.Session.Clear();
                 var token = new JwtSecurityToken(jwtEncodedString: responseData);
                 var authToken = "Bearer " + responseData;
                 var isVerified = token.Claims.First(c => c.Type == "VerifyCode").Value;
-                var testId = token.Claims.First(c => c.Type == "Id").Value;
 
-                HttpContext.Session.SetString("Id", testId);
+                HttpContext.Session.SetString("Id", token.Claims.First(c => c.Type == "Id").Value);
                 HttpContext.Session.SetString("RoleName", token.Claims.First(c => c.Type == "RoleName").Value);
                 HttpContext.Session.SetString("Name", token.Claims.First(c => c.Type == "Name").Value);
                 HttpContext.Session.SetString("Email", token.Claims.First(c => c.Type == "Email").Value);
                 HttpContext.Session.SetString("VerifyCode", token.Claims.First(c => c.Type == "VerifyCode").Value);
                 HttpContext.Session.SetString("JWToken", authToken);
-                HttpContext.Session.CommitAsync();
 
-                resultVM.item2 = responseData;
-                resultVM.item3 = isVerified;
+                resultVM.Item3 = isVerified;
 
                 return Json(resultVM);
             }
-            resultVM.item2 = null;
-            resultVM.item3 = null;
+
+            resultVM.Item3 = "";
 
             return Json(resultVM);
         }
+
         [Route("logout")]
         public IActionResult Logout()
         {

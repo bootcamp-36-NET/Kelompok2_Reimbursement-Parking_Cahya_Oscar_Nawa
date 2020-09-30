@@ -37,11 +37,12 @@ $(document).ready(function () {
                 "sortable": false,
                 "data": "Id",
                 "render": function (data, type, row) {
-                    console.log(row);
+                    if (row.ReimbursementStatus != "NewRequest") {
+                        $('[data-toggle="tooltip"]').tooltip();
+                        return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-times"></i></button>'
+                    }
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md btn-warning " data-placement="left" data-toggle="tooltip" data-animation="false" title="Edit" onclick="return GetById(' + data + ')" ><i class="fa fa-lg fa-edit"></i></button>'
-                        + '&nbsp;'
-                        + '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
+                    return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
                 }
             },
         ]
@@ -52,6 +53,7 @@ $(document).ready(function () {
         });
     }).draw();
 });
+
 
 function Delete(id) {
     Swal.fire({
@@ -81,7 +83,6 @@ function Delete(id) {
                     table.ajax.reload(null, false);
                 } else {
                     Swal.fire('Error', 'Failed to Delete', 'error');
-                    ClearScreen();
                 }
             })
         };

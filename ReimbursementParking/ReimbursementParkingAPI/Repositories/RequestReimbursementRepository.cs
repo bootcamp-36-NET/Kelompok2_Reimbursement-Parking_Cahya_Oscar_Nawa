@@ -41,11 +41,11 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public int Delete(string id)
+        public async Task<int> Delete(string id)
         {
             var sp = "SPDelete";
             param.Add("@id", id);
-            var del = con.Execute(sp, param, commandType: CommandType.StoredProcedure);
+            var del = await con.ExecuteAsync(sp, param, commandType: CommandType.StoredProcedure);
             return del;
         }
 
@@ -76,6 +76,7 @@ namespace ReimbursementParkingAPI.Repositories
             };
             _context.RequestReimbursementParkings.Add(reimbursement);
             await _context.SaveChangesAsync();
+
             var fileContent = new byte[0];
             using (var ms = new MemoryStream())
             {
@@ -110,7 +111,7 @@ namespace ReimbursementParkingAPI.Repositories
              _context.RequestDetails.Add(requestDetail);
 
             var result = await _context.SaveChangesAsync();
-            if (result == 0)
+            if (result < 0)
             {
                 return "Server Error !";
             }

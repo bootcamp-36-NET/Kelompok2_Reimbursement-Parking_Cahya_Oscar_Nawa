@@ -68,7 +68,7 @@ namespace ReimbursementParkingClient.Controllers
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             //client.DefaultRequestHeaders.Add("Authorization", authToken);
-            var resTask = client.PutAsync("HRDApprovals/approve", contentData );
+            var resTask = client.PutAsync("HRDApprovals/approve", contentData);
             resTask.Wait();
 
             var result = resTask.Result;
@@ -83,12 +83,21 @@ namespace ReimbursementParkingClient.Controllers
 
         public ActionResult<ExpandoObject> RejectRequest(ApproveRejectVM rejectVM)
         {
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+
+            userClient.DefaultRequestHeaders.Add("Authorization", authToken);
+            var resTaskUser = userClient.GetAsync("Users/" + rejectVM.EmployeeId);
+            resTaskUser.Wait();
+
+            var userResult = resTaskUser.Result;
+            var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
+            rejectVM.Email = responseUserData.Email;
+
 
             string stringData = JsonConvert.SerializeObject(rejectVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
+            //client.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTask = client.PutAsync("HRDApprovals/reject", contentData);
             resTask.Wait();
 
@@ -126,5 +135,45 @@ namespace ReimbursementParkingClient.Controllers
 
             return Json(resultVM);
         }
+
+        public JsonResult GetApprovedByHRD()
+        {
+            IEnumerable<StatusVM> reimbursementVM = null;
+
+            //var token = HttpContext.Session.GetString("JWToken");
+            //http.DefaultRequestHeaders.Add("Authorization", token);
+
+            var restTask = client.GetAsync("Manager/approve");
+            restTask.Wait();
+
+            var result = restTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IList<StatusVM>>();
+                readTask.Wait();
+                reimbursementVM = readTask.Result;
+            }
+            return Json(reimbursementVM);
+        }
+        public JsonResult GetRejectedByHRD()
+        {
+            IEnumerable<StatusVM> reimbursementVM = null;
+
+            //var token = HttpContext.Session.GetString("JWToken");
+            //http.DefaultRequestHeaders.Add("Authorization", token);
+
+            var restTask = client.GetAsync("Manager/reject");
+            restTask.Wait();
+
+            var result = restTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IList<StatusVM>>();
+                readTask.Wait();
+                reimbursementVM = readTask.Result;
+            }
+            return Json(reimbursementVM);
+        }
+
     }
 }

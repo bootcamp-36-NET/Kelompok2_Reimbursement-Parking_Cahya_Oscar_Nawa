@@ -35,23 +35,17 @@ namespace ReimbursementParkingClient
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
+            services.AddSession();
+
             services.AddControllersWithViews().
                     AddJsonOptions(options =>
                     {
                         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                         options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                    });
+                    });         
 
-            services.AddControllersWithViews();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddSession(opts =>
-            {
-                opts.IdleTimeout = TimeSpan.FromDays(1);
-                opts.Cookie.IsEssential = true; // make the session cookie Essential
-                opts.Cookie.HttpOnly = true;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,8 +67,6 @@ namespace ReimbursementParkingClient
             app.UseCookiePolicy();
             
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {

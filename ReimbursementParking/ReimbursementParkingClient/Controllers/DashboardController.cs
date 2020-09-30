@@ -40,8 +40,8 @@ namespace ReimbursementParkingClient.Controllers
         public IActionResult GetProfile()
         {
             UserVM data = null;
-            var id = HttpContext.Session.GetString("id");
-            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+            var id = HttpContext.Session.GetString("Id");
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWToken"));
             var resTask = client.GetAsync("users/" + id);
             resTask.Wait();
 
@@ -61,7 +61,7 @@ namespace ReimbursementParkingClient.Controllers
         [Route("updProfile")]
         public IActionResult UpdProfile(UserVM data)
         {
-            var id = HttpContext.Session.GetString("id");
+            var id = HttpContext.Session.GetString("Id");
             try
             {
                 var json = JsonConvert.SerializeObject(data);
@@ -71,10 +71,16 @@ namespace ReimbursementParkingClient.Controllers
 
                 if (data.Id == id)
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
-                    var result = client.PutAsync("users/" + id, byteContent).Result;
-                    HttpContext.Session.Remove("name");
-                    HttpContext.Session.SetString("name", data.Name);
+                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWToken"));
+                    var result = client.PutAsync("users/" + id, byteContent);
+                    result.Wait();
+                    var resData = result.Result;
+
+                    var responseData = resData.Content.ReadAsStringAsync().Result;
+
+                  
+                    HttpContext.Session.Remove("Name");
+                    HttpContext.Session.SetString("Name", data.Name);
                     return Json(result);
                 }
 

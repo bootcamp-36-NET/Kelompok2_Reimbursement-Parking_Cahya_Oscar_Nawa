@@ -51,7 +51,7 @@ namespace ReimbursementParkingAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {
-            var del = _repo.Delete(id);
+            var del = await _repo.Delete(id);
             if (del > 0)
             {
                 return Ok("Successfully Delete");
@@ -62,14 +62,14 @@ namespace ReimbursementParkingAPI.Controllers
         [HttpPost("{id}")]
         public async Task<ActionResult> CreateNewReimbursementRequest(string id, [FromForm]InsertReimbursementVM model)
         {
-            var maxFileSize = 4194304;
-            if (model.ReimbursementFile.ContentType != "application/zip")
+            var maxFileSize = 1048576;
+            if (model.ReimbursementFile.ContentType != "application/pdf")
             {
-                //return BadRequest("Uploaded File Must be Zip !");
+                //return BadRequest("Uploaded File Must be PDF !");
             }
             if (model.ReimbursementFile.Length > maxFileSize)
             {
-                return BadRequest("Uploaded File Maximum Size is 4MB !");
+                return BadRequest("Uploaded File Maximum Size is 1MB !");
             }
             if (model.TotalPrice > 150000)
             {

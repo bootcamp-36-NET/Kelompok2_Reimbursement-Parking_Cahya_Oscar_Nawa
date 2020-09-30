@@ -36,6 +36,7 @@ namespace ReimbursementParkingAPI
             services.AddTransient<RequestReimbursementRepository>();
             services.AddTransient<ManagerRepository>();
             services.AddTransient<HRDApprovalRepository>();
+            services.AddTransient<ManagerApprovalRepository>();
             services.AddTransient<SendEmailService>();
 
         }
@@ -52,7 +53,7 @@ namespace ReimbursementParkingAPI
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
