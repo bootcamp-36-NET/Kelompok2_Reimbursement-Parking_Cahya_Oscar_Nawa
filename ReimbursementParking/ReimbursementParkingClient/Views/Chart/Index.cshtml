@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- DONUT CHART -->
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Donut Chart</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="amChart" id="pieChart" style="height:230px; min-height:230px"></div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col (LEFT) -->
+                    <div class="col-md-6">
+                        <!-- BAR CHART -->
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Bar Chart</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart">
+                                    <div class="amChart" id="barChart" style="height:230px; min-height:230px"></div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                    <!-- /.col (RIGHT) -->
+                    <div class="col-md-12">
+                        <!-- BAR CHART -->
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Bar Chart</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart">
+                                    <canvas id="myChart" style="height:230px; min-height:230px"></canvas>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+@section scriptAdminLTE{
+    <script src="~/Scripts/ChartScript.js"></script>
+
+}
+
+
+

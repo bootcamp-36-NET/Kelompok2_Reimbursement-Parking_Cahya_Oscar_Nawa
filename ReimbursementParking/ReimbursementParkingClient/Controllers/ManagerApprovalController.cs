@@ -110,24 +110,33 @@ namespace ReimbursementParkingClient.Controllers
 
             return Json(resultVM);
         }
-        public JsonResult UpdateReject(StatusVM statusVM, int Id)
+        public JsonResult UpdateReject(ApproveRejectVM statusVM, int Id)
         {
             try
             {
-                var json = JsonConvert.SerializeObject(statusVM);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var authToken = HttpContext.Session.GetString("JWToken");
+                auth.DefaultRequestHeaders.Add("Authorization", authToken);
+                var resTaskUser = auth.GetAsync("Users/" + statusVM.EmployeeId);
+                resTaskUser.Wait();
 
-                //var token = HttpContext.Session.GetString("JWToken");
-                //http.DefaultRequestHeaders.Add("authorization", token);
-                if (Id > 0)
-                {
-                    var result = http.PutAsync("ManagerApprovals/reject/" + Id, byteContent).Result;
-                    return Json(result);
-                }
+                var userResult = resTaskUser.Result;
+                var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
+                statusVM.Email = responseUserData.Email;
 
-                return Json(404);
+                string stringData = JsonConvert.SerializeObject(statusVM);
+                var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+                var resTask = http.PutAsync("ManagerApprovals/reject/" + Id, contentData);
+                resTask.Wait();
+
+                var result = resTask.Result;
+                var responseData = result.Content.ReadAsStringAsync().Result;
+
+                dynamic resultVM = new ExpandoObject();
+                resultVM.Item1 = result;
+                resultVM.Item2 = responseData;
+                
+                return Json(resultVM);
+
             }
             catch (Exception ex)
             {

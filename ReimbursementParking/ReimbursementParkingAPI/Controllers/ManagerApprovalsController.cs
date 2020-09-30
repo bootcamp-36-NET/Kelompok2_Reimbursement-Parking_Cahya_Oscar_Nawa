@@ -33,7 +33,7 @@ namespace ReimbursementParkingAPI.Controllers
         public async Task<ActionResult> Approve(int Id, ApproveRejectVM approveVM)
         {
             var reimbursementRequest = await _repo.GetById(Id);
-            reimbursementRequest.HRDResponseTime = DateTimeOffset.Now;
+            reimbursementRequest.ManagerResponseTime = DateTimeOffset.Now;
             reimbursementRequest.RequestReimbursementStatusEnumId = 3;
             var result = await _repo.Approve(reimbursementRequest);
             if (result < 0)
@@ -59,7 +59,7 @@ namespace ReimbursementParkingAPI.Controllers
             {
                 return BadRequest("Data Not Found !");
             }
-            reimbursementRequest.HRDResponseTime = DateTimeOffset.Now;
+            reimbursementRequest.ManagerResponseTime = DateTimeOffset.Now;
             reimbursementRequest.RequestReimbursementStatusEnumId = 5;
             reimbursementRequest.RejectReason = rejectVM.RejectReason;
             var result = await _repo.Approve(reimbursementRequest);
