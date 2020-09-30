@@ -27,7 +27,13 @@ $(document).ready(function () {
             { "data": null },
             { "data": "Id" },
             { "data": "PLATNumber" },
-            { "data": "RequestDate" },
+            {
+                "data": "RequestDate",
+                'render': function (jsonDate) {
+                    var date = new Date(jsonDate);
+                    return moment(date).format('DD MMMM YYYY');
+                }
+            },
             { "data": "ParkingName" },
             { "data": "ParkingAddress" },
             { "data": "TotalPrice" },
