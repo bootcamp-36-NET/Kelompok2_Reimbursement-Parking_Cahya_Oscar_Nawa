@@ -6,11 +6,10 @@ var rejectedTable = null;
 $(document).ready(function () {
     LoadInitialCreateData();
 
-    $.fn.dataTable.ext.search.push(
+   $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var min = $('#min-date').val();
-            var a = $('#mindate').datepicker("getDate");
-            var max = $('#max-date').datepicker("getDate");
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
             var startDate = new Date(data[10]);
             if (min == null && max == null) { return true; }
             if (min == null && startDate <= max) { return true; }
@@ -20,16 +19,11 @@ $(document).ready(function () {
         }
     );
 
-    $('#min-date').datetimepicker({
-        onSelect: function () { 
-            table.draw();
-        }
-    });
-    //$("#min-date").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-    $("#max-date").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
 
     // Event listener to the two range filtering inputs to redraw on input
-    $('#min-date, #max-date').change(function () {
+    $('#min, #max').change(function () {
         table.draw();
     });
 });

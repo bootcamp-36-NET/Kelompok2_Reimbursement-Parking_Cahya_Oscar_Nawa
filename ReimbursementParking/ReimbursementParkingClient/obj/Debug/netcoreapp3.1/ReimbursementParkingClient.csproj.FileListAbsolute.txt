@@ -360,7 +360,6 @@ C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\R
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.csproj.CoreCompileInputs.cache
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\appsettings.json
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -534,3 +533,5 @@ D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.dll
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.pdb
 D:\FileKerja\MII\ProjectNetCore\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\ReimbursementParkingClient.genruntimeconfig.cache
+C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Chart\Index.cshtml.g.cs
+C:\Users\Geraldy\source\repos\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\ReimbursementParking\ReimbursementParkingClient\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_ErrorHandler.cshtml.g.cs
