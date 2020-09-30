@@ -1,12 +1,33 @@
 ﻿var table = null;
 var approvedTable = null;
 var rejectedTable = null;
-var zip = new JSZip();
+
 
 $(document).ready(function () {
     LoadInitialCreateData();
     LoadApprovedByHRD();
     LoadRejectedByHRD();
+
+   $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[10]);
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    );
+
+    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function () {
+        table.draw();
+    });
 });
 
 function LoadInitialCreateData() {
@@ -64,9 +85,19 @@ function LoadInitialCreateData() {
             },
             {
                 title: "Periode",
-                data: null,
+                data: "RequestDate",
                 render: function (data, type, row) {
                     var currPeriode = moment().format("MMMM YYYY");
+                    return currPeriode;
+                },
+                sortable: false,
+                oderable: false
+            },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (data, type, row) {
+                    var currPeriode = moment().format("MM/DD/YYYY");
                     return currPeriode;
                 },
                 sortable: false,
