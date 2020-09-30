@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 function LoadInitialCreateData() {
-    //debugger;
+    debugger;
     table = $('#MydataTable').DataTable({
         ajax: {
             url: "/ManagerApproval/LoadApprovalManager",
@@ -66,6 +66,7 @@ function LoadInitialCreateData() {
 }
 var tableApprovedByManager = {
     create: function () {
+        debugger;
         if ($.fn.DataTable.isDataTable('#Mydata')) {
             $('#Mydata').DataTable().clear();
             $('#Mydata').DataTable().destroy();
@@ -154,6 +155,7 @@ var tableApprovedByManager = {
 };
 var tableRejectedByManager = {
     create: function () {
+        debugger;
         if ($.fn.DataTable.isDataTable('#MydataReject')) {
             $('#MydataReject').DataTable().clear();
             $('#MydataReject').DataTable().destroy();

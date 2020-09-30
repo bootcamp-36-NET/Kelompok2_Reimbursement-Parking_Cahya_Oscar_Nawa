@@ -29,7 +29,6 @@ namespace ReimbursementParkingClient.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult GetAllRequestHRD()
         {
             IEnumerable<ApprovalViewModel> reimbursementRequest = null;
@@ -37,7 +36,7 @@ namespace ReimbursementParkingClient.Controllers
             //var authToken = HttpContext.Session.GetString("JWToken");
             //client.DefaultRequestHeaders.Add("Authorization", authToken);
 
-            var resTask = client.GetAsync("HRDApprovals");
+            var resTask = client.GetAsync("HRDApprovals/all");
             resTask.Wait();
 
             var result = resTask.Result;
@@ -143,7 +142,7 @@ namespace ReimbursementParkingClient.Controllers
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
 
-            var restTask = client.GetAsync("Manager/approve");
+            var restTask = client.GetAsync("HRDApprovals/allApprove");
             restTask.Wait();
 
             var result = restTask.Result;
@@ -162,7 +161,7 @@ namespace ReimbursementParkingClient.Controllers
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
 
-            var restTask = client.GetAsync("Manager/reject");
+            var restTask = client.GetAsync("HRDApprovals/allReject");
             restTask.Wait();
 
             var result = restTask.Result;
