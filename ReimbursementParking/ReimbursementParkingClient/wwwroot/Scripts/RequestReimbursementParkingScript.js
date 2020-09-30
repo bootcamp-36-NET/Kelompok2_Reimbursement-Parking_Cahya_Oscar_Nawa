@@ -48,9 +48,9 @@ function CreateNewRequest() {
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             ClearForm();
-            Swal.fire('Success', 'success', 'Success');
+            Swal.fire('Success', 'success', 'success');
         } else {
-            Swal.fire('Error', 'Error', 'Error');
+            Swal.fire('Error', result.Item2, 'error');
         }
     });
 }
