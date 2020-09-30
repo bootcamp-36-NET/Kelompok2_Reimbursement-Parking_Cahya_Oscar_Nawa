@@ -56,11 +56,11 @@ am4core.ready(function () {
     chart.scrollbarX = new am4core.Scrollbar();
 
     // Add data
-    chart.dataSource.url = "/chart/LoadBar";
+    chart.dataSource.url = "/chart/LoadPie";
 
     // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "ManagerResponseTime";
+    categoryAxis.dataFields.category = "VechicleType";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     categoryAxis.renderer.labels.template.horizontalCenter = "right";
@@ -76,7 +76,7 @@ am4core.ready(function () {
     var series = chart.series.push(new am4charts.ColumnSeries());
     series.sequencedInterpolation = true;
     series.dataFields.valueY = "total";
-    series.dataFields.categoryX = "ManagerResponseTime";
+    series.dataFields.categoryX = "VechicleType";
     series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
     series.columns.template.strokeWidth = 0;
 
@@ -100,3 +100,65 @@ am4core.ready(function () {
     chart.cursor = new am4charts.XYCursor();
 
 }); // end am4core.ready()
+
+$(document).ready(function () {
+    $.ajax({
+        url: "/chart/LoadBar",
+        method: "GET",
+        dataType: 'JSON',
+        success: function (data) {
+            console.log(data);
+            var hasilA = [];
+            var hasilB = [];
+
+            for (var i in data) {
+                hasilA.push(data[i].ManagerResponseTime);
+                hasilB.push(data[i].total);
+            }
+
+            var chartdata = {
+                labels: hasilA,
+                datasets: [
+                    {
+                        label: 'Values',
+                        //backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        //borderColor: 'rgba(200, 200, 200, 0.75)',
+                        //hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                        //hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                        data: Object.values(hasilB),
+                    }
+                ]
+            };
+
+            var ctx = $("#myChart");
+
+            var barGraph = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+});
