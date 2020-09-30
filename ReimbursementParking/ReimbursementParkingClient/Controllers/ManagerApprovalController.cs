@@ -123,20 +123,20 @@ namespace ReimbursementParkingClient.Controllers
                 var responseUserData = userResult.Content.ReadAsAsync<GetUserVM>().Result;
                 statusVM.Email = responseUserData.Email;
 
-                var json = JsonConvert.SerializeObject(statusVM);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                string stringData = JsonConvert.SerializeObject(statusVM);
+                var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+                var resTask = http.PutAsync("ManagerApprovals/reject/" + Id, contentData);
+                resTask.Wait();
 
-                //var token = HttpContext.Session.GetString("JWToken");
-                //http.DefaultRequestHeaders.Add("authorization", token);
-                if (Id > 0)
-                {
-                    var result = http.PutAsync("ManagerApprovals/reject/" + Id, byteContent).Result;
-                    return Json(result);
-                }
+                var result = resTask.Result;
+                var responseData = result.Content.ReadAsStringAsync().Result;
 
-                return Json(404);
+                dynamic resultVM = new ExpandoObject();
+                resultVM.Item1 = result;
+                resultVM.Item2 = responseData;
+                
+                return Json(resultVM);
+
             }
             catch (Exception ex)
             {

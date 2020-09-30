@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 function LoadInitialCreateData() {
-    debugger;
+    //debugger;
     table = $('#MydataTable').DataTable({
         ajax: {
             url: "/ManagerApproval/LoadApprovalManager",
@@ -27,7 +27,7 @@ function LoadInitialCreateData() {
                 title: "Request Date",
                 data: "RequestDate",
                 render: function (jsonDate) {
-                    var date = moment(jsonDate).format("DD MMMM YYYY");
+                    var date = moment(jsonDate).format("DD/MM/YYYY");
                     return date;
                 }
             },
@@ -53,7 +53,7 @@ function LoadInitialCreateData() {
                 render: function (data, type, row, meta) {
                     return '<Button class="btn btn-outline-success" title="Approve" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
                         + "&nbsp;" +
-                        "<button class='btn btn-outline-danger' data-placement = 'right' title='Reject' onclick=formManager.setReject('" + data.Id + "')><i class='fa fa-lg fa-window-close'></i></button>"
+                        "<button class='btn btn-outline-danger' data-placement = 'right' title='Reject' onclick='ShowReject(" + meta.row + ")'><i class='fa fa-lg fa-window-close'></i></button>"
 
                 }
             }
@@ -64,37 +64,6 @@ function LoadInitialCreateData() {
     });
 
 }
-
-function ShowReject(id) {
-    $('#Id').val(id);
-    $('#Reason').val('');
-    $('#rejectModal').modal('show');
-}
-
-function Approve(idx) {
-    debugger;
-    var approveVM = {
-        Id: table.row(idx).data().Id,
-        EmployeeId: table.row(idx).data().EmployeeId
-    };
-    $.ajax({
-        url: "/ManagerApproval/ApproveRequest",
-        type: "POST",
-        dataType: "JSON",
-        data: approveVM
-    }).then((result) => {
-        if (result.Item1.StatusCode == 200) {
-            Swal.fire('Success', result.Item2, 'success');
-            tableManager.create();
-            tableApprovedByManager.create();
-
-        } else {
-            Swal.fire('Error', result.Item2, 'error');
-        }
-        table.ajax.reload(null, false);
-    });
-}
-
 var tableApprovedByManager = {
     create: function () {
         if ($.fn.DataTable.isDataTable('#Mydata')) {
@@ -171,7 +140,7 @@ var tableApprovedByManager = {
                             { title: "Vehicle Owner", data: "VehicleOwner" },
                             { title: "Parking Name", data: "ParkingName" },
                             { title: "Parking Address", data: "ParkingAddress" },
-                            { title: "Content", data: "Content" },                            
+                            { title: "Content", data: "Content" },
                         ]
                     });
                 } else {
@@ -272,91 +241,60 @@ var tableRejectedByManager = {
         });
     }
 };
-var Id;
-var EmployeeId;
-var formManager = {
-    setApprove: function (Idx) {
-        debugger;
-        var approveVM = {
-            Id: Idx,
-            EmployeeId: $('#MydataTable').DataTable({})
-        };
-        $.ajax({
-            url: '/ManagerApproval/ApproveRequest/' + Id,
-            type: 'post',
-            dataType: 'json',
-            data: approveVM,
-            success: function (res, status, xhr) {
-                debugger;
-                if (res.Item1.StatusCode == 200 || res.Item1.StatusCode == 201) {
-                    Swal.fire('Success', res.Item2, 'success');
-                    tableManager.create();
-                    tableApprovedByManager.create();
-                    //toastr.success('Request has been approved.');
-                } else {
-                    Swal.fire('Error', res.Item2, 'error');
-                }
-            },
-            erorr: function (err) {
-                console.log(err);
-            }
-        });
-    }, setReject: function (editD) {
-        editReject = editD; // new, supaya id bisa dibawa ke fungsi editForm
-        //console.log(editD);
-        $.ajax({
-            url: '/ManagerApproval/GetById/' + editD,
-            method: 'get',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (res, status, xhr) {
-                if (xhr.status == 200 || xhr.status == 201) {
-                    $('#exampleModalCenterEdit').modal('show');
-                } else {
 
-                }
-            },
-            erorr: function (err) {
-                console.log(err);
-            }
-        });
+function ShowReject(id) {
+    $('#Id').val(table.row(id).data().Id);
+    $('#EmployeeId').val(table.row(id).data().EmployeeId);
+    $('#rejectReason').val('');
+    $('#exampleModalCenterEdit').modal('show');
+}
 
+function Approve(idx) {
+    //debugger;
+    var approveVM = {
+        Id: table.row(idx).data().Id,
+        EmployeeId: table.row(idx).data().EmployeeId
+    };
+    $.ajax({
+        url: "/ManagerApproval/ApproveRequest",
+        type: "POST",
+        dataType: "JSON",
+        data: approveVM
+    }).then((result) => {
+        if (result.Item1.StatusCode == 200) {
+            Swal.fire('Success', result.Item2, 'success');
+            table.ajax.reload(null, false);
+            tableManager.create();
+            tableApprovedByManager.create();
 
-    }, editSaveRejection: function (editD) {
-        debugger;
-        editReject = editD;
-        var statusVM = {
-            RejectReason: document.getElementById("rejectReason").value,
-            StatusId: 5,
-            Id: editD
+        } else {
+            Swal.fire('Error', result.Item2, 'error');
         }
-        $.ajax({
-            url: '/ManagerApproval/UpdateReject/' + editD,
-            method: 'post',
-            //contentType: 'application/json',
-            dataType: 'json',
-            data: statusVM,
-            success: function (res, status, xhr) {
-                if (xhr.status == 200 || xhr.status == 201) {
-                    Swal.fire('Success', res.Item2, 'success');
-                    tableManager.create();
-                    tableRejectedByManager.create();
-                    $('#exampleModalCenterEdit').modal('hide');
-                    //toastr.success('Request has been rejected.');
-                } else {
-                    Swal.fire('Error', res.Item2, 'error');
-                }
-            },
-            erorr: function (err) {
-                console.log(err);
-            }
-        });
+    });
+}
+function Reject() {
+    var rejectVM = {
+        Id: $('#Id').val(),
+        EmployeeId: $('#EmployeeId').val(),
+        RejectReason: $('#rejectReason').val()
     }
-};
-var editReject;
-$("#btn-reject").click(function () {
-    formManager.editSaveRejection(editReject);
-});
+    $.ajax({
+        url: "/ManagerApproval/UpdateReject/",
+        data: rejectVM,
+        type: "POST",
+        dataType: "JSON",
+    }).then((result) => {
+        debugger;
+        if (result.Item1.StatusCode == 200) {
+            Swal.fire('Success', result.Item2, 'success');
+            table.ajax.reload(null, false);
+            $('#exampleModalCenterEdit').modal('hide');
+        } else {
+            Swal.fire('Error', result.Item2, 'error');
+        }
+    });
+}
+
 function DownloadFolder(Id) {
     $.ajax({
         url: "/ManagerApproval/DownloadFolder/" + Id,
@@ -396,4 +334,31 @@ function base64ToArrayBuffer(base64) {
         bytes[i] = ascii;
     }
     return bytes;
-}
+};
+/* Custom filtering function which will filter data in column four between two values */
+
+$(document).ready(function () {
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[4]);
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    );
+
+
+    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    var table = $('#MydataTable').DataTable();
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function () {
+
+        table.draw();
+    });
+});
