@@ -320,6 +320,8 @@ function Approve(idx) {
             Swal.fire('Error', result.Item2, 'error');
         }
         table.ajax.reload(null, false);
+        approvedTable.ajax.reload(null, false);
+        rejectedTable.ajax.result(null, false);
     });
 }
 function Reject() {
@@ -342,6 +344,8 @@ function Reject() {
             Swal.fire('Error', result.Item2, 'error');
         }
         table.ajax.reload(null, false);
+        approvedTable.ajax.reload(null, false);
+        rejectedTable.ajax.result(null, false);
     });
 }
 

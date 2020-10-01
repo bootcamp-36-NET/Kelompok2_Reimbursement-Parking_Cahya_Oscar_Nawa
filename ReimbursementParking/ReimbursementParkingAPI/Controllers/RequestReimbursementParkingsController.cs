@@ -35,7 +35,7 @@ namespace ReimbursementParkingAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             var del = await _repo.Delete(id);
             if (del > 0)

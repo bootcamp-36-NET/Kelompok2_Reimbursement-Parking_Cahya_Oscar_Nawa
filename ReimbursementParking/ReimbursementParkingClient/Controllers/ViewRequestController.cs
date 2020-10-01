@@ -50,7 +50,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(reimbursementVMs);
         }
 
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             var authToken = HttpContext.Session.GetString("JWToken");
             client.DefaultRequestHeaders.Add("Authorization", authToken);

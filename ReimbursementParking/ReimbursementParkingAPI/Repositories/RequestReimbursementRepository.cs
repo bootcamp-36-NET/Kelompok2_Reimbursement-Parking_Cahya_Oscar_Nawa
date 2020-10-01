@@ -41,7 +41,7 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public async Task<int> Delete(string id)
+        public async Task<int> Delete(int id)
         {
             var sp = "SPDelete";
             param.Add("@id", id);
