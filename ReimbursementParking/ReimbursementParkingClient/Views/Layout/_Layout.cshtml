@@ -261,6 +261,12 @@
     <script src="~/amcharts4/core.js"></script>
     <script src="~/amcharts4/charts.js"></script>
     <script src="~/amcharts4/themes/animated.js"></script>
+    <script>
+        if (performance.navigation.type == 2)
+        {
+            location.reload();
+        }
+    </script>
 
     @RenderSection("scriptAdminLTE", required: false)
 </body>

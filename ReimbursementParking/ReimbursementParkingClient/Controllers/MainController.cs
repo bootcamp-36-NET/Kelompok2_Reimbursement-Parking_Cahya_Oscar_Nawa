@@ -28,6 +28,13 @@ namespace ReimbursementParkingClient.Controllers
         [Route("login")]
         public IActionResult Login()
         {
+            if (HttpContext.Session.IsAvailable)
+            {
+                if (HttpContext.Session.GetString("Id") != null)
+                {
+                    return Redirect("/profile");
+                }
+            }
             return View();
         }
         [Route("validate")]

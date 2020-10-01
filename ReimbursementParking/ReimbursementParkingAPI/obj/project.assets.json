@@ -5710,23 +5710,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Geraldy\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+      "projectUniqueName": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
       "projectName": "ReimbursementParkingAPI",
-      "projectPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
-      "packagesPath": "C:\\Users\\Geraldy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
+      "projectPath": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\FileKerja\\MII\\ProjectNetCore\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Geraldy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5817,7 +5813,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
