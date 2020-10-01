@@ -50,7 +50,7 @@ namespace ReimbursementParkingClient.Controllers
         public IActionResult Delete(string id)
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
-            var result = client.DeleteAsync("" + id).Result;
+            var result = client.DeleteAsync("RequestReimbursementParkings/" + id).Result;
             return Json(result);
         }
     }

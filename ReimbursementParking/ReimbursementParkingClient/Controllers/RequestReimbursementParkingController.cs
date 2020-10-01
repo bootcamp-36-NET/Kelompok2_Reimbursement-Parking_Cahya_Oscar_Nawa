@@ -34,7 +34,8 @@ namespace ReimbursementParkingClient.Controllers
         }
 
         public ActionResult<ExpandoObject> CreateReimbursement([FromForm] InsertReimbursementVM model)
-        { 
+        {
+            var DepartmentName = HttpContext.Session.GetString("DepartmentName");
             var multiContent = new MultipartFormDataContent();
             var file = model.ReimbursementFile;
             if (file != null)
@@ -51,6 +52,7 @@ namespace ReimbursementParkingClient.Controllers
             multiContent.Add(new StringContent(model.TotalPrice.ToString()), "TotalPrice");
             multiContent.Add(new StringContent(model.VehicleType.ToString()), "VehicleType");
             multiContent.Add(new StringContent(model.VehicleOwner.ToString()), "VehicleOwner");
+            multiContent.Add(new StringContent(DepartmentName.ToString()), "DepartmentName");
 
             //var authToken = HttpContext.Session.GetString("JWToken");
             //client.DefaultRequestHeaders.Add("Authorization", authToken);

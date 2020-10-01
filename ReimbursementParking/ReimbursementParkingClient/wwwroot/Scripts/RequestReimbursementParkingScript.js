@@ -48,7 +48,16 @@ function CreateNewRequest() {
     }).then((result) => {
         if (result.Item1.StatusCode == 200) {
             ClearForm();
-            Swal.fire('Success', 'success', 'success');
+            Swal.fire({
+                title: 'Success',
+                text: "Request Successfully created !",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                window.location.href = "/ViewRequest";
+            });
         } else {
             Swal.fire('Error', result.Item2, 'error');
         }
@@ -217,11 +226,9 @@ $(document).ready(function () {
 function ClearForm() {
     $('#PLATNumber').val('');
     $('#VehicleOwner').val('');
-    $('#VehicleType').val('');
     $('#TotalPrice').val('');
     $('#ParkingAddress').val('');
     $('#ParkingName').val('');
-    $('#PaymentType').val('');
-    $('#ReimbursementFile').val('');
+    $('#ReimbursementFile').value = '';
 }
 

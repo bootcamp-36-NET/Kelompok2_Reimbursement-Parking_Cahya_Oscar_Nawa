@@ -80,23 +80,23 @@ namespace ReimbursementParkingAPI.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<ActionResult> GetAllRequestManager()
+        public async Task<ActionResult> GetAllRequestManager(string departmentName)
         {
-            var reimbursementRequests = await _repo.GetAll();
+            var reimbursementRequests = await _repo.GetAll(departmentName);
             return Ok(reimbursementRequests);
         }
         [HttpGet]
         [Route("allApprove")]
-        public async Task<ActionResult> GetAllApprovedByManager()
+        public async Task<ActionResult> GetAllApprovedByManager(string departmentName)
         {
-            var reimbursementRequests = await _repo.GetAllApprove();
+            var reimbursementRequests = await _repo.GetAllApprove(departmentName);
             return Ok(reimbursementRequests);
         }
         [HttpGet]
         [Route("reject")]
-        public async Task<ActionResult> GetAllRejectedByManager()
+        public async Task<ActionResult> GetAllRejectedByManager(string departmentName)
         {
-            var reimbursementRequests = await _repo.GetAllReject();
+            var reimbursementRequests = await _repo.GetAllReject(departmentName);
             return Ok(reimbursementRequests);
         }
 
