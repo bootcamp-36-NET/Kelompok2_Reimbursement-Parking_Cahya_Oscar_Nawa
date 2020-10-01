@@ -1,33 +1,9 @@
 ﻿var table = null;
 var zip = new JSZip();
 
-$(document).ready(function () {
-    LoadInitialCreateData();
-
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            var min = $('#min').datepicker("getDate");
-            var max = $('#max').datepicker("getDate");
-            var startDate = new Date(data[2]);
-            if (min == null && max == null) { return true; }
-            if (min == null && startDate <= max) { return true; }
-            if (max == null && startDate >= min) { return true; }
-            if (startDate <= max && startDate >= min) { return true; }
-            return false;
-        }
-    );
-
-    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#min, #max').change(function () {
-        table.draw();
-    });
-});
 
 function LoadInitialCreateData() {
-    debugger;
+    //debugger;
     table = $('#MydataTable').DataTable({
         ajax: {
             url: "/ManagerApproval/LoadApprovalManager",
@@ -84,10 +60,34 @@ function LoadInitialCreateData() {
         }
     });
 
-}
+};
+$(document).ready(function () {
+    LoadInitialCreateData();
+
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[2]);
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    );
+
+    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function () {
+        table.draw();
+    });
+});
 var tableApprovedByManager = {
     create: function () {
-        debugger;
+        //debugger;
         if ($.fn.DataTable.isDataTable('#Mydata')) {
             $('#Mydata').DataTable().clear();
             $('#Mydata').DataTable().destroy();
@@ -162,7 +162,15 @@ var tableApprovedByManager = {
                             { title: "Vehicle Owner", data: "VehicleOwner" },
                             { title: "Parking Name", data: "ParkingName" },
                             { title: "Parking Address", data: "ParkingAddress" },
-                            { title: "Content", data: "Content" },
+                            {
+                                title: "File Data",
+                                data: "Id",
+                                render: function (data, type, row, meta) {
+                                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                                },
+                                "sortable": false,
+                                "oderable": false
+                            },
                         ]
                     });
                 } else {
@@ -176,7 +184,7 @@ var tableApprovedByManager = {
 };
 var tableRejectedByManager = {
     create: function () {
-        debugger;
+        //debugger;
         if ($.fn.DataTable.isDataTable('#MydataReject')) {
             $('#MydataReject').DataTable().clear();
             $('#MydataReject').DataTable().destroy();
@@ -252,7 +260,15 @@ var tableRejectedByManager = {
                             { title: "Parking Name", data: "ParkingName" },
                             { title: "Parking Address", data: "ParkingAddress" },
                             { title: "Reason", data: "RejectReason" },
-                            //{ title: "Content", data: "Content" },                            
+                            {
+                                title: "File Data",
+                                data: "Id",
+                                render: function (data, type, row, meta) {
+                                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                                },
+                                "sortable": false,
+                                "oderable": false
+                            },                          
                         ]
                     });
                 } else {
@@ -287,7 +303,6 @@ function Approve(idx) {
         if (result.Item1.StatusCode == 200) {
             Swal.fire('Success', result.Item2, 'success');
             table.ajax.reload(null, false);
-            tableManager.create();
             tableApprovedByManager.create();
 
         } else {
@@ -307,11 +322,12 @@ function Reject() {
         type: "POST",
         dataType: "JSON",
     }).then((result) => {
-        debugger;
+        //debugger;
         if (result.Item1.StatusCode == 200) {
             Swal.fire('Success', result.Item2, 'success');
             table.ajax.reload(null, false);
             $('#exampleModalCenterEdit').modal('hide');
+            tableRejectedByManager.create();
         } else {
             Swal.fire('Error', result.Item2, 'error');
         }

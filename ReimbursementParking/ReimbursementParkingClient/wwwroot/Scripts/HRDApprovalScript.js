@@ -140,7 +140,7 @@ function LoadInitialCreateData() {
 }
 
 function LoadApprovedByHRD() {
-    debugger;
+    //debugger;
     approvedTable = $('#dataApprovedTable').DataTable({
         ajax: {
             url: "/HRDApproval/GetApprovedByHRD",
@@ -217,7 +217,7 @@ function LoadApprovedByHRD() {
 }
 
 function LoadRejectedByHRD() {
-    debugger;
+    //debugger;
     rejectedTable = $('#dataRejectedTable').DataTable({
         ajax:
         {
