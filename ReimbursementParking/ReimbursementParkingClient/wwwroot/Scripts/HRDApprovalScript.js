@@ -32,6 +32,14 @@ $(document).ready(function () {
 
 function LoadInitialCreateData() {
     table = $('#dataTable').DataTable({
+        sScrollX: "100%",
+        bScrollCollapse: true,
+        sScrollY: "500px",
+        bPaginate: true,
+        fnRowCallback: function (nRow, aData, iDisplayIndex) {
+            $('td', nRow).attr('nowrap', 'nowrap');
+            return nRow;
+        },
         ajax: {
             url: "/HRDApproval/GetAllRequestHRD",
             dataSrc: "",
@@ -197,7 +205,7 @@ function LoadApprovedByHRD() {
                 }
             },
             { title: "Plat Number", data: "PLATNumber" },
-            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Vehicle Type", data: "VehicleType" },
             { title: "Payment Type", data: "PaymentType" },
             { title: "Total Price", data: "TotalPrice" },
             { title: "Vehicle Owner", data: "VehicleOwner" },
@@ -275,7 +283,7 @@ function LoadRejectedByHRD() {
                 }
             },
             { title: "Plat Number", data: "PLATNumber" },
-            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Vehicle Type", data: "VehicleType" },
             { title: "Payment Type", data: "PaymentType" },
             { title: "Total Price", data: "TotalPrice" },
             { title: "Vehicle Owner", data: "VehicleOwner" },
@@ -333,6 +341,7 @@ function Reject() {
         } else {
             Swal.fire('Error', result.Item2, 'error');
         }
+        table.ajax.reload(null, false);
     });
 }
 
@@ -361,7 +370,7 @@ function saveByteArray(reportName, byte) {
     var blob = new Blob([byte]);
     var link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    var fileName = reportName + ".zip";
+    var fileName = reportName + ".pdf";
     link.download = fileName;
     link.click();
 }

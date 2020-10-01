@@ -14,7 +14,7 @@ using ReimbursementParkingAPI.ViewModels;
 
 namespace ReimbursementParkingAPI.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ManagerApprovalsController : BaseController<RequestReimbursementParking, ManagerApprovalRepository>

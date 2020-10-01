@@ -54,8 +54,8 @@ namespace ReimbursementParkingClient.Controllers
             multiContent.Add(new StringContent(model.VehicleOwner.ToString()), "VehicleOwner");
             multiContent.Add(new StringContent(DepartmentName.ToString()), "DepartmentName");
 
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = client.PostAsync("RequestReimbursementParkings/" + model.EmployeeId, multiContent);
             resTask.Wait();
@@ -74,6 +74,10 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<ReimbursementVM> reimbursementVMs = null;
             var getId = HttpContext.Session.GetString("id");
+
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
+
             var resTask = client.GetAsync("RequestReimbursementParkings/ " + getId);
             resTask.Wait();
 
@@ -94,7 +98,9 @@ namespace ReimbursementParkingClient.Controllers
 
         public IActionResult Delete(string id)
         {
-            //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
+
             var result = client.DeleteAsync("" + id).Result;
             return Json(result);
         }

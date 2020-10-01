@@ -26,9 +26,12 @@ namespace ReimbursementParkingClient.Controllers
         public ActionResult LoadRequest()
         {
             IEnumerable<ReimbursementVM> reimbursementVMs = null;
-            HttpContext.Session.LoadAsync();
+
             var getId = HttpContext.Session.GetString("Id");
-            //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
+
             var resTask = client.GetAsync("RequestReimbursementParkings/" + getId);
             resTask.Wait();
 
@@ -49,7 +52,9 @@ namespace ReimbursementParkingClient.Controllers
 
         public IActionResult Delete(string id)
         {
-            //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
+
             var result = client.DeleteAsync("RequestReimbursementParkings/" + id).Result;
             return Json(result);
         }

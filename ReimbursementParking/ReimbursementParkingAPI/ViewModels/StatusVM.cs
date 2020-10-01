@@ -13,10 +13,10 @@ namespace ReimbursementParkingAPI.ViewModels
         public string RejectReason { get; set; }
         public DateTimeOffset RequestDate { get; set; }
         public string PLATNumber { get; set; }
-        public string VeicleType { get; set; }
         public string PaymentType { get; set; }
         public int TotalPrice { get; set; }
         public string VehicleOwner { get; set; }
+        public string VehicleType { get; set; }
         public string ParkingName { get; set; }
         public string ParkingAddress { get; set; }
         public byte[] Content { get; set; }

@@ -31,8 +31,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<ApprovalViewModel> reimbursementRequest = null;
 
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
@@ -66,7 +66,7 @@ namespace ReimbursementParkingClient.Controllers
             string stringData = JsonConvert.SerializeObject(approveVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTask = client.PutAsync("HRDApprovals/approve", contentData);
             resTask.Wait();
 
@@ -96,7 +96,7 @@ namespace ReimbursementParkingClient.Controllers
             string stringData = JsonConvert.SerializeObject(rejectVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTask = client.PutAsync("HRDApprovals/reject", contentData);
             resTask.Wait();
 
@@ -114,8 +114,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             Blob responseData = null;
 
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = client.GetAsync("HRDApprovals/GetFile/" + id);
             resTask.Wait();
@@ -139,8 +139,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<StatusVM> reimbursementVM = null;
 
-            //var token = HttpContext.Session.GetString("JWToken");
-            //http.DefaultRequestHeaders.Add("Authorization", token);
+            var token = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", token);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
@@ -160,8 +160,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<StatusVM> reimbursementVM = null;
 
-            //var token = HttpContext.Session.GetString("JWToken");
-            //http.DefaultRequestHeaders.Add("Authorization", token);
+            var token = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", token);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 

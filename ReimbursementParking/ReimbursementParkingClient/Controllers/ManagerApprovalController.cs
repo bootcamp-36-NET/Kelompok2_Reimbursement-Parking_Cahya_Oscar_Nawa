@@ -30,11 +30,9 @@ namespace ReimbursementParkingClient.Controllers
         public JsonResult LoadApprovalManager()
         {
             IEnumerable<StatusVM> reimbursementVM = null;
-            //auth.DefaultRequestHeaders.Authorization =
-            //    new AuthenticationHeaderValue("Bearer", 
-            //    HttpContext.Session.GetString("JWToken"));
-            //var token = HttpContext.Session.GetString("JWToken");
-            //http.DefaultRequestHeaders.Add("Authorization", token);
+
+            var authToken = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
@@ -53,8 +51,9 @@ namespace ReimbursementParkingClient.Controllers
         public JsonResult LoadApprovedByManager()
         {
             IEnumerable<StatusVM> reimbursementVM = null;
-            //var token = HttpContext.Session.GetString("JWToken");
-            //http.DefaultRequestHeaders.Add("Authorization", token);
+
+            var token = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", token);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
@@ -73,8 +72,9 @@ namespace ReimbursementParkingClient.Controllers
         public JsonResult LoadRejectedByManager()
         {
             IEnumerable<StatusVM> reimbursementVM = null;
-            //var token = HttpContext.Session.GetString("JWToken");
-            //http.DefaultRequestHeaders.Add("Authorization", token);
+
+            var token = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", token);
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
@@ -92,10 +92,9 @@ namespace ReimbursementParkingClient.Controllers
         }
         public ActionResult<ExpandoObject> ApproveRequest(int id, ApproveRejectVM approveVM)
         {
-            //auth.DefaultRequestHeaders.Authorization =
-            //    new AuthenticationHeaderValue("Bearer",
-            //    HttpContext.Session.GetString("JWToken"));
+
             var authToken = HttpContext.Session.GetString("JWToken");
+
             auth.DefaultRequestHeaders.Add("Authorization", authToken);
             var resTaskUser = auth.GetAsync("Users/" + approveVM.EmployeeId);
             resTaskUser.Wait();
@@ -106,6 +105,8 @@ namespace ReimbursementParkingClient.Controllers
 
             string stringData = JsonConvert.SerializeObject(approveVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = http.PutAsync("ManagerApprovals/approve/" + id, contentData);
             resTask.Wait();
@@ -125,6 +126,7 @@ namespace ReimbursementParkingClient.Controllers
             {
                 var authToken = HttpContext.Session.GetString("JWToken");
                 auth.DefaultRequestHeaders.Add("Authorization", authToken);
+
                 var resTaskUser = auth.GetAsync("Users/" + statusVM.EmployeeId);
                 resTaskUser.Wait();
 
@@ -134,6 +136,9 @@ namespace ReimbursementParkingClient.Controllers
 
                 string stringData = JsonConvert.SerializeObject(statusVM);
                 var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
+
+                http.DefaultRequestHeaders.Add("Authorization", authToken);
+
                 var resTask = http.PutAsync("ManagerApprovals/reject/" + Id, contentData);
                 resTask.Wait();
 
@@ -155,6 +160,10 @@ namespace ReimbursementParkingClient.Controllers
         public JsonResult GetById(int id)
         {
             StatusVM divisionVMs = null;
+
+            var authToken = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
+
             var resTask = http.GetAsync("ManagerApprovals/" + id);
             resTask.Wait();
             var result = resTask.Result;
@@ -170,12 +179,13 @@ namespace ReimbursementParkingClient.Controllers
 
             return Json(divisionVMs);
         }
+
         public ActionResult<ExpandoObject> DownloadFolder(int id)
         {
             Blob responseData = null;
 
-            //var authToken = HttpContext.Session.GetString("JWToken");
-            //client.DefaultRequestHeaders.Add("Authorization", authToken);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = http.GetAsync("ManagerApprovals/GetFile/" + id);
             resTask.Wait();

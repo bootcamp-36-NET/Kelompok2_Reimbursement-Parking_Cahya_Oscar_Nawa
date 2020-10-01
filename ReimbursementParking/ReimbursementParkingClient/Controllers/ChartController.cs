@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementParkingAPI.ViewModels;
 
@@ -23,8 +24,10 @@ namespace ReimbursementParkingClient.Controllers
         public IActionResult LoadPie()
         {
             IEnumerable<PieChartVM> pie = null;
-            //var token = HttpContext.Session.GetString("token");
-            //client.DefaultRequestHeaders.Add("Authorization", token);
+
+            var token = HttpContext.Session.GetString("token");
+            http.DefaultRequestHeaders.Add("Authorization", token);
+
             var resTask = http.GetAsync("charts/pie");
             resTask.Wait();
 
@@ -46,8 +49,10 @@ namespace ReimbursementParkingClient.Controllers
         public IActionResult LoadBar()
         {
             IEnumerable<ChartVM> bar = null;
-            //var token = HttpContext.Session.GetString("token");
-            //client.DefaultRequestHeaders.Add("Authorization", token);
+
+            var token = HttpContext.Session.GetString("token");
+            http.DefaultRequestHeaders.Add("Authorization", token);
+
             var resTask = http.GetAsync("charts/bar");
             resTask.Wait();
 

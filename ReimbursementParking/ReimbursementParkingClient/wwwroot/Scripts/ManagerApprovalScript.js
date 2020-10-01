@@ -53,7 +53,7 @@ function LoadInitialCreateData() {
                 }
             },
             { title: "Plat Number", data: "PLATNumber" },
-            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Vehicle Type", data: "VehicleType" },
             { title: "Payment Type", data: "PaymentType" },
             { title: "Total Price", data: "TotalPrice" },
             { title: "Vehicle Owner", data: "VehicleOwner" },
@@ -156,7 +156,7 @@ var tableApprovedByManager = {
                                 }
                             },
                             { title: "Plat Number", data: "PLATNumber" },
-                            { title: "Vehicle Type", data: "VeicleType" },
+                            { title: "Vehicle Type", data: "VehicleType" },
                             { title: "Payment Type", data: "PaymentType" },
                             { title: "Total Price", data: "TotalPrice" },
                             { title: "Vehicle Owner", data: "VehicleOwner" },
@@ -245,7 +245,7 @@ var tableRejectedByManager = {
                                 }
                             },
                             { title: "Plat Number", data: "PLATNumber" },
-                            { title: "Vehicle Type", data: "VeicleType" },
+                            { title: "Vehicle Type", data: "VehicleType" },
                             { title: "Payment Type", data: "PaymentType" },
                             { title: "Total Price", data: "TotalPrice" },
                             { title: "Vehicle Owner", data: "VehicleOwner" },
@@ -343,7 +343,7 @@ function saveByteArray(reportName, byte) {
     var blob = new Blob([byte]);
     var link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    var fileName = reportName + ".zip";
+    var fileName = reportName + ".pdf";
     link.download = fileName;
     link.click();
 }
