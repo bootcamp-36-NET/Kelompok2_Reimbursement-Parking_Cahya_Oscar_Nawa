@@ -1,10 +1,33 @@
 ﻿var table = null;
 var approvedTable = null;
 var rejectedTable = null;
-var zip = new JSZip();
+
 
 $(document).ready(function () {
     LoadInitialCreateData();
+    LoadApprovedByHRD();
+    LoadRejectedByHRD();
+
+   $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[10]);
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+    );
+
+    $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').change(function () {
+        table.draw();
+    });
 });
 
 function LoadInitialCreateData() {
@@ -62,9 +85,19 @@ function LoadInitialCreateData() {
             },
             {
                 title: "Periode",
-                data: null,
+                data: "RequestDate",
                 render: function (data, type, row) {
                     var currPeriode = moment().format("MMMM YYYY");
+                    return currPeriode;
+                },
+                sortable: false,
+                oderable: false
+            },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (data, type, row) {
+                    var currPeriode = moment().format("MM/DD/YYYY");
                     return currPeriode;
                 },
                 sortable: false,
@@ -99,177 +132,158 @@ function LoadInitialCreateData() {
 }
 
 function LoadApprovedByHRD() {
+    debugger;
     approvedTable = $('#dataApprovedTable').DataTable({
         ajax: {
             url: "/HRDApproval/GetApprovedByHRD",
             dataSrc: "",
             cache: false,
             type: "GET",
-            dataType: "JSON",
-            success: function (res, status, xhr) {
-                if (xhr.status == 200) {
-                    $('#dataApprovedTable').DataTable({
-                        dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                extend: 'copyHtml5',
-                                text: '<i class="fa fa-file"></i>',
-                                titleAttr: 'Copy',
-                                className: 'btn btn-outline-warning'
-                            },
-                            {
-                                extend: 'csv',
-                                text: '<i class="fa fa-file-csv"></i>',
-                                titleAttr: 'CSV',
-                                className: 'btn btn-outline-info'
-                            },
-                            {
-                                extend: 'excel',
-                                text: '<i class="fa fa-file-excel"></i>',
-                                titleAttr: 'Excel',
-                                filename: 'Division List',
-                                className: 'btn btn-outline-success'
-                            },
-                            {
-                                extend: 'pdf',
-                                text: '<i class="fa fa-file-pdf"></i>',
-                                titleAttr: 'Pdf',
-                                className: 'btn btn-outline-danger'
-                            },
-                            {
-                                extend: 'print',
-                                autoPrint: false,
-                                text: '<i class="fa fa-print"></i>',
-                                titleAttr: 'Print',
-                                className: 'btn btn-outline-warning'
-                            },
+            dataType: "JSON"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: '<i class="fa fa-file"></i>',
+                titleAttr: 'Copy',
+                className: 'btn btn-outline-warning'
+            },
+            {
+                extend: 'csv',
+                text: '<i class="fa fa-file-csv"></i>',
+                titleAttr: 'CSV',
+                className: 'btn btn-outline-info'
+            },
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel"></i>',
+                titleAttr: 'Excel',
+                filename: 'Division List',
+                className: 'btn btn-outline-success'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf"></i>',
+                titleAttr: 'Pdf',
+                className: 'btn btn-outline-danger'
+            },
+            {
+                extend: 'print',
+                autoPrint: false,
+                text: '<i class="fa fa-print"></i>',
+                titleAttr: 'Print',
+                className: 'btn btn-outline-warning'
+            },
 
-                        ],
-                        data: res,
-                        "columnDefs": [
-                            { "orderable": false, "targets": 4 }
-                        ],
-                        columns: [
-                            {
-                                title: "No", data: null, render: function (data, type, row, meta) {
-                                    return meta.row + meta.settings._iDisplayStart + 1;
-                                }
-                            },
-                            { title: "Employee ID", data: "EmployeeId" },
-                            { title: "Reimbursement Status", data: "ReimbursementStatus" },
-                            {
-                                title: "Request Date",
-                                data: "RequestDate",
-                                render: function (jsonDate) {
-                                    var date = moment(jsonDate).format("DD MMMM YYYY");
-                                    return date;
-                                }
-                            },
-                            { title: "Plat Number", data: "PLATNumber" },
-                            { title: "Vehicle Type", data: "VeicleType" },
-                            { title: "Payment Type", data: "PaymentType" },
-                            { title: "Total Price", data: "TotalPrice" },
-                            { title: "Vehicle Owner", data: "VehicleOwner" },
-                            { title: "Parking Name", data: "ParkingName" },
-                            { title: "Parking Address", data: "ParkingAddress" },
-                            //{ title: "Content", data: "Content" },                            
-                        ]
-                    });
-                } else {
+        ],
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ],
+        columns: [
+            {
+                title: "No", data: null, render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            erorrr: function (err) {
-                console.log(err);
-            }
-        }
+            { title: "Employee ID", data: "EmployeeId" },
+            { title: "Reimbursement Status", data: "ReimbursementStatus" },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (jsonDate) {
+                    var date = moment(jsonDate).format("DD MMMM YYYY");
+                    return date;
+                }
+            },
+            { title: "Plat Number", data: "PLATNumber" },
+            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Payment Type", data: "PaymentType" },
+            { title: "Total Price", data: "TotalPrice" },
+            { title: "Vehicle Owner", data: "VehicleOwner" },
+            { title: "Parking Name", data: "ParkingName" },
+            { title: "Parking Address", data: "ParkingAddress" },
+            //{ title: "Content", data: "Content" },                            
+        ]
     });
 }
 
 function LoadRejectedByHRD() {
+    debugger;
     rejectedTable = $('#dataRejectedTable').DataTable({
-        ajax: {
+        ajax:
+        {
             url: "/HRDApproval/GetRejectedByHRD",
             dataSrc: "",
             cache: false,
             type: "GET",
             dataType: "JSON",
-            success: function (res, status, xhr) {
-                if (xhr.status == 200) {
-                    $('#dataRejectedTable').DataTable({
-                        dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                extend: 'copyHtml5',
-                                text: '<i class="fa fa-file"></i>',
-                                titleAttr: 'Copy',
-                                className: 'btn btn-outline-warning'
-                            },
-                            {
-                                extend: 'csv',
-                                text: '<i class="fa fa-file-csv"></i>',
-                                titleAttr: 'CSV',
-                                className: 'btn btn-outline-info'
-                            },
-                            {
-                                extend: 'excel',
-                                text: '<i class="fa fa-file-excel"></i>',
-                                titleAttr: 'Excel',
-                                filename: 'Division List',
-                                className: 'btn btn-outline-success'
-                            },
-                            {
-                                extend: 'pdf',
-                                text: '<i class="fa fa-file-pdf"></i>',
-                                titleAttr: 'Pdf',
-                                className: 'btn btn-outline-danger'
-                            },
-                            {
-                                extend: 'print',
-                                autoPrint: false,
-                                text: '<i class="fa fa-print"></i>',
-                                titleAttr: 'Print',
-                                className: 'btn btn-outline-warning'
-                            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: '<i class="fa fa-file"></i>',
+                titleAttr: 'Copy',
+                className: 'btn btn-outline-warning'
+            },
+            {
+                extend: 'csv',
+                text: '<i class="fa fa-file-csv"></i>',
+                titleAttr: 'CSV',
+                className: 'btn btn-outline-info'
+            },
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel"></i>',
+                titleAttr: 'Excel',
+                filename: 'Division List',
+                className: 'btn btn-outline-success'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf"></i>',
+                titleAttr: 'Pdf',
+                className: 'btn btn-outline-danger'
+            },
+            {
+                extend: 'print',
+                autoPrint: false,
+                text: '<i class="fa fa-print"></i>',
+                titleAttr: 'Print',
+                className: 'btn btn-outline-warning'
+            },
 
-                        ],
-                        data: res,
-                        "columnDefs": [
-                            { "orderable": false, "targets": 4 }
-                        ],
-                        columns: [
-                            {
-                                title: "No", data: null, render: function (data, type, row, meta) {
-                                    return meta.row + meta.settings._iDisplayStart + 1;
-                                }
-                            },
-                            { title: "Employee ID", data: "EmployeeId" },
-                            { title: "Reimbursement Status", data: "ReimbursementStatus" },
-                            {
-                                title: "Request Date",
-                                data: "RequestDate",
-                                render: function (jsonDate) {
-                                    var date = moment(jsonDate).format("DD MMMM YYYY");
-                                    return date;
-                                }
-                            },
-                            { title: "Plat Number", data: "PLATNumber" },
-                            { title: "Vehicle Type", data: "VeicleType" },
-                            { title: "Payment Type", data: "PaymentType" },
-                            { title: "Total Price", data: "TotalPrice" },
-                            { title: "Vehicle Owner", data: "VehicleOwner" },
-                            { title: "Parking Name", data: "ParkingName" },
-                            { title: "Parking Address", data: "ParkingAddress" },
-                            { title: "Reason", data: "RejectReason" },
-                            //{ title: "Content", data: "Content" },                            
-                        ]
-                    });
-                } else {
+        ],
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ],
+        columns: [
+            {
+                title: "No", data: null, render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            erorrr: function (err) {
-                console.log(err);
-            }
-        }
+            { title: "Employee ID", data: "EmployeeId" },
+            { title: "Reimbursement Status", data: "ReimbursementStatus" },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (jsonDate) {
+                    var date = moment(jsonDate).format("DD MMMM YYYY");
+                    return date;
+                }
+            },
+            { title: "Plat Number", data: "PLATNumber" },
+            { title: "Vehicle Type", data: "VeicleType" },
+            { title: "Payment Type", data: "PaymentType" },
+            { title: "Total Price", data: "TotalPrice" },
+            { title: "Vehicle Owner", data: "VehicleOwner" },
+            { title: "Parking Name", data: "ParkingName" },
+            { title: "Parking Address", data: "ParkingAddress" },
+            { title: "Reason", data: "RejectReason" },
+            //{ title: "Content", data: "Content" },                            
+        ]
     });
 }
 
@@ -342,70 +356,6 @@ function DownloadFolder(Id) {
         }
     });
 }
-
-$(function () {
-    var oTable = $('#dataTable').DataTable({
-        "oLanguage": {
-            "sSearch": "Filter Data"
-        },
-        "iDisplayLength": -1,
-        "sPaginationType": "full_numbers",
-
-    });
-
-    $("#datepicker_from").datepicker({
-        showOn: "button",
-        buttonImage: "images/calendar.gif",
-        buttonImageOnly: false,
-        "onSelect": function (date) {
-            minDateFilter = new Date(date).getTime();
-            oTable.fnDraw();
-        }
-    }).keyup(function () {
-        minDateFilter = new Date(this.value).getTime();
-        oTable.fnDraw();
-    });
-
-    $("#datepicker_to").datepicker({
-        showOn: "button",
-        buttonImage: "images/calendar.gif",
-        buttonImageOnly: false,
-        "onSelect": function (date) {
-            maxDateFilter = new Date(date).getTime();
-            oTable.fnDraw();
-        }
-    }).keyup(function () {
-        maxDateFilter = new Date(this.value).getTime();
-        oTable.fnDraw();
-    });
-
-});
-
-// Date range filter
-minDateFilter = "";
-maxDateFilter = "";
-
-$.fn.dataTableExt.afnFiltering.push(
-    function (oSettings, aData, iDataIndex) {
-        if (typeof aData._date == 'undefined') {
-            aData._date = new Date(aData[0]).getTime();
-        }
-
-        if (minDateFilter && !isNaN(minDateFilter)) {
-            if (aData._date < minDateFilter) {
-                return false;
-            }
-        }
-
-        if (maxDateFilter && !isNaN(maxDateFilter)) {
-            if (aData._date > maxDateFilter) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-);
 
 function saveByteArray(reportName, byte) {
     var blob = new Blob([byte]);

@@ -62,7 +62,7 @@ namespace ReimbursementParkingAPI.Repositories
             var endDate = startDate.AddMonths(1).AddDays(-1);
 
             var isExistInMonth = await _context.RequestReimbursementParkings
-                .Where(Q => Q.RequestDate <= endDate && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
+                .Where(Q => Q.RequestDate >= startDate && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
             if (isExistInMonth)
             {
                 return "Can Only Request Once Per Month  !";
@@ -103,7 +103,8 @@ namespace ReimbursementParkingAPI.Repositories
                 ParkingAddress = model.ParkingAddress,
                 VechicleOwner = model.VehicleOwner,
                 VechicleType = model.VehicleType,
-                PaymentType = model.PaymentType
+                PaymentType = model.PaymentType,
+                DepartmentName = model.DepartmentName
 
             };
 

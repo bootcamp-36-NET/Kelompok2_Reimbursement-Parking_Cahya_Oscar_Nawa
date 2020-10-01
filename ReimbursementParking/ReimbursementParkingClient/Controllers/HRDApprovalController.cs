@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ReimbursementParkingAPI.Models;
 using ReimbursementParkingAPI.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Net.Http;
 
 namespace ReimbursementParkingClient.Controllers
 {
@@ -29,7 +27,6 @@ namespace ReimbursementParkingClient.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult GetAllRequestHRD()
         {
             IEnumerable<ApprovalViewModel> reimbursementRequest = null;
@@ -37,7 +34,9 @@ namespace ReimbursementParkingClient.Controllers
             //var authToken = HttpContext.Session.GetString("JWToken");
             //client.DefaultRequestHeaders.Add("Authorization", authToken);
 
-            var resTask = client.GetAsync("HRDApprovals");
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var resTask = client.GetAsync("HRDApprovals/all/" + departmentName);
             resTask.Wait();
 
             var result = resTask.Result;
@@ -143,7 +142,9 @@ namespace ReimbursementParkingClient.Controllers
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
 
-            var restTask = client.GetAsync("Manager/approve");
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = client.GetAsync("HRDApprovals/allApprove/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;
@@ -162,7 +163,9 @@ namespace ReimbursementParkingClient.Controllers
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
 
-            var restTask = client.GetAsync("Manager/reject");
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = client.GetAsync("HRDApprovals/allReject/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;

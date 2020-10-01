@@ -35,7 +35,10 @@ namespace ReimbursementParkingClient.Controllers
             //    HttpContext.Session.GetString("JWToken"));
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
-            var restTask = http.GetAsync("ManagerApprovals/all");
+
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = http.GetAsync("ManagerApprovals/all/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;
@@ -52,7 +55,10 @@ namespace ReimbursementParkingClient.Controllers
             IEnumerable<StatusVM> reimbursementVM = null;
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
-            var restTask = http.GetAsync("ManagerApprovals/allApprove");
+
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = http.GetAsync("ManagerApprovals/allApprove/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;
@@ -69,7 +75,10 @@ namespace ReimbursementParkingClient.Controllers
             IEnumerable<StatusVM> reimbursementVM = null;
             //var token = HttpContext.Session.GetString("JWToken");
             //http.DefaultRequestHeaders.Add("Authorization", token);
-            var restTask = http.GetAsync("ManagerApprovals/reject");
+
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = http.GetAsync("ManagerApprovals/reject/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;

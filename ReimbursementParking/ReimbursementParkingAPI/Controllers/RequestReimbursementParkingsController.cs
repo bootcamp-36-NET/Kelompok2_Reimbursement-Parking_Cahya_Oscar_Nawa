@@ -34,20 +34,6 @@ namespace ReimbursementParkingAPI.Controllers
             return Ok(reinmbursements);
         }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(string id)
-        //{
-        //    var getData = _context.RequestReimbursementParkings.Where(x => x.EmployeeId == id && x.RequestReimbursementStatusEnumId == 1);
-        //    if (getData == null)
-        //    {
-        //        return BadRequest("Not Successfully");
-        //    }
-
-        //    _context.RequestReimbursementParkings.Remove((RequestReimbursementParking)getData);
-        //    _context.SaveChanges();
-        //    return Ok(new { msg = "Successfully Delete" });
-        //}
-
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {

@@ -21,5 +21,6 @@ namespace ReimbursementParkingAPI.ViewModels
         public string ParkingAddress { get; set; }
         public byte[] Content { get; set; }
         public int StatusId { get; set; }
+        public string DepartmentName { get; set; }
     }
 }

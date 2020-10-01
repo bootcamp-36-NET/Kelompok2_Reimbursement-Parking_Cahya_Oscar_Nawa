@@ -27,7 +27,13 @@ $(document).ready(function () {
             { "data": null },
             { "data": "Id" },
             { "data": "PLATNumber" },
-            { "data": "RequestDate" },
+            {
+                "data": "RequestDate",
+                'render': function (jsonDate) {
+                    var date = new Date(jsonDate);
+                    return moment(date).format('DD MMMM YYYY');
+                }
+            },
             { "data": "ParkingName" },
             { "data": "ParkingAddress" },
             { "data": "TotalPrice" },
@@ -45,7 +51,28 @@ $(document).ready(function () {
                     return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
                 }
             },
-        ]
+        ],
+
+        initComplete: function () {
+            this.api().columns(7).every(function () {
+                var column = this;
+                var select = $('<select><option value="">Reimbursement Status</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
     });
     table.on('order.dt search.dt', function () {
         table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {

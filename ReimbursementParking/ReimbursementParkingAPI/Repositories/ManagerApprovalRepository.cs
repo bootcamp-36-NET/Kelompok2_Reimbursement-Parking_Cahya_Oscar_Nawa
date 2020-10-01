@@ -18,12 +18,12 @@ namespace ReimbursementParkingAPI.Repositories
             _context = context;
         }
 
-        public async Task<List<StatusVM>> GetAll()
+        public async Task<List<StatusVM>> GetAll(string departmentName)
         {
             var data = await _context.RequestReimbursementParkings
                 .Include("RequestDetail")
                 .Include("Blob")
-                .Where(q => q.RequestReimbursementStatusEnumId == 2)
+                .Where(q => q.RequestReimbursementStatusEnumId == 2 && q.RequestDetail.DepartmentName == departmentName)
                 .Select(q => new StatusVM()
                 {
                     Id = q.Id,
@@ -45,12 +45,12 @@ namespace ReimbursementParkingAPI.Repositories
 
             return data;
         }
-        public async Task<List<StatusVM>> GetAllApprove()
+        public async Task<List<StatusVM>> GetAllApprove(string departmentName)
         {
             var data = await _context.RequestReimbursementParkings
                 .Include("RequestDetail")
                 .Include("Blob")
-                .Where(q => q.RequestReimbursementStatusEnumId == 3)
+                .Where(q => q.RequestReimbursementStatusEnumId == 3 && q.RequestDetail.DepartmentName == departmentName)
                 .Select(q => new StatusVM()
                 {
                     Id = q.Id,
@@ -72,12 +72,12 @@ namespace ReimbursementParkingAPI.Repositories
 
             return data;
         }
-        public async Task<List<StatusVM>> GetAllReject()
+        public async Task<List<StatusVM>> GetAllReject(string departmentName)
         {
             var data = await _context.RequestReimbursementParkings
                 .Include("RequestDetail")
                 .Include("Blob")
-                .Where(q => q.RequestReimbursementStatusEnumId == 5)
+                .Where(q => q.RequestReimbursementStatusEnumId == 5 && q.RequestDetail.DepartmentName == departmentName)
                 .Select(q => new StatusVM()
                 {
                     Id = q.Id,

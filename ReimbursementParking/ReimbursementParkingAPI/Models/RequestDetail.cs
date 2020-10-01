@@ -19,6 +19,7 @@ namespace ReimbursementParkingAPI.Models
         public string VechicleOwner { get; set; }
         public string ParkingName { get; set; }
         public string ParkingAddress { get; set; }
+        public string DepartmentName { get; set; }
 
         public RequestReimbursementParking RequestReimbursementParking { get; set; }
     }

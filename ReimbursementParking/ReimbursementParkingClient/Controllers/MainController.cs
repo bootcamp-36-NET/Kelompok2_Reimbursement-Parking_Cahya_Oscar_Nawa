@@ -120,6 +120,7 @@ namespace ReimbursementParkingClient.Controllers
                 HttpContext.Session.SetString("Name", token.Claims.First(c => c.Type == "Name").Value);
                 HttpContext.Session.SetString("Email", token.Claims.First(c => c.Type == "Email").Value);
                 HttpContext.Session.SetString("VerifyCode", token.Claims.First(c => c.Type == "VerifyCode").Value);
+                HttpContext.Session.SetString("DepartmentName", token.Claims.First(c => c.Type == "DepartmentName").Value);
                 HttpContext.Session.SetString("JWToken", authToken);
 
                 resultVM.Item3 = isVerified;
