@@ -10,6 +10,7 @@
     var name = Context.Session.GetString("Name");
     var roleName = Context.Session.GetString("RoleName");
     var email = Context.Session.GetString("Email");
+    var departmentName = Context.Session.GetString("DepartmentName");
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper justify-content-center">
@@ -56,6 +57,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Job</b> <a class="float-right">@roleName</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Department Name</b> <a class="float-right">@departmentName</a>
                                 </li>
                             </ul>
                         </div>
