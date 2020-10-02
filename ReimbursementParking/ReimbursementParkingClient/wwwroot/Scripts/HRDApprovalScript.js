@@ -115,7 +115,7 @@ function LoadInitialCreateData() {
                 title: "File Data",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
                 },
                 "sortable": false,
                 "oderable": false
@@ -211,7 +211,15 @@ function LoadApprovedByHRD() {
             { title: "Vehicle Owner", data: "VehicleOwner" },
             { title: "Parking Name", data: "ParkingName" },
             { title: "Parking Address", data: "ParkingAddress" },
-            //{ title: "Content", data: "Content" },                            
+            {
+                title: "File Data",
+                data: "Id",
+                render: function (data, type, row, meta) {
+                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                },
+                "sortable": false,
+                "oderable": false
+            },                           
         ]
     });
 }
@@ -290,7 +298,15 @@ function LoadRejectedByHRD() {
             { title: "Parking Name", data: "ParkingName" },
             { title: "Parking Address", data: "ParkingAddress" },
             { title: "Reason", data: "RejectReason" },
-            //{ title: "Content", data: "Content" },                            
+            {
+                title: "File Data",
+                data: "Id",
+                render: function (data, type, row, meta) {
+                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+                },
+                "sortable": false,
+                "oderable": false
+            },                           
         ]
     });
 }
