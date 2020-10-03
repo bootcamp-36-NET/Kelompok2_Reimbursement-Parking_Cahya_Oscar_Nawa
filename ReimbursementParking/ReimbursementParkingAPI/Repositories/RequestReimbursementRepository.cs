@@ -49,12 +49,6 @@ namespace ReimbursementParkingAPI.Repositories
             return del;
         }
 
-        //public async Task<IEnumerable<RequestDetail>> Get()
-        //{
-        //    var SP = "SPShow";
-        //    var show = await con.QueryAsync<RequestDetail>(SP, commandType: CommandType.StoredProcedure);
-        //    return show;
-        //}
 
         public async Task<string> CreateNewRequest(string id, InsertReimbursementVM model)
         {

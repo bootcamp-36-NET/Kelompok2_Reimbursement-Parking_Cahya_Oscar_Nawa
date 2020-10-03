@@ -38,17 +38,28 @@ $(document).ready(function () {
             { "data": "ParkingAddress" },
             { "data": "TotalPrice" },
             { "data": "ReimbursementStatus" },
-            { "data": "RejectReason" },
+            {
+                "sortable": false,
+                "data": "id",
+                "render": function (data, type, row)
+                {
+                    console.log(row);
+                    $('[data-toggle="tooltip"]').tooltip();
+                    return '<button class="btn btn-link btn-md" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-info"></i></button>'
+                }
+            },
             {
                 "sortable": false,
                 "data": "Id",
-                "render": function (data, type, row) {
-                    if (row.ReimbursementStatus != "NewRequest") {
+                "render": function (data, type, row)
+                {
+                    if (row.ReimbursementStatus != "NewRequest")
+                    {
                         $('[data-toggle="tooltip"]').tooltip();
-                        return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-times"></i></button>'
+                        return '<button class="btn btn-link btn-md" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-times"></i></button>'
                     }
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
+                    return '<button class="btn btn-link btn-md" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
                 }
             },
         ],
