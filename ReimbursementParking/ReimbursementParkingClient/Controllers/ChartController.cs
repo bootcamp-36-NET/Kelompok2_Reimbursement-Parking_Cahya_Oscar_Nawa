@@ -25,8 +25,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<PieChartVM> pie = null;
 
-            var token = HttpContext.Session.GetString("JWToken");
-            http.DefaultRequestHeaders.Add("Authorization", token);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = http.GetAsync("charts/pie");
             resTask.Wait();
@@ -50,8 +50,8 @@ namespace ReimbursementParkingClient.Controllers
         {
             IEnumerable<ChartVM> bar = null;
 
-            var token = HttpContext.Session.GetString("JWToken");
-            http.DefaultRequestHeaders.Add("Authorization", token);
+            var authToken = HttpContext.Session.GetString("JWToken");
+            http.DefaultRequestHeaders.Add("Authorization", authToken);
 
             var resTask = http.GetAsync("charts/bar");
             resTask.Wait();
