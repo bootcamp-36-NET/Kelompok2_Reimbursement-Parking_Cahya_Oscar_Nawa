@@ -50,6 +50,30 @@ namespace ReimbursementParkingClient.Controllers
             return Json(reimbursementVMs);
         }
 
+        public JsonResult LoadRequestReq(int id)
+        {
+            ReimbursementVM reimbursementVMs = null;
+
+            var getId = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", getId);
+
+
+            var resTask = client.GetAsync("ViewRequests/" + id);
+            resTask.Wait();
+
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var getJson = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                reimbursementVMs = JsonConvert.DeserializeObject<ReimbursementVM>(getJson);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+            }
+            return Json(reimbursementVMs);
+        }
+
         public IActionResult Delete(int id)
         {
             var authToken = HttpContext.Session.GetString("JWToken");

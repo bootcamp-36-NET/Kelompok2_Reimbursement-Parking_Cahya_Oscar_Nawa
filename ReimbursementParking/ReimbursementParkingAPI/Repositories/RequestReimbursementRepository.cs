@@ -41,6 +41,15 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
+        public async Task<ReimbursementVM> GetByIdReq(int id)
+        {
+            var procedureName = "SP_get_byId_reimbursement_by_id";
+            param.Add("@Id", id);
+
+            var reimbursements = (await con.QueryAsync<ReimbursementVM>(procedureName, param, commandType: CommandType.StoredProcedure)).ToList();
+            return reimbursements.FirstOrDefault();
+        }
+
         public async Task<int> Delete(int id)
         {
             var sp = "SPDelete";
