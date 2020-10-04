@@ -68,24 +68,25 @@ namespace ReimbursementParkingAPI.Controllers
             }
             return Ok("Reimbursement Request Successfully Created !");
         }
+    }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [Route("api/[controller]")]
-        [ApiController]
-        public class ViewRequestsController : ControllerBase
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ViewRequestsController : ControllerBase
+    {
+        private readonly RequestReimbursementRepository _repo;
+        public ViewRequestsController(RequestReimbursementRepository repo)
         {
-            private readonly RequestReimbursementRepository _repo;
-            public ViewRequestsController(RequestReimbursementRepository repo)
-            {
-                _repo = repo;
-            }
-
-            [HttpGet("{id}")]
-            public async Task<ActionResult> GetById(int id)
-            {
-                var reinmbursements = await _repo.GetByIdReq(id);
-                return Ok(reinmbursements);
-            }
+            _repo = repo;
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+            var reinmbursements = await _repo.GetByIdReq(id);
+            return Ok(reinmbursements);
+        }
+    }
 }
 
