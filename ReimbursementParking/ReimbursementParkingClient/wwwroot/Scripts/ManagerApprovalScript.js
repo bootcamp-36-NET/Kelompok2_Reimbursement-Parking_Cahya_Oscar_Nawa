@@ -35,22 +35,26 @@ function LoadInitialCreateData() {
             { title: "Vehicle Owner", data: "VehicleOwner" },
             { title: "Parking Name", data: "ParkingName" },
             { title: "Parking Address", data: "ParkingAddress" },
-            {
-                title: "File Data",
-                data: "Id",
-                render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
-                },
-                "sortable": false,
-                "oderable": false
-            },
+            //{
+            //    title: "File Data",
+            //    data: "Id",
+            //    render: function (data, type, row, meta) {
+            //        return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+            //    },
+            //    "sortable": false,
+            //    "oderable": false
+            //},
             {
                 title: "Action", data: null,
                 "sortable": false,
+                "oderable": false,
                 render: function (data, type, row, meta) {
                     return '<Button class="btn btn-outline-success" title="Approve" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
                         + "&nbsp;" +
                         "<button class='btn btn-outline-danger' data-placement = 'right' title='Reject' onclick='ShowReject(" + meta.row + ")'><i class='fa fa-lg fa-window-close'></i></button>"
+                        + "&nbsp;" +
+                        '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + meta.row + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+
 
                 }
             }
@@ -333,10 +337,13 @@ function Reject() {
         }
     });
 }
-
-function DownloadFolder(Id) {
+var Id
+function DownloadFolder(idx) {
+    var Id = {
+        Id: table.row(idx).data().Id
+    }
     $.ajax({
-        url: "/ManagerApproval/DownloadFolder/" + Id,
+        url: "/ManagerApproval/DownloadFolder/" + Id.Id,
         data: { Id: Id },
         cache: false,
         type: "GET",

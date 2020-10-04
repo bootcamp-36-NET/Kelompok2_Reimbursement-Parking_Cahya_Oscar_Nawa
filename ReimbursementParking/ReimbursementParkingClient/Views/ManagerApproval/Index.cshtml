@@ -2,14 +2,15 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Layout/_Layout.cshtml";
+    <style type="text/css">
+        .ui-datepicker {
+            background: #ffffff;
+            border: 1px solid #000000;
+            color: #000000;
+        }
+    </style>
 }
-<style type="text/css">
-    .ui-datepicker {
-        background: #ffffff;
-        border: 1px solid #000000;
-        color: #000000;
-    }
-</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -17,7 +18,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>DataTables</h1>
+                    <h1></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -28,120 +29,172 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Available Proccess Request</h3>
-                    </div>
-
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label>Request Date Filter</label>
-                                </div>
-                                <div class="col-md-4 pull-right">
-                                    <div class="input-group input-daterange">
-
-                                        <input type="text" id="min" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="From:">
-
-                                        <div class="input-group-addon">to</div>
-
-                                        <input type="text" id="max" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="To:">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table table-bordered" id="MydataTable" width="100%" cellspacing="0"></table>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-
-                </div>
-                <!-- /.card -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Approval History</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="Mydata" width="100%" cellspacing="0"></table>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-
-                </div>
-                <!-- /.card -->
-                <!-- /.card -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Rejection History</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="MydataReject" width="100%" cellspacing="0"></table>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-
-                </div>
-                <!-- /.card -->
+    <!-- Custom tabs (Charts with tabs)-->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-chart-pie mr-1"></i>
+                History
+            </h3>
+            <div class="card-tools">
+                <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#request" data-toggle="tab">Request</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#approved-history" data-toggle="tab">Approved</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#rejected-history" data-toggle="tab">Rejected</a>
+                    </li>
+                </ul>
             </div>
-            <!-- /.col -->
+        </div><!-- /.card-header -->
+        <div class="card-body">
+            <div class="tab-content p-0">
+                <!-- Morris chart - Sales -->
+                <div class="chart tab-pane active" id="request">
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Available Proccess Request</h3>
+                                    </div>
+
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <label>Request Date Filter</label>
+                                                </div>
+                                                <div class="col-md-4 pull-right">
+                                                    <div class="input-group input-daterange">
+
+                                                        <input type="text" id="min" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="From:">
+
+                                                        <div class="input-group-addon">to</div>
+
+                                                        <input type="text" id="max" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="To:">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered" id="MydataTable" width="100%" cellspacing="0"></table>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <div class="chart tab-pane" id="approved-history">
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- /.card -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Approved History</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="Mydata" width="100%" cellspacing="0"></table>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </section>
+                    <!-- /.content -->
+                </div>
+
+                <div class="chart tab-pane" id="rejected-history">
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- /.card -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Rejected History</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="MydataReject" width="100%" cellspacing="0"></table>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </section>
+                    <!-- /.content -->
+                </div>
+            </div>
+        </div><!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <div class="card shadow mb-4">
+        <!--Modal Approval-->
+        <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Form Edit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-reject" role="form">
+                            <input name="id" type="hidden" />
+                            <div class="form-group">
+                                <input name="Id" class="form-control" type="hidden" id="Id" />
+                            </div>
+                            <div class="form-group">
+                                <input name="EmployeeId" class="form-control" type="hidden" id="EmployeeId" />
+                            </div>
+                            <div class="form-group">
+                                <label>Reject Reason : </label>
+                                <input class="form-control" id="rejectReason" name="rejectReason"
+                                       placeholder="Reason" required type="text">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-reject" onclick="return Reject()">Save Rejection</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.row -->
-    </section>
-    <!-- /.content -->
+        <!--End Modal Edit-->
+
+    </div>
 </div>
 <!-- /.content-wrapper -->
-<!-- DataTales Example -->
 
-<div class="card shadow mb-4">
-    <!--Modal Approval-->
-    <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Form Edit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="form-reject" role="form">
-                        <input name="id" type="hidden" />
-                        <div class="form-group">
-                            <input name="Id" class="form-control" type="hidden" id="Id" />
-                        </div>
-                        <div class="form-group">
-                            <input name="EmployeeId" class="form-control" type="hidden" id="EmployeeId" />
-                        </div>
-                        <div class="form-group">
-                            <label>Reject Reason : </label>
-                            <input class="form-control" id="rejectReason" name="rejectReason"
-                                   placeholder="Reason" required type="text">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-reject" onclick="return Reject()">Save Rejection</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--End Modal Edit-->
-
-
-
-</div>
 @section scriptAdminLTE{
     <script src="~/DataTables/js/dataTables.buttons.min.js"></script>
     <script src="~/DataTables/js/buttons.flash.min.js"></script>
@@ -153,11 +206,6 @@
     <script src="~/assets/plugins/jquery-ui/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous"></script>
     <script src="~/Scripts//ManagerApprovalScript.js"></script>
-    <!-- DataTables -->
-    @*<script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>*@
     <script>
         $(document).ready(function () {
             tableApprovedByManager.create();
