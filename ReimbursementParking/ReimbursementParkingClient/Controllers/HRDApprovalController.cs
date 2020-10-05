@@ -29,7 +29,7 @@ namespace ReimbursementParkingClient.Controllers
 
         public IActionResult GetAllRequestHRD()
         {
-            IEnumerable<ApprovalViewModel> reimbursementRequest = null;
+            IEnumerable<StatusVM> reimbursementRequest = null;
 
             var authToken = HttpContext.Session.GetString("JWToken");
             client.DefaultRequestHeaders.Add("Authorization", authToken);
@@ -43,7 +43,7 @@ namespace ReimbursementParkingClient.Controllers
 
             if (result.IsSuccessStatusCode)
             {
-                var readTask = result.Content.ReadAsAsync<IList<ApprovalViewModel>>();
+                var readTask = result.Content.ReadAsAsync<IList<StatusVM>>();
                 readTask.Wait();
                 reimbursementRequest = readTask.Result;
             }
@@ -56,7 +56,7 @@ namespace ReimbursementParkingClient.Controllers
             var authToken = HttpContext.Session.GetString("JWToken");
 
             userClient.DefaultRequestHeaders.Add("Authorization", authToken);
-            var resTaskUser = userClient.GetAsync("Users/" + approveVM.EmployeeId);
+            var resTaskUser = userClient.GetAsync("reimburs/" + approveVM.EmployeeId);
             resTaskUser.Wait();
 
             var userResult = resTaskUser.Result;
@@ -85,7 +85,7 @@ namespace ReimbursementParkingClient.Controllers
             var authToken = HttpContext.Session.GetString("JWToken");
 
             userClient.DefaultRequestHeaders.Add("Authorization", authToken);
-            var resTaskUser = userClient.GetAsync("Users/" + rejectVM.EmployeeId);
+            var resTaskUser = userClient.GetAsync("reimburs/" + rejectVM.EmployeeId);
             resTaskUser.Wait();
 
             var userResult = resTaskUser.Result;

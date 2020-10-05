@@ -95,13 +95,7 @@ function LoadInitialCreateData() {
             },
             {
                 title: "Periode",
-                data: "RequestDate",
-                render: function (data, type, row) {
-                    var currPeriode = moment().format("MMMM YYYY");
-                    return currPeriode;
-                },
-                sortable: false,
-                oderable: false
+                data: "Periode"
             },
             {
                 title: "Request Date",
@@ -202,6 +196,7 @@ function LoadHistoryHRD() {
             { title: "Employee Name", data: "Name" },
             { title: "Plat Number", data: "PLATNumber" },
             { title: "Periode", data: "Periode" },
+            { title: "Status", data: "ReimbursementStatus" },
             {
                 title: "Request Date",
                 data: "RequestDate",
@@ -415,6 +410,7 @@ function Approve(idx) {
         table.ajax.reload(null, false);
         approvedTable.ajax.reload(null, false);
         rejectedTable.ajax.result(null, false);
+        historyTable.ajax.result(null, false);
     });
 }
 function Reject() {
@@ -439,6 +435,7 @@ function Reject() {
         table.ajax.reload(null, false);
         approvedTable.ajax.reload(null, false);
         rejectedTable.ajax.result(null, false);
+        historyTable.ajax.result(null, false);
     });
 }
 
