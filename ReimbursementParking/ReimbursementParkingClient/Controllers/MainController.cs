@@ -32,7 +32,7 @@ namespace ReimbursementParkingClient.Controllers
             {
                 if (HttpContext.Session.GetString("Id") != null)
                 {
-                    return Redirect("/profile");
+                    return Redirect("~/Views/Chart/Index.cshtml");
                 }
             }
             return View();

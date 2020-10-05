@@ -2,7 +2,7 @@
 var arrDepart = [];
 
 $(document).ready(function () {
-    //debugger;
+    debugger;
     table = $('#requestReimbursement').DataTable({
         "processing": true,
         "responsive": true,
@@ -34,21 +34,26 @@ $(document).ready(function () {
                     return moment(date).format('DD MMMM YYYY');
                 }
             },
-            { "data": "ParkingName" },
-            { "data": "ParkingAddress" },
-            { "data": "TotalPrice" },
             { "data": "ReimbursementStatus" },
-            { "data": "RejectReason" },
+            {
+                "sortable": false,
+                "data": "Id",
+                "render": function (data, type, row) {
+                    console.log(row);
+                    $('[data-toggle="tooltip"]').tooltip();
+                    return '<button class="btn btn-link btn-md" data-placement="left" data-toggle="tooltip" data-animation="false" title="Detail" onclick="return GetById(' + data + ')" ><i class="fa fa-lg fa-info"></i></button>'
+                }
+            },
             {
                 "sortable": false,
                 "data": "Id",
                 "render": function (data, type, row) {
                     if (row.ReimbursementStatus != "NewRequest") {
                         $('[data-toggle="tooltip"]').tooltip();
-                        return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-times"></i></button>'
+                        return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-trash"></i></button>'
                     }
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
+                    return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-trash"></i></button>'
                 }
             },
         ],
@@ -115,4 +120,22 @@ function Delete(id) {
             })
         };
     });
+}
+
+function GetById(id) {
+    debugger;
+    $.ajax({
+        url: "/ViewRequest/LoadRequestReq",
+        type: "GET",
+        dataType: "json",
+        data: { id: id }
+    }).then((result) => {
+        debugger;
+        $('#ParkingName').val(result.ParkingName);
+        $('#ParkingAddress').val(result.ParkingAddress);
+        $('#TotalPrice').val(result.TotalPrice);
+        $('#VeicleType').val(result.VeicleType);
+        $('#RejectReason').val(result.RejectReason);
+        $('#myModal').modal('show');
+    })
 }

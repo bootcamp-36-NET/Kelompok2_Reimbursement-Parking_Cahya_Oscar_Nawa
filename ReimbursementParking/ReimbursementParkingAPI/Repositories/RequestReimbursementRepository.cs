@@ -41,7 +41,16 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public async Task<int> Delete(string id)
+        public async Task<ReimbursementVM> GetByIdReq(int id)
+        {
+            var procedureName = "SP_get_byId_reimbursement_by_id";
+            param.Add("@Id", id);
+
+            var reimbursements = (await con.QueryAsync<ReimbursementVM>(procedureName, param, commandType: CommandType.StoredProcedure)).ToList();
+            return reimbursements.FirstOrDefault();
+        }
+
+        public async Task<int> Delete(int id)
         {
             var sp = "SPDelete";
             param.Add("@id", id);
@@ -49,12 +58,6 @@ namespace ReimbursementParkingAPI.Repositories
             return del;
         }
 
-        //public async Task<IEnumerable<RequestDetail>> Get()
-        //{
-        //    var SP = "SPShow";
-        //    var show = await con.QueryAsync<RequestDetail>(SP, commandType: CommandType.StoredProcedure);
-        //    return show;
-        //}
 
         public async Task<string> CreateNewRequest(string id, InsertReimbursementVM model)
         {

@@ -35,7 +35,7 @@ namespace ReimbursementParkingAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             var del = await _repo.Delete(id);
             if (del > 0)
@@ -67,6 +67,25 @@ namespace ReimbursementParkingAPI.Controllers
                 return BadRequest(result);
             }
             return Ok("Reimbursement Request Successfully Created !");
+        }
+    }
+
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ViewRequestsController : ControllerBase
+    {
+        private readonly RequestReimbursementRepository _repo;
+        public ViewRequestsController(RequestReimbursementRepository repo)
+        {
+            _repo = repo;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+            var reinmbursements = await _repo.GetByIdReq(id);
+            return Ok(reinmbursements);
         }
     }
 }

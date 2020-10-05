@@ -5,6 +5,7 @@
     var name = Context.Session.GetString("Name");
     var roleName = Context.Session.GetString("RoleName");
     var email = Context.Session.GetString("Email");
+    var departmentName = Context.Session.GetString("DepartmentName");
     if (roleName == null)
     {
         Context.Response.Redirect("/login");
@@ -79,12 +80,12 @@
                             <p>
                                 @name - @roleName
                                 <small>@email</small>
+                                <small>@departmentName</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <a href="/profile" class="btn btn-default btn-flat">Profile</a>
-                            <a href="logout" class="btn btn-default btn-flat float-right">Sign out</a>
+                            <a href="logout" class="btn btn-default btn-flat float-none">Sign out</a>
                         </li>
                     </ul>
                 </li>

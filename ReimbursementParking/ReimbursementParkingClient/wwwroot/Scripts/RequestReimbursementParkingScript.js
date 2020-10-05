@@ -124,7 +124,7 @@ function validate() {
     }
 
     if ($('#ReimbursementFile').val() == '') {
-        $('#ReimbursementFile').css('border-color', 'Red');
+        Swal.fire('Error', 'File must be Choosen !', 'Error');
         isValid = false;
     }
     else {
