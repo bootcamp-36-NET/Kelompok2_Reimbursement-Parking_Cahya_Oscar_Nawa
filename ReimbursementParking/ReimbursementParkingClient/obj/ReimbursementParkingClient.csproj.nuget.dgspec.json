@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj": {}
+    "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj": {}
   },
   "projects": {
-    "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
+    "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
         "projectName": "ReimbursementParkingAPI",
-        "projectPath": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
-        "packagesPath": "C:\\Users\\kanaw\\.nuget\\packages\\",
-        "outputPath": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
+        "projectPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj",
+        "packagesPath": "C:\\Users\\Geraldy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\kanaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Geraldy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -114,23 +112,21 @@
         }
       }
     },
-    "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj": {
+    "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj",
+        "projectUniqueName": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj",
         "projectName": "ReimbursementParkingClient",
-        "projectPath": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj",
-        "packagesPath": "C:\\Users\\kanaw\\.nuget\\packages\\",
-        "outputPath": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\obj\\",
+        "projectPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\ReimbursementParkingClient.csproj",
+        "packagesPath": "C:\\Users\\Geraldy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingClient\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\kanaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Geraldy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -142,8 +138,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
-                "projectPath": "C:\\1 File Kanawa\\Bootcamp MII\\GitHub\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj"
+              "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj": {
+                "projectPath": "C:\\Users\\Geraldy\\source\\repos\\Kelompok2_Reimbursement-Parking_Cahya_Oscar_Nawa\\ReimbursementParking\\ReimbursementParkingAPI\\ReimbursementParkingAPI.csproj"
               }
             }
           }
