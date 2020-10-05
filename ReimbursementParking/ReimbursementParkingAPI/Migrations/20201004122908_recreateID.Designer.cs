@@ -10,21 +10,21 @@ using ReimbursementParkingAPI.Context;
 namespace ReimbursementParkingAPI.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200923083601_InitDb")]
-    partial class InitDb
+    [Migration("20201004122908_recreateID")]
+    partial class recreateID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.Blob", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("Content")
                         .HasColumnType("varbinary(max)");
@@ -40,13 +40,19 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_blob");
+                    b.ToTable("tb_t_blob");
                 });
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.RequestDetail", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PLATNumber")
                         .HasColumnType("nvarchar(max)");
@@ -60,6 +66,9 @@ namespace ReimbursementParkingAPI.Migrations
                     b.Property<string>("PaymentType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Periode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
@@ -71,23 +80,21 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_reimbursement-detail");
+                    b.ToTable("tb_t_reimbursement_detail");
                 });
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.RequestReimbursementParking", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EmployeeId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("HRDResponseTime")
+                    b.Property<DateTimeOffset?>("HRDResponseTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("ManagerResponseTime")
+                    b.Property<DateTimeOffset?>("ManagerResponseTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("RejectReason")
@@ -103,7 +110,7 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.HasIndex("RequestReimbursementStatusEnumId");
 
-                    b.ToTable("tb_request-reimbursement-parking");
+                    b.ToTable("tb_t_request_reimbursement_parking");
                 });
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.RequestReimbursementStatusEnum", b =>
@@ -118,7 +125,7 @@ namespace ReimbursementParkingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_m_request-reimbursement-status-enum");
+                    b.ToTable("tb_m_request_reimbursement_status_enum");
                 });
 
             modelBuilder.Entity("ReimbursementParkingAPI.Models.Blob", b =>

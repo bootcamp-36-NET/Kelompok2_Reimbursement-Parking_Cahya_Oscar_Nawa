@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReimbursementParkingAPI.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class recreateID : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "tb_m_request-reimbursement-status-enum",
+                name: "tb_m_request_reimbursement_status_enum",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,38 +17,37 @@ namespace ReimbursementParkingAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_m_request-reimbursement-status-enum", x => x.Id);
+                    table.PrimaryKey("PK_tb_m_request_reimbursement_status_enum", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_request-reimbursement-parking",
+                name: "tb_t_request_reimbursement_parking",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     EmployeeId = table.Column<string>(nullable: true),
                     RejectReason = table.Column<string>(nullable: true),
                     RequestDate = table.Column<DateTimeOffset>(nullable: false),
-                    HRDResponseTime = table.Column<DateTimeOffset>(nullable: false),
-                    ManagerResponseTime = table.Column<DateTimeOffset>(nullable: false),
+                    HRDResponseTime = table.Column<DateTimeOffset>(nullable: true),
+                    ManagerResponseTime = table.Column<DateTimeOffset>(nullable: true),
                     RequestReimbursementStatusEnumId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_request-reimbursement-parking", x => x.Id);
+                    table.PrimaryKey("PK_tb_t_request_reimbursement_parking", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tb_request-reimbursement-parking_tb_m_request-reimbursement-status-enum_RequestReimbursementStatusEnumId",
+                        name: "FK_tb_t_request_reimbursement_parking_tb_m_request_reimbursement_status_enum_RequestReimbursementStatusEnumId",
                         column: x => x.RequestReimbursementStatusEnumId,
-                        principalTable: "tb_m_request-reimbursement-status-enum",
+                        principalTable: "tb_m_request_reimbursement_status_enum",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_blob",
+                name: "tb_t_blob",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Content = table.Column<byte[]>(nullable: true),
                     ContentType = table.Column<string>(nullable: true),
@@ -56,58 +55,61 @@ namespace ReimbursementParkingAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_blob", x => x.Id);
+                    table.PrimaryKey("PK_tb_t_blob", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tb_blob_tb_request-reimbursement-parking_Id",
+                        name: "FK_tb_t_blob_tb_t_request_reimbursement_parking_Id",
                         column: x => x.Id,
-                        principalTable: "tb_request-reimbursement-parking",
+                        principalTable: "tb_t_request_reimbursement_parking",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_reimbursement-detail",
+                name: "tb_t_reimbursement_detail",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     PLATNumber = table.Column<string>(nullable: true),
+                    Periode = table.Column<string>(nullable: true),
                     VechicleType = table.Column<string>(nullable: true),
                     PaymentType = table.Column<string>(nullable: true),
                     TotalPrice = table.Column<int>(nullable: false),
                     VechicleOwner = table.Column<string>(nullable: true),
                     ParkingName = table.Column<string>(nullable: true),
-                    ParkingAddress = table.Column<string>(nullable: true)
+                    ParkingAddress = table.Column<string>(nullable: true),
+                    DepartmentName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_reimbursement-detail", x => x.Id);
+                    table.PrimaryKey("PK_tb_t_reimbursement_detail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tb_reimbursement-detail_tb_request-reimbursement-parking_Id",
+                        name: "FK_tb_t_reimbursement_detail_tb_t_request_reimbursement_parking_Id",
                         column: x => x.Id,
-                        principalTable: "tb_request-reimbursement-parking",
+                        principalTable: "tb_t_request_reimbursement_parking",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_request-reimbursement-parking_RequestReimbursementStatusEnumId",
-                table: "tb_request-reimbursement-parking",
+                name: "IX_tb_t_request_reimbursement_parking_RequestReimbursementStatusEnumId",
+                table: "tb_t_request_reimbursement_parking",
                 column: "RequestReimbursementStatusEnumId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tb_blob");
+                name: "tb_t_blob");
 
             migrationBuilder.DropTable(
-                name: "tb_reimbursement-detail");
+                name: "tb_t_reimbursement_detail");
 
             migrationBuilder.DropTable(
-                name: "tb_request-reimbursement-parking");
+                name: "tb_t_request_reimbursement_parking");
 
             migrationBuilder.DropTable(
-                name: "tb_m_request-reimbursement-status-enum");
+                name: "tb_m_request_reimbursement_status_enum");
         }
     }
 }

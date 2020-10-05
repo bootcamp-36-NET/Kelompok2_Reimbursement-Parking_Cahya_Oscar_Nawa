@@ -16,10 +16,14 @@ namespace ReimbursementParkingAPI.Repositories
     public class HRDApprovalRepository : GeneralRepository<RequestReimbursementParking, MyContext>
     {
         private readonly MyContext _context;
-
-        public HRDApprovalRepository(MyContext context) : base(context)
+        private readonly IConfiguration _configuration;
+        private readonly SqlConnection con;
+        DynamicParameters param = new DynamicParameters();
+        public HRDApprovalRepository(MyContext context, IConfiguration configuration) : base(context)
         {
             _context = context;
+            _configuration = configuration;
+            con = new SqlConnection(_configuration["ConnectionStrings:ReimbursementParking"]);
         }
 
         public async Task<List<StatusVM>> GetAll(string departmentName)
@@ -31,6 +35,8 @@ namespace ReimbursementParkingAPI.Repositories
                 .Select(q => new StatusVM()
                 {
                     Id = q.Id,
+                    Periode = q.RequestDetail.Periode,
+                    Name = q.RequestDetail.Name,
                     EmployeeId = q.EmployeeId,
                     PLATNumber = q.RequestDetail.PLATNumber,
                     TotalPrice = q.RequestDetail.TotalPrice,
@@ -48,6 +54,22 @@ namespace ReimbursementParkingAPI.Repositories
                 .ToListAsync();
 
             return data;
+        }
+        public async Task<List<StatusVM>> GetAllHistory(string departmentName)
+        {
+            var procedureName = "SP_get_all_hitory";
+            param.Add("@DepartmentName", departmentName);
+
+            var reimbursements = (await con.QueryAsync<StatusVM>(procedureName, param, commandType: CommandType.StoredProcedure)).ToList();
+            return reimbursements;
+        }
+        public async Task<StatusVM> GetHistoryDetail(string id)
+        {
+            var procedureName = "SP_get_all_history_detail";
+            param.Add("@Id", id);
+
+            var reimbursements = (await con.QueryAsync<StatusVM>(procedureName, param, commandType: CommandType.StoredProcedure)).FirstOrDefault();
+            return reimbursements;
         }
 
         public async Task<List<StatusVM>> GetAllApprove(string departmentName)

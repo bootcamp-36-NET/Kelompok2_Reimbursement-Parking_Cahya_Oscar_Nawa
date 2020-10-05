@@ -21,11 +21,11 @@ namespace ReimbursementParkingAPI.Bases
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> GetById(int id) => await _repository.GetById(id);
+        public async Task<ActionResult<TEntity>> GetById(string id) => await _repository.GetById(id);
 
         [HttpGet]
         [Route("GetFile/{blobId}")]
-        public async Task<ActionResult> GetFile(int blobId)
+        public async Task<ActionResult> GetFile(string blobId)
         {
             var data = await _repository.GetFile(blobId);
             if (data == null)

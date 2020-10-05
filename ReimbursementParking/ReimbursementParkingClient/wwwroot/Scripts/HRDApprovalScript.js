@@ -1,14 +1,16 @@
 ﻿var table = null;
+var historyTable = null;
 var approvedTable = null;
 var rejectedTable = null;
 
 
 $(document).ready(function () {
     LoadInitialCreateData();
+    LoadHistoryHRD();
     LoadApprovedByHRD();
     LoadRejectedByHRD();
 
-   $.fn.dataTable.ext.search.push(
+    $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
             var min = $('#min').datepicker("getDate");
             var max = $('#max').datepicker("getDate");
@@ -59,8 +61,8 @@ function LoadInitialCreateData() {
 
             },
             {
-                title: "Employee ID",
-                data: "EmployeeId"
+                title: "Employee Name",
+                data: "Name"
             },
             {
                 title: "PLAT Number",
@@ -111,20 +113,22 @@ function LoadInitialCreateData() {
                 sortable: false,
                 oderable: false
             },
-            {
-                title: "File Data",
-                data: "Id",
-                render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-outline-primary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
-                },
-                "sortable": false,
-                "oderable": false
-            },
+            //{
+            //    title: "File Data",
+            //    data: "Id",
+            //    render: function (data, type, row, meta) {
+            //        return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>';
+            //    },
+            //    "sortable": false,
+            //    "oderable": false
+            //},
             {
                 title: "Action",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-outline-success" data-placement="left"  data-toggle="Reject" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
+                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>'
+                        + "&nbsp"
+                        + '<Button class="btn btn-outline-success" data-placement="left"  data-toggle="Reject" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
                         + "&nbsp;"
                         + '<button onclick="ShowReject(' + meta.row + ')" class="btn btn-outline-danger" data-placement="right" data-toggle="Reject title = "Reject"><i class="fa fa-lg fa-window-close"></i></button>';
                 },
@@ -138,6 +142,79 @@ function LoadInitialCreateData() {
     });
 
 }
+
+
+function LoadHistoryHRD() {
+    //debugger;
+    historyTable = $('#HistoryTable').DataTable({
+        ajax: {
+            url: "/HRDApproval/GetAllHitoryHRD",
+            dataSrc: "",
+            cache: false,
+            type: "GET",
+            dataType: "JSON"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: '<i class="fa fa-file"></i>',
+                titleAttr: 'Copy',
+                className: 'btn btn-outline-warning'
+            },
+            {
+                extend: 'csv',
+                text: '<i class="fa fa-file-csv"></i>',
+                titleAttr: 'CSV',
+                className: 'btn btn-outline-info'
+            },
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel"></i>',
+                titleAttr: 'Excel',
+                filename: 'Division List',
+                className: 'btn btn-outline-success'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf"></i>',
+                titleAttr: 'Pdf',
+                className: 'btn btn-outline-danger'
+            },
+            {
+                extend: 'print',
+                autoPrint: false,
+                text: '<i class="fa fa-print"></i>',
+                titleAttr: 'Print',
+                className: 'btn btn-outline-warning'
+            },
+
+        ],
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ],
+        columns: [
+            {
+                title: "No", data: null, render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            { title: "Employee Name", data: "Name" },
+            { title: "Plat Number", data: "PLATNumber" },
+            { title: "Periode", data: "Periode" },
+            {
+                title: "Request Date",
+                data: "RequestDate",
+                render: function (jsonDate) {
+                    var date = moment(jsonDate).format("DD MMMM YYYY");
+                    return date;
+                }
+            },
+
+        ]
+    });
+}
+
 
 function LoadApprovedByHRD() {
     //debugger;

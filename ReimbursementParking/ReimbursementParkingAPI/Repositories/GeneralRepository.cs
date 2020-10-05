@@ -20,7 +20,7 @@ namespace ReimbursementParkingAPI.Repositories
             _context = myContext;
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(string id)
         {
             var data = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
             if (data != null)
@@ -45,7 +45,7 @@ namespace ReimbursementParkingAPI.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<Blob> GetFile(int blobId)
+        public async Task<Blob> GetFile(string blobId)
         {
             var blobData = await _context.Blobs.Where(q => q.Id == blobId).FirstOrDefaultAsync();
             return blobData;

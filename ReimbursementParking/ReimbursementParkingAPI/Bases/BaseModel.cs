@@ -7,7 +7,7 @@ namespace ReimbursementParkingAPI.Bases
 {
     public interface BaseModel
     {
-        int Id { get; set; }
+        string Id { get; set; }
         string RejectReason { get; set; }
         DateTimeOffset? HRDResponseTime { get; set; }
         DateTimeOffset? ManagerResponseTime { get; set; }

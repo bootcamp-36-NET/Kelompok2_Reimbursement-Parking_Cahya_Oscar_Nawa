@@ -8,7 +8,7 @@ namespace ReimbursementParkingAPI.ViewModels
     public class ApproveRejectVM
     {
         public string EmployeeId { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }
         public string RejectReason { get; set; }
     }

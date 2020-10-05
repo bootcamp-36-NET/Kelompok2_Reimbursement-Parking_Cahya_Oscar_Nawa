@@ -89,6 +89,22 @@ namespace ReimbursementParkingAPI.Controllers
         }
 
         [HttpGet]
+        [Route("history/{departmentName}")]
+        public async Task<ActionResult> GetAllHistory(string departmentName)
+        {
+            var reimbursementRequests = await _repo.GetAllHistory(departmentName);
+            return Ok(reimbursementRequests);
+        }
+
+        [HttpGet]
+        [Route("history/detail/{Id}")]
+        public async Task<ActionResult> GetHistoryDetail(string Id)
+        {
+            var reimbursementRequests = await _repo.GetHistoryDetail(Id);
+            return Ok(reimbursementRequests);
+        }
+
+        [HttpGet]
         [Route("allApprove/{departmentName}")]
         public async Task<ActionResult> GetAllApprovedByHRD(string departmentName)
         {

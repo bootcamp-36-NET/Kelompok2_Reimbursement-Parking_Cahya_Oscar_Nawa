@@ -45,7 +45,7 @@ namespace ReimbursementParkingClient.Controllers
                 var jsonUserVM = JsonConvert.SerializeObject(loginVM);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(jsonUserVM);
                 var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
                 var resTask = client.PostAsync("auths/login/", byteContent);
                 resTask.Wait();
                 var result = resTask.Result;
@@ -102,6 +102,7 @@ namespace ReimbursementParkingClient.Controllers
             return Redirect("/login");
 
         }
+
         [Route("login-validate")]
         public ActionResult<ExpandoObject> Login(LoginViewModel loginVM)
         {
@@ -109,7 +110,7 @@ namespace ReimbursementParkingClient.Controllers
             string stringData = JsonConvert.SerializeObject(loginVM);
             var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
             
-            var resTask = client.PostAsync("auths/login", contentData);
+            var resTask = client.PostAsync("reimburs/login", contentData);
             resTask.Wait();
             var result = resTask.Result;
             var responseData = result.Content.ReadAsStringAsync().Result;

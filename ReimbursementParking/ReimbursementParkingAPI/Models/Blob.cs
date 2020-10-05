@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Models
 {
-    [Table("tb_blob")]
+    [Table("tb_t_blob")]
     public class Blob
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public byte[] Content { get; set; }
         public string ContentType { get; set; }

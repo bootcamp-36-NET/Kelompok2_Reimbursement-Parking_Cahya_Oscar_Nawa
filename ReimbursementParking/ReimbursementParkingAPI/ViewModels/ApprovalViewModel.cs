@@ -7,8 +7,9 @@ namespace ReimbursementParkingAPI.ViewModels
 {
     public class ApprovalViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string EmployeeId { get; set; }
+        public string Name { get; set; }
         public DateTimeOffset RequestDate { get; set; }
         public string PLATNumber { get; set; }
         public string VehicleType { get; set; }

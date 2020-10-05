@@ -24,18 +24,28 @@ namespace ReimbursementParkingClient.Controllers
             return View();
         }
 
-        public ActionResult LoadInitialCreateData()
+        public ActionResult LoadPerideDrowDown()
         {
-            InsertReimbursementVM model = new InsertReimbursementVM();
-            model.EmployeeId = HttpContext.Session.GetString("Id");
-            model.Name = HttpContext.Session.GetString("Name");
+            var authToken = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", authToken);
 
-            return Json(model);
+            var resTask = client.GetAsync("RequestReimbursementParkings");
+            resTask.Wait();
+            var result = resTask.Result;
+
+            var readTask = result.Content.ReadAsAsync<List<string>>();
+            readTask.Wait();
+            var response = readTask.Result;
+
+            return Json(response);
         }
 
         public ActionResult<ExpandoObject> CreateReimbursement([FromForm] InsertReimbursementVM model)
         {
             var DepartmentName = HttpContext.Session.GetString("DepartmentName");
+            var employeeId = HttpContext.Session.GetString("Id");
+            var employeeName = HttpContext.Session.GetString("Name");
+
             var multiContent = new MultipartFormDataContent();
             var file = model.ReimbursementFile;
             if (file != null)
@@ -43,8 +53,9 @@ namespace ReimbursementParkingClient.Controllers
                 var fileStreamContent = new StreamContent(file.OpenReadStream());
                 multiContent.Add(fileStreamContent, "ReimbursementFile", file.FileName);
             }
-            multiContent.Add(new StringContent(model.EmployeeId.ToString()), "EmployeeId");
-            multiContent.Add(new StringContent(model.Name.ToString()), "Name");
+            multiContent.Add(new StringContent(employeeId.ToString()), "EmployeeId");
+            multiContent.Add(new StringContent(employeeName.ToString()), "Name");
+            multiContent.Add(new StringContent(model.Periode.ToString()), "Periode");
             multiContent.Add(new StringContent(model.ParkingAddress.ToString()), "ParkingAddress");
             multiContent.Add(new StringContent(model.ParkingName.ToString()), "ParkingName");
             multiContent.Add(new StringContent(model.PaymentType.ToString()), "PaymentType");
@@ -57,7 +68,7 @@ namespace ReimbursementParkingClient.Controllers
             var authToken = HttpContext.Session.GetString("JWToken");
             client.DefaultRequestHeaders.Add("Authorization", authToken);
 
-            var resTask = client.PostAsync("RequestReimbursementParkings/" + model.EmployeeId, multiContent);
+            var resTask = client.PostAsync("RequestReimbursementParkings/" + employeeId, multiContent);
             resTask.Wait();
 
             var result = resTask.Result;

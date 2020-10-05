@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Models
 {
-    [Table("tb_m_request-reimbursement-status-enum")]
+    [Table("tb_m_request_reimbursement_status_enum")]
     public class RequestReimbursementStatusEnum
     {
         [Key]

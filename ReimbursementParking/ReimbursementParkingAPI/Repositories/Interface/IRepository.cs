@@ -10,7 +10,7 @@ namespace ReimbursementParkingAPI.Repositories.Interface
     {
         Task<int> Approve(T entity);
         Task<int> Reject(T entity);
-        Task<T> GetById(int id);
-        Task<Blob> GetFile(int id);
+        Task<T> GetById(string id);
+        Task<Blob> GetFile(string id);
     }
 }
