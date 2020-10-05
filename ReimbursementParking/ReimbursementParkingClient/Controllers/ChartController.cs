@@ -16,6 +16,7 @@ namespace ReimbursementParkingClient.Controllers
             BaseAddress = new Uri("https://localhost:44322/api/")
         };
 
+        [Route("charts")]
         public IActionResult Index()
         {
             return View();

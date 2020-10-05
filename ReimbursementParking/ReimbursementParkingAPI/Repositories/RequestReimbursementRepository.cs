@@ -41,7 +41,7 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements;
         }
 
-        public async Task<ReimbursementVM> GetByIdReq(int id)
+        public async Task<ReimbursementVM> GetByIdReq(string id)
         {
             var procedureName = "SP_get_byId_reimbursement_by_id";
             param.Add("@Id", id);
@@ -79,8 +79,8 @@ namespace ReimbursementParkingAPI.Repositories
             //var isExistInMonth = await _context.RequestReimbursementParkings
             //    .Where(Q => Q.RequestDate >= startDate && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
 
-            var isExistInMonth = await _context.RequestReimbursementParkings
-                .Where(Q => Q.RequestDate.ToString("y") == model.Periode && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
+            var isExistInMonth = await _context.RequestReimbursementParkings.Include("RequestDetail")
+                .Where(Q => Q.RequestDetail.Periode == model.Periode && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
             if (isExistInMonth)
             {
                 return "Can Only Request Once Per Month  !";

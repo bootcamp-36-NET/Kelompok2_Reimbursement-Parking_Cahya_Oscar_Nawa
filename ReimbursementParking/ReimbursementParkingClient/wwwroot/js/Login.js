@@ -40,7 +40,7 @@ function myLogin() {
             if (result.item3 === "false") {
                 window.location.href = "/verifies";
             } else {
-                window.location.href = "/main";
+                window.location.href = "/charts";
             }
         } else {
             Swal.fire('Error', result.Item2, 'error');

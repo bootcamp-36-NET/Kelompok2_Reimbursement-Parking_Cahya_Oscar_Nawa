@@ -90,13 +90,13 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Json(reimbursementVM);
         }
-        public ActionResult<ExpandoObject> ApproveRequest(int id, ApproveRejectVM approveVM)
+        public ActionResult<ExpandoObject> ApproveRequest(string id, ApproveRejectVM approveVM)
         {
 
             var authToken = HttpContext.Session.GetString("JWToken");
 
             auth.DefaultRequestHeaders.Add("Authorization", authToken);
-            var resTaskUser = auth.GetAsync("Users/" + approveVM.EmployeeId);
+            var resTaskUser = auth.GetAsync("reimburs/" + approveVM.EmployeeId);
             resTaskUser.Wait();
 
             var userResult = resTaskUser.Result;
@@ -120,14 +120,14 @@ namespace ReimbursementParkingClient.Controllers
 
             return Json(resultVM);
         }
-        public JsonResult UpdateReject(ApproveRejectVM statusVM, int Id)
+        public JsonResult UpdateReject(ApproveRejectVM statusVM, string Id)
         {
             try
             {
                 var authToken = HttpContext.Session.GetString("JWToken");
                 auth.DefaultRequestHeaders.Add("Authorization", authToken);
 
-                var resTaskUser = auth.GetAsync("Users/" + statusVM.EmployeeId);
+                var resTaskUser = auth.GetAsync("reimburs/" + statusVM.EmployeeId);
                 resTaskUser.Wait();
 
                 var userResult = resTaskUser.Result;
@@ -157,7 +157,7 @@ namespace ReimbursementParkingClient.Controllers
                 throw ex;
             }
         }
-        public JsonResult GetById(int id)
+        public JsonResult GetById(string id)
         {
             StatusVM divisionVMs = null;
 
@@ -180,7 +180,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(divisionVMs);
         }
 
-        public ActionResult<ExpandoObject> DownloadFolder(int id)
+        public ActionResult<ExpandoObject> DownloadFolder(string id)
         {
             Blob responseData = null;
 
