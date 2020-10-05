@@ -126,7 +126,7 @@ function LoadInitialCreateData() {
                 title: "Action",
                 data: "Id",
                 render: function (data, type, row, meta) {
-                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + row.Id + ')"><i class="fa fa-lg fa-file-download"></i></button>'
+                    return '<Button class="btn btn-secondary" onclick="return DownloadFolder(' + meta.row + ')"><i class="fa fa-lg fa-file-download"></i></button>'
                         + "&nbsp"
                         + '<Button class="btn btn-outline-success" data-placement="left"  data-toggle="Reject" onclick="return Approve(' + meta.row + ')"><i class="fa fa-lg fa-check"></i></button>'
                         + "&nbsp;"
@@ -442,7 +442,8 @@ function Reject() {
     });
 }
 
-function DownloadFolder(Id) {
+function DownloadFolder(idx) {
+    var Id = table.row(idx).data().Id;
     $.ajax({
         url: "/HRDApproval/DownloadFolder/" + Id,
         data: { Id: Id },

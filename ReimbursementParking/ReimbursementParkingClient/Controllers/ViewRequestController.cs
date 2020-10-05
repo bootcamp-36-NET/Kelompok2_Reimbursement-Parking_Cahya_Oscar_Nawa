@@ -50,7 +50,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(reimbursementVMs);
         }
 
-        public JsonResult LoadRequestReq(int id)
+        public JsonResult LoadRequestReq(string id)
         {
             ReimbursementVM reimbursementVMs = null;
 

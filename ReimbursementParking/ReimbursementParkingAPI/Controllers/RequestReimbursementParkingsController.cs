@@ -90,7 +90,7 @@ namespace ReimbursementParkingAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult> GetById(string id)
         {
             var reinmbursements = await _repo.GetByIdReq(id);
             return Ok(reinmbursements);

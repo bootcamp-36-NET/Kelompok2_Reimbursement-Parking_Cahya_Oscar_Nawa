@@ -38,22 +38,22 @@ $(document).ready(function () {
             {
                 "sortable": false,
                 "data": "Id",
-                "render": function (data, type, row) {
+                "render": function (data, type, row, meta) {
                     console.log(row);
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md" data-placement="left" data-toggle="tooltip" data-animation="false" title="Detail" onclick="return GetById(' + data + ')" ><i class="fa fa-lg fa-info"></i></button>'
+                    return '<button class="btn btn-link btn-md" data-placement="left" data-toggle="tooltip" data-animation="false" title="Detail" onclick="return GetById(' + meta.row + ')" ><i class="fa fa-lg fa-info"></i></button>'
                 }
             },
             {
                 "sortable": false,
                 "data": "Id",
-                "render": function (data, type, row) {
+                "render": function (data, type, row, meta) {
                     if (row.ReimbursementStatus != "NewRequest") {
                         $('[data-toggle="tooltip"]').tooltip();
-                        return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" disabled><i class="fa fa-lg fa-trash"></i></button>'
+                        return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + meta.row + ')" disabled><i class="fa fa-lg fa-trash"></i></button>'
                     }
                     $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-trash"></i></button>'
+                    return '<button class="btn btn-outline-danger" data-placement="left" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + meta.row + ')" ><i class="fa fa-lg fa-trash"></i></button>'
                 }
             },
         ],
@@ -87,7 +87,8 @@ $(document).ready(function () {
 });
 
 
-function Delete(id) {
+function Delete(idx) {
+    var Id = table.row(idx).data().Id;
     debugger;
     Swal.fire({
         title: 'Are you sure?',
@@ -101,7 +102,7 @@ function Delete(id) {
             debugger;
             $.ajax({
                 url: "/ViewRequest/Delete",
-                data: { id: id }
+                data: { id: Id }
             }).then((result) => {
                 debugger;
                 if (result.StatusCode == 200) {
@@ -122,13 +123,14 @@ function Delete(id) {
     });
 }
 
-function GetById(id) {
+function GetById(idx) {
+    var Id = table.row(idx).data().Id;
     debugger;
     $.ajax({
         url: "/ViewRequest/LoadRequestReq",
         type: "GET",
         dataType: "json",
-        data: { id: id }
+        data: { id: Id }
     }).then((result) => {
         debugger;
         $('#ParkingName').val(result.ParkingName);
