@@ -7,7 +7,7 @@ namespace ReimbursementParkingAPI.ViewModels
 {
     public class StatusVM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string EmployeeId { get; set; }
         public string ReimbursementStatus { get; set; }
         public string RejectReason { get; set; }
@@ -21,6 +21,7 @@ namespace ReimbursementParkingAPI.ViewModels
         public string ParkingAddress { get; set; }
         public byte[] Content { get; set; }
         public int StatusId { get; set; }
-        public string DepartmentName { get; set; }
+        public string Name { get; set; }
+        public string Periode { get; set; }
     }
 }

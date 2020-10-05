@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Models
 {
-    [Table("tb_reimbursement-detail")]
+    [Table("tb_t_reimbursement_detail")]
     public class RequestDetail
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
         public string PLATNumber { get; set; }
+        public string Periode { get; set; }
         public string VechicleType { get; set; }
         public string PaymentType { get; set; }
         public int TotalPrice { get; set; }

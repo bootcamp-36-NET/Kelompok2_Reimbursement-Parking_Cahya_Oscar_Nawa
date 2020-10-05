@@ -1,10 +1,33 @@
 ﻿$('.select2').select2()
+var periodeDropDown = $('#PeriodeDropDown');
 var maxFileSize = 1048576;
 
 $(document).ready(function () {
     bsCustomFileInput.init();
     LoadInitialCreateData();
+    LoadPeriodeDropDown();
 });
+
+function LoadPeriodeDropDown() {
+    periodeDropDown.empty();
+    $.ajax({
+        url: "/RequestReimbursementParking/LoadPerideDrowDown",
+        data: "",
+        cache: false,
+        type: "GET",
+        dataType: "JSON"
+    }).then((results) => {
+        if (results != null) {
+            $.each(results, function (index, result) {
+                if (index == 0) {
+                    periodeDropDown.append("<option selected='selected'>" + result + "</option>");
+                } else {
+                    periodeDropDown.append("<option>" + result + "</option>");
+                }
+            });
+        };
+    });
+}
 
 function LoadInitialCreateData() {
     $.ajax({
@@ -22,15 +45,15 @@ function LoadInitialCreateData() {
 }
 
 function CreateNewRequest() {
+    Swal.showLoading()
     var check = validate();
     if (check == false) {
+        Swal.fire('Error', 'Invalid Data Input !', 'error');
         return false;
     }
-
     let formData = new FormData();
-    formData.append('EmployeeId', $('#EmployeeId').val());
-    formData.append('Name', $('#Name').val());
-    formData.append('PLATNumber', $('#PLATNumber').val());
+    formData.append('PLATNumber', $('#PLATNumber1').val() + ' ' + $('#PLATNumber2').val() + ' ' + $('#PLATNumber3').val());
+    formData.append('Periode', $('#PeriodeDropDown').val());
     formData.append('VehicleOwner', $('#VehicleOwner').val());
     formData.append('VehicleType', $('#VehicleType').val());
     formData.append('TotalPrice', $('#TotalPrice').val());
@@ -66,12 +89,26 @@ function CreateNewRequest() {
 
 function validate() {
     var isValid = true;
-    if ($('#PLATNumber').val().trim() == "") {
-        $('#PLATNumber').css('border-color', 'Red');
+    if ($('#PLATNumber1').val().trim() == "") {
+        $('#PLATNumber1').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#PLATNumber').css('border-color', 'lightgrey');
+        $('#PLATNumber1').css('border-color', 'lightgrey');
+    }
+    if ($('#PLATNumber2').val().trim() == "") {
+        $('#PLATNumber2').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#PLATNumber2').css('border-color', 'lightgrey');
+    }
+    if ($('#PLATNumber3').val().trim() == "") {
+        $('#PLATNumber3').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#PLATNumber3').css('border-color', 'lightgrey');
     }
     if ($('#VehicleOwner').val().trim() == "") {
         $('#VehicleOwner').css('border-color', 'Red');
@@ -142,89 +179,10 @@ function validate() {
     return isValid;
 }
 
-var table = null;
-var arrDepart = [];
-
-$(document).ready(function () {
-    table = $('#requestReimbursement').DataTable({
-        "processing": true,
-        "responsive": true,
-        "pagination": true,
-        "stateSave": true,
-        "ajax": {
-            url: "/ViewRequest/LoadRequest",
-            type: "GET",
-            dataType: "json",
-            dataSrc: "",
-        },
-
-        "columnDefs": [{
-            sortable: false,
-            "class": "index",
-            targets: 0
-        }],
-        order: [[1, 'asc']],
-        fixedColumns: true,
-
-        "columns": [
-            { "data": null },
-            { "data": "id" },
-            { "data": "platNumber" },
-            { "data": "requestDate" },
-            { "data": "parkingName" },
-            { "data": "parkingAddress" },
-            { "data": "totalPrice" },
-            { "data": "reimbursementStatus" },
-            { "data": "rejectReason" },
-            {
-                "sortable": false,
-                "data": "id",
-                "render": function (data, type, row) {
-                    console.log(row);
-                    $('[data-toggle="tooltip"]').tooltip();
-                    return '<button class="btn btn-link btn-md btn-warning " data-placement="left" data-toggle="tooltip" data-animation="false" title="Edit" onclick="return GetById(' + data + ')" ><i class="fa fa-lg fa-edit"></i></button>'
-                        + '&nbsp;'
-                        + '<button class="btn btn-link btn-md btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + data + ')" ><i class="fa fa-lg fa-times"></i></button>'
-                }
-            },
-        ]
-    });
-    table.on('order.dt search.dt', function () {
-        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1;
-        });
-    }).draw();
-});
-
-//function LoadDepart(element) {
-//    debugger;
-//    if (arrDepart.length === 0) {
-//        $.ajax({
-//            type: "Get",
-//            url: "/departments/LoadDepart",
-//            success: function (data) {
-//                arrDepart = data;
-//                renderDepart(element);
-//            }
-//        });
-//    }
-//    else {
-//        renderDepart(element);
-//    }
-//}
-
-//function renderDepart(element) {
-//    debugger;
-//    var $option = $(element);
-//    $option.empty();
-//    $option.append($('<option/>').val('0').text('Select Department').hide());
-//    $.each(arrDepart, function (i, val) {
-//        $option.append($('<option/>').val(val.Id).text(val.Name))
-//    });
-//}
-
 function ClearForm() {
-    $('#PLATNumber').val('');
+    $('#PLATNumber1').val('');
+    $('#PLATNumber2').val('');
+    $('#PLATNumber3').val('');
     $('#VehicleOwner').val('');
     $('#TotalPrice').val('');
     $('#ParkingAddress').val('');

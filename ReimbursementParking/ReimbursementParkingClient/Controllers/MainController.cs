@@ -47,6 +47,7 @@ namespace ReimbursementParkingClient.Controllers
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 var resTask = client.PostAsync("reimburs/login/", byteContent);
+
                 resTask.Wait();
                 var result = resTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -102,6 +103,7 @@ namespace ReimbursementParkingClient.Controllers
             return Redirect("/login");
 
         }
+
         [Route("login-validate")]
         public ActionResult<ExpandoObject> Login(LoginViewModel loginVM)
         {

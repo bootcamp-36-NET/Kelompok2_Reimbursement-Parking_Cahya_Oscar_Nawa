@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ReimbursementParkingAPI.Models
 {
-    [Table("tb_request-reimbursement-parking")]
+    [Table("tb_t_request_reimbursement_parking")]
     public class RequestReimbursementParking : BaseModel
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string EmployeeId { get; set; }
         public string RejectReason { get; set; }
         public DateTimeOffset RequestDate { get; set; }

@@ -30,7 +30,7 @@ namespace ReimbursementParkingAPI.Controllers
 
         [HttpPut]
         [Route("approve/{id}")]
-        public async Task<ActionResult> Approve(int Id, ApproveRejectVM approveVM)
+        public async Task<ActionResult> Approve(string Id, ApproveRejectVM approveVM)
         {
             var reimbursementRequest = await _repo.GetById(Id);
             reimbursementRequest.ManagerResponseTime = DateTimeOffset.Now;
@@ -52,7 +52,7 @@ namespace ReimbursementParkingAPI.Controllers
 
         [HttpPut]
         [Route("reject/{id}")]
-        public async Task<ActionResult> Reject(int id, ApproveRejectVM rejectVM)
+        public async Task<ActionResult> Reject(string id, ApproveRejectVM rejectVM)
         {
             var reimbursementRequest = await _repo.GetById(id);
             if (reimbursementRequest == null)

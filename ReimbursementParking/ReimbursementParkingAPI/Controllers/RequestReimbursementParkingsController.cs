@@ -35,7 +35,7 @@ namespace ReimbursementParkingAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
             var del = await _repo.Delete(id);
             if (del > 0)
@@ -43,6 +43,14 @@ namespace ReimbursementParkingAPI.Controllers
                 return Ok("Successfully Delete");
             }
             return BadRequest("Not Success");
+        }
+
+
+        [HttpGet]
+        public ActionResult GetPeriodeDropdown()
+        {
+            var periodeList =  _repo.LoadPeriodeDropDown();
+            return Ok(periodeList);
         }
 
         [HttpPost("{id}")]

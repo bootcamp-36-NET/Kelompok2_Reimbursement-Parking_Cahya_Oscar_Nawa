@@ -110,7 +110,7 @@ namespace ReimbursementParkingClient.Controllers
             return Json(resultVM);
         }
 
-        public ActionResult<ExpandoObject> DownloadFolder(int id)
+        public ActionResult<ExpandoObject> DownloadFolder(string id)
         {
             Blob responseData = null;
 
@@ -133,6 +133,49 @@ namespace ReimbursementParkingClient.Controllers
             resultVM.Item2 = responseData;
 
             return Json(resultVM);
+        }
+
+        [HttpGet("{Id}")]
+        public JsonResult GetReimbursementById(string Id)
+        {
+            IEnumerable<StatusVM> reimbursementVM = null;
+
+            var token = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", token);
+
+            var restTask = client.GetAsync("HRDApprovals/history/detail/" + Id);
+            restTask.Wait();
+
+            var result = restTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IList<StatusVM>>();
+                readTask.Wait();
+                reimbursementVM = readTask.Result;
+            }
+            return Json(reimbursementVM);
+        }
+
+        public JsonResult GetAllHitoryHRD()
+        {
+            IEnumerable<StatusVM> reimbursementVM = null;
+
+            var token = HttpContext.Session.GetString("JWToken");
+            client.DefaultRequestHeaders.Add("Authorization", token);
+
+            var departmentName = HttpContext.Session.GetString("DepartmentName");
+
+            var restTask = client.GetAsync("HRDApprovals/history/" + departmentName);
+            restTask.Wait();
+
+            var result = restTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IList<StatusVM>>();
+                readTask.Wait();
+                reimbursementVM = readTask.Result;
+            }
+            return Json(reimbursementVM);
         }
 
         public JsonResult GetApprovedByHRD()

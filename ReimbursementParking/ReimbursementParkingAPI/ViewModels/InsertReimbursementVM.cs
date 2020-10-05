@@ -12,6 +12,7 @@ namespace ReimbursementParkingAPI.ViewModels
         public byte[] Content { get; set; }
         public IFormFile ReimbursementFile { get; set; }
         public string Name { get; set; }
+        public string Periode { get; set; }
         public string PLATNumber { get; set; }
         public string VehicleType { get; set; }
         public string PaymentType { get; set; }

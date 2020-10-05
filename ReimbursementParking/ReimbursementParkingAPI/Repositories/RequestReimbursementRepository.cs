@@ -50,7 +50,7 @@ namespace ReimbursementParkingAPI.Repositories
             return reimbursements.FirstOrDefault();
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(string id)
         {
             var sp = "SPDelete";
             param.Add("@id", id);
@@ -58,27 +58,51 @@ namespace ReimbursementParkingAPI.Repositories
             return del;
         }
 
+        public List<string> LoadPeriodeDropDown()
+        {
 
+            var periode = new List<string>();
+
+            DateTime d = DateTime.Now;
+
+            for (int i = -2; i < 1; i++)
+            {
+                periode.Add(d.AddMonths(i).ToString("y"));
+            }
+            return periode;
+        }
         public async Task<string> CreateNewRequest(string id, InsertReimbursementVM model)
         {
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var endDate = startDate.AddMonths(1).AddDays(-1);
 
+            //var isExistInMonth = await _context.RequestReimbursementParkings
+            //    .Where(Q => Q.RequestDate >= startDate && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
+
             var isExistInMonth = await _context.RequestReimbursementParkings
-                .Where(Q => Q.RequestDate >= startDate && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
+                .Where(Q => Q.RequestDate.ToString("y") == model.Periode && (Q.RequestReimbursementStatusEnumId < 4) && Q.EmployeeId == id).AnyAsync();
             if (isExistInMonth)
             {
                 return "Can Only Request Once Per Month  !";
             }
 
-            RequestReimbursementParking reimbursement = new RequestReimbursementParking()
+            //RequestReimbursementParking reimbursement = new RequestReimbursementParking()
+            //{
+            //    EmployeeId = id,
+            //    RequestDate = DateTimeOffset.Now,
+            //    RequestReimbursementStatusEnumId = 1
+            //};
+            //_context.RequestReimbursementParkings.Add(reimbursement);
+            //await _context.SaveChangesAsync();
+
+            var sp = "sp_create_reimbursement";
+            param.Add("@EmployeeId", model.EmployeeId);
+            var save = await con.ExecuteAsync(sp, param, commandType: CommandType.StoredProcedure);
+            if (save < 0)
             {
-                EmployeeId = id,
-                RequestDate = DateTimeOffset.Now,
-                RequestReimbursementStatusEnumId = 1
-            };
-            _context.RequestReimbursementParkings.Add(reimbursement);
-            await _context.SaveChangesAsync();
+                return "Server Error !";
+            }
+            var reimbursementId = await _context.RequestReimbursementParkings.OrderByDescending(q=>q.RequestDate).Select(q=>q.Id).FirstOrDefaultAsync();
 
             var fileContent = new byte[0];
             using (var ms = new MemoryStream())
@@ -90,7 +114,7 @@ namespace ReimbursementParkingAPI.Repositories
 
             Models.Blob blob = new Models.Blob()
             {
-                Id = reimbursement.Id,
+                Id = reimbursementId,
                 Content = fileContent,
                 CreatedAt = DateTimeOffset.Now,
                 Name = id + " - " + model.Name,
@@ -99,7 +123,9 @@ namespace ReimbursementParkingAPI.Repositories
 
             RequestDetail requestDetail = new RequestDetail()
             {
-                Id = reimbursement.Id,
+                Id = reimbursementId,
+                Name = model.Name,
+                Periode = model.Periode,
                 TotalPrice = model.TotalPrice,
                 ParkingName = model.ParkingName,
                 PLATNumber = model.PLATNumber.ToUpper(),
@@ -111,8 +137,8 @@ namespace ReimbursementParkingAPI.Repositories
 
             };
 
-             _context.Blobs.Add(blob);
-             _context.RequestDetails.Add(requestDetail);
+            _context.Blobs.Add(blob);
+            _context.RequestDetails.Add(requestDetail);
 
             var result = await _context.SaveChangesAsync();
             if (result < 0)
