@@ -10,8 +10,8 @@ using ReimbursementParkingAPI.Context;
 namespace ReimbursementParkingAPI.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20201004122908_recreateID")]
-    partial class recreateID
+    [Migration("20201005011523_addbaru")]
+    partial class addbaru
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

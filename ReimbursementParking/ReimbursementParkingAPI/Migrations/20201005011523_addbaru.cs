@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReimbursementParkingAPI.Migrations
 {
-    public partial class recreateID : Migration
+    public partial class addbaru : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
