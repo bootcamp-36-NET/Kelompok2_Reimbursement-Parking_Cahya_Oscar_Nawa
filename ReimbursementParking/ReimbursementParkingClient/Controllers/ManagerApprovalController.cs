@@ -48,7 +48,7 @@ namespace ReimbursementParkingClient.Controllers
             }
             return Json(reimbursementVM);
         }
-        public JsonResult LoadApprovedByManager()
+        public JsonResult LoadHistoryManager()
         {
             IEnumerable<StatusVM> reimbursementVM = null;
 
@@ -57,7 +57,7 @@ namespace ReimbursementParkingClient.Controllers
 
             var departmentName = HttpContext.Session.GetString("DepartmentName");
 
-            var restTask = http.GetAsync("ManagerApprovals/allApprove/" + departmentName);
+            var restTask = http.GetAsync("ManagerApprovals/allHistory/" + departmentName);
             restTask.Wait();
 
             var result = restTask.Result;

@@ -86,10 +86,10 @@ namespace ReimbursementParkingAPI.Controllers
             return Ok(reimbursementRequests);
         }
         [HttpGet]
-        [Route("allApprove/{departmentName}")]
+        [Route("allHistory/{departmentName}")]
         public async Task<ActionResult> GetAllApprovedByManager(string departmentName)
         {
-            var reimbursementRequests = await _repo.GetAllApprove(departmentName);
+            var reimbursementRequests = await _repo.GetAllHistory(departmentName);
             return Ok(reimbursementRequests);
         }
         [HttpGet]

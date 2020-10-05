@@ -45,12 +45,12 @@ namespace ReimbursementParkingAPI.Repositories
 
             return data;
         }
-        public async Task<List<StatusVM>> GetAllApprove(string departmentName)
+        public async Task<List<StatusVM>> GetAllHistory(string departmentName)
         {
             var data = await _context.RequestReimbursementParkings
                 .Include("RequestDetail")
                 .Include("Blob")
-                .Where(q => q.RequestReimbursementStatusEnumId == 3 && q.RequestDetail.DepartmentName == departmentName)
+                .Where(q => (q.RequestReimbursementStatusEnumId == 3 || q.RequestReimbursementStatusEnumId == 5) && q.RequestDetail.DepartmentName == departmentName)
                 .Select(q => new StatusVM()
                 {
                     Id = q.Id,
@@ -66,7 +66,9 @@ namespace ReimbursementParkingAPI.Repositories
                     Content = q.Blob.Content,
                     StatusId = q.RequestReimbursementStatusEnumId,
                     ReimbursementStatus = q.RequestReimbursementStatusEnum.Status,
-                    RejectReason = q.RejectReason
+                    RejectReason = q.RejectReason,
+                    Name = q.RequestDetail.Name,
+                    Periode = q.RequestDetail.Periode
                 })
                 .ToListAsync();
 

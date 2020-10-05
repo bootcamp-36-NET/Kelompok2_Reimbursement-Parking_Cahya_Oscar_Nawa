@@ -2,7 +2,7 @@
 var arrDepart = [];
 
 $(document).ready(function () {
-    debugger;
+    //debugger;
     table = $('#requestReimbursement').DataTable({
         "processing": true,
         "responsive": true,
@@ -125,7 +125,7 @@ function Delete(idx) {
 
 function GetById(idx) {
     var Id = table.row(idx).data().Id;
-    debugger;
+    //debugger;
     $.ajax({
         url: "/ViewRequest/LoadRequestReq",
         type: "GET",
